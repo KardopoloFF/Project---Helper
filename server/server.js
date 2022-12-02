@@ -4,6 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
+const { Category, Task } = require('./db/models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,5 +26,15 @@ app.use(session({
     httpOnly: true,
   },
 }));
+
+app.get('/categories', async (req, res) => {
+  const categories = await Category.findAll();
+  res.json(categories);
+});
+
+app.post('/newtask', async (req, res) => {
+  const newTask = await Task.create(req.body); //  надо перепроверить
+  res.status(200);
+});
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
