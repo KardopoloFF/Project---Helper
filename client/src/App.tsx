@@ -1,12 +1,26 @@
 import React from 'react';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+import {ITask} from '../src/types/task'
+import CreateTaskPage from './components/CreateTaskPage';
+
+function App(){
   return (
-<div>
-  Start
-</div>
+    <>
+    <Navbar />
+    <Routes>
+      {/* <Route path='/newtask' element={<CreateTaskPage />}/> */}
+
+    </Routes>
+    </>
   );
 }
 
 export default App;
+
+
+// const App =()=> {
+//   return 
+//   <CreateTaskPage />
+// }
+// export {App}
