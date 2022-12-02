@@ -9,6 +9,7 @@ require('dotenv').config();
 const { Task } = require('./db/models');
 
 const uploadRouter = require('./routes/uploadRouter');
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,6 +34,7 @@ app.use(session({
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api', uploadRouter);
+app.use('/user', userRouter);
 
 app.get('/posts', async (req, res) => {
   const result = await Task.findAll();

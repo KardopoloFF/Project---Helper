@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useCallback, useState } from 'react'
 
@@ -27,12 +28,41 @@ export default function Reg() {
 
 
   return (
-    <div>
+    <>
+    <div style={{ display: "flex", justifyContent: 'center', marginTop: '250px', alignItems: 'center'}}>
       {avatar 
         ? <img src={` ${avatar} `} alt="avatar" />
         : <img src="" alt="avatar" />}
       <input type="file" onChange={e => setImg(e.target.files[0])}/> 
       <button type='submit' onClick={sendFile}>send</button>
     </div>
+    <div style={{display: "flex", flexDirection: "column", marginTop: '50px', alignItems: 'center'}}>
+    <TextField style={{width: '250px', marginTop: '30px'}}
+    id="outlined-name"
+    label="Имя"
+    // value={name}
+    // onChange={handleChange}
+  />
+    <TextField style={{width: '250px', marginTop: '30px'}}
+    id="outlined-name"
+    label="Почта"
+    // value={name}
+    // onChange={handleChange}
+  />
+      <TextField style={{width: '250px', marginTop: '30px'}}
+    id="outlined-name"
+    label="Телефон"
+    // value={name}
+    // onChange={handleChange}
+  />
+      <TextField style={{width: '250px', marginTop: '30px'}}
+    id="outlined-name"
+    label="Пароль"
+    // value={name}
+    // onChange={handleChange}
+  />
+  <Button variant="contained" style={{width: '250px', marginTop: '30px'}}>Зарегистрироваться</Button>
+  </div>
+</>
   )
 }
