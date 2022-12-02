@@ -149,25 +149,23 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        Помогатор
+                        <Button style={{color: 'white', fontSize: '22px'}} type="button" component={Link} to="/">Помогатор</Button>
                     </Typography>
-                    <Toolbar>
                         <Typography
                             variant="h6"
                             noWrap
                             component="div"
                             sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
-                         <Button component={Link} to="/find-task">Создать задание</Button>
+                         <Button style={{color: 'white'}}>Создать задание</Button>
                         </Typography>
-                    </Toolbar>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button component={Link} to="/find-task">Найти задание</Button>
+                        <Button style={{color: 'white'}}>Найти задание</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -176,7 +174,7 @@ export default function Navbar() {
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={17} color="error">
+                            <Badge badgeContent={1} color="error">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
