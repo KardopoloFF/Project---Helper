@@ -1,4 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+    call, put, takeLatest, delay
+  } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
   import { setPosts } from '../postsSlice';
   
@@ -13,6 +15,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
   function* fetchPostsWorker(action: Iaction):Generator<Object> {
     try {
+      yield delay(2000);
       const res: any = yield call(axiosCall, action.payload);
       yield put(setPosts(res.data));
     } catch (e:any) {

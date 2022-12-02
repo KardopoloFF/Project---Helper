@@ -8,7 +8,7 @@ export default function Map () {
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
-        center: [37.609218,55.753559],
+        center: [37.61,55.75],
         zoom: 7
       }, {
         searchControlProvider: 'yandex#search',
@@ -16,7 +16,7 @@ export default function Map () {
       })
       // map.controls.remove('geolocationControl'); // удаляем геолокацию
       // map.controls.remove('zoomControl'); // удаляем контрол зуммирования
-      map.controls.remove('searchControl') // удаляем поиск
+      // map.controls.remove('searchControl') // удаляем поиск
       map.controls.remove('trafficControl') // удаляем контроль трафика
       map.controls.remove('typeSelector') // удаляем тип
       map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
@@ -31,7 +31,7 @@ export default function Map () {
     style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
       <div
         className="img-fluid"
-        style={{ width: '600px', height: '400px' }}
+        style={{ width: '800px', height: '400px', border: 'solid 3px black' }}
         id="map"
       />
     </div>

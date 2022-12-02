@@ -129,7 +129,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white', fontSize: '22px'}} component={Link} to="/">Помогатор</Button>
+                        <Button style={{color: 'white', fontSize: '20px'}} component={Link} to="/">Помогатор</Button>
                     </Typography>
                         <Typography
                             variant="h6"
