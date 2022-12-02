@@ -36,7 +36,7 @@ export default function CreateTaskPage(): React.FC<ITask> {
         />
       <TextField id="filled-basic" label="Filled" variant="filled" />
       <TextField id="standard-basic" label="Standard" variant="standard" />
-      <Button  variant="contained">Contained</Button>
+      <Button  type="submit" variant="contained">Contained</Button>
     </Box>
     </form>
   );

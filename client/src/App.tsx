@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
 
-import {ITask} from '../src/types/task'
-import CreateTaskPage from './components/CreateTaskPage';
-
-function App(){
+function App() {
   return (
     <>
     <Navbar />
@@ -17,10 +15,3 @@ function App(){
 }
 
 export default App;
-
-
-// const App =()=> {
-//   return 
-//   <CreateTaskPage />
-// }
-// export {App}
