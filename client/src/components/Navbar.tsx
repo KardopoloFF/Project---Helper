@@ -95,26 +95,6 @@ export default function Navbar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -135,7 +115,7 @@ export default function Navbar() {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
-                        size="large"
+                        size="small"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
@@ -149,7 +129,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white', fontSize: '22px'}} type="button" component={Link} to="/">Помогатор</Button>
+                        <Button style={{color: 'white', fontSize: '22px'}} component={Link} to="/">Помогатор</Button>
                     </Typography>
                         <Typography
                             variant="h6"
@@ -157,7 +137,7 @@ export default function Navbar() {
                             component="div"
                             sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
-                         <Button style={{color: 'white'}}>Создать задание</Button>
+                         <Button style={{color: 'white'}} component={Link} to="/task/new">Создать задание</Button>
                         </Typography>
                     <Typography
                         variant="h6"
@@ -165,7 +145,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white'}}>Найти задание</Button>
+                        <Button style={{color: 'white'}} component={Link} to="/work">Найти задание</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
