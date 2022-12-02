@@ -1,19 +1,23 @@
 import {
     call, put, takeLatest,
   } from 'redux-saga/effects';
-  import axios from 'axios';
+  import axios, { AxiosResponse } from 'axios';
   import { setPosts } from '../postsSlice';
   
-  const axiosCall = () => axios('http://localhost:3001/posts');
-  
-  
-  
+  const axiosCall:any = () => axios('http://localhost:3001/posts');
+  // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
+  interface Iaction {
+    action : Object
+    payload: any
+    type: string
+  }
+
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-  function* fetchPostsWorker(action) {
+  function* fetchPostsWorker(action: Iaction):Generator<Object> {
     try {
-      const res = yield call(axiosCall, action.payload);
+      const res: any = yield call(axiosCall, action.payload);
       yield put(setPosts(res.data));
-    } catch (e) {
+    } catch (e:any) {
       yield put({ type: 'USER_FETCH_FAILED', message: e.message });
     }
   }
