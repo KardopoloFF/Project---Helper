@@ -11,7 +11,7 @@ export const postsSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { setPosts } = postsSlice.actions;
 
-const fetchPosts = () => ({ type: 'FETCH_POSTS'});
+const fetchPosts = (input:any) => ({ type: 'FETCH_POSTS',payload: input});
 
 export default postsSlice.reducer;
 
