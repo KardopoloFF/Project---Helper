@@ -35,6 +35,7 @@ export default function CreateTaskPage(){
     setCategory(event.target.value);
   };
 
+
   const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
     const { target, preventDefault } = e;
     e.preventDefault();
