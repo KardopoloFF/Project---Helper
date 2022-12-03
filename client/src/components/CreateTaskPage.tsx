@@ -6,22 +6,29 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { ITask } from '../types/task';
+import { ICategories } from '../types/categories';
 import axios from 'axios';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../redux/categoriesSlice';
 
-export interface ICategories {
-  id: number;
-  name: string;
+
+
+interface Istore {
+store: {}
+categories: Array<ICategories>
 }
 export default function CreateTaskPage(){
- const [categories, setCategories] = React.useState<ICategories[]>([])
+  const categories = useSelector((store:Istore)=>store.categories)
+  const dispatch = useDispatch();
   const [category, setCategory] = React.useState<string>('');
   const [date, setDate] = React.useState<Dayjs | null>(null);
 
   React.useEffect(() => {
-    axios('/categories')
-    .then((res)=> setCategories(res.data))
+    dispatch(fetchCategories())
+    console.log(categories);
+    
   },[])
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -30,10 +37,9 @@ export default function CreateTaskPage(){
 
   const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
     const { target, preventDefault } = e;
-    preventDefault();
-    axios.post('/newtask',{
-    body: JSON.stringify(Object.fromEntries(new FormData(target as HTMLFormElement)))
-    }
+    e.preventDefault();
+    axios.post('http://localhost:3000/newtask',  
+      Object.fromEntries(new FormData(target as HTMLFormElement))
     )
   }
 
@@ -56,14 +62,14 @@ export default function CreateTaskPage(){
         <Typography variant="h6" component="h6">
             Дата выполнения
         </Typography>
-        <LocalizationProvider variant="standard" name='date' dateAdapter={AdapterDayjs}>
+        <LocalizationProvider variant="standard"  dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Дата"
                 value={date}
                 onChange={(newValue) => {
                   setDate(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField name='date' {...params} />}
               />
             </LocalizationProvider>
         <Typography variant="h6" component="h6">
@@ -75,7 +81,7 @@ export default function CreateTaskPage(){
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={category}
-            name="Category"
+            name="category"
             variant="standard"
             onChange={handleChange}
           >

@@ -2,12 +2,18 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
+const path = require('path');
+// const router = require('./routes/uploadRouter');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
-const { Category, Task } = require('./db/models');
+const { where, Op } = require('sequelize');
+const { Task, Category } = require('./db/models');
+
+const uploadRouter = require('./routes/uploadRouter');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+
 app.use(cors({
   credentials: true,
   origin: true,
@@ -26,6 +32,31 @@ app.use(session({
     httpOnly: true,
   },
 }));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.use('/api', uploadRouter);
+
+// функция обработки чекбокса фильтрации задач. Комменты удалю как работоспособность будет полной
+function whereParser(reqbody) {
+  const obj = {};
+  if (reqbody.frst) {
+    obj.name[Op.or].push('courier');
+    // = {
+    //   [Op.or]: [...obj.description[Op.or], 'courier'],
+    // };
+  } if (reqbody.scnd) {
+    obj.name[Op.or].push('moika');
+    // = {
+    //   [Op.substr]: 'Москва',
+    // };
+  }
+  return { where: obj };
+}
+
+app.get('/posts', async (req, res) => {
+  const result = await Task.findAll(whereParser(req.body));
+  res.json(result);
+});
 
 app.get('/categories', async (req, res) => {
   const categories = await Category.findAll();
@@ -33,7 +64,12 @@ app.get('/categories', async (req, res) => {
 });
 
 app.post('/newtask', async (req, res) => {
-  const newTask = await Task.create(req.body); //  надо перепроверить
+  const {
+    title, text, price, date,
+  } = req.body;
+  const newTask = await Task.create({
+    title, text, date, price, geo: 'Moscow', worker: 1, author: 1, categoryId: 3, status: false,
+  }); //  надо перепроверить
   res.status(200);
 });
 
