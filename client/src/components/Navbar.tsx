@@ -145,7 +145,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white'}} component={Link} to="/work">Найти задание</Button>
+                        <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задание</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

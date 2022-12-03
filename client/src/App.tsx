@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import CreateTaskPage from './components/CreateTaskPage';
 import PrivateRoute from './HOC/PrivateRoute';
-import AdminPage from './components/AdminPage';
+// import AdminPage from './components/AdminPage';
 import Map from './components/Map';
 import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -19,15 +19,15 @@ function App() {
       <>
     <Navbar />
     <Routes>
-      {/* <Route path='/newtask' element={<CreateTaskPage />}/> */}
       <Route path="/" element={<Home />} />
       <Route path="/map" element={<Map />} />
-      <Route path='/work' element={<FindTask />} />
-      <Route path="/admin" element={(
-            <PrivateRoute isAllowed={user?.email === 'adam@mail.ru' && user?.name === 'adam'}>
+      <Route path='/task/find' element={<FindTask />} />
+      <Route path='/task/new' element={<CreateTaskPage />}/>
+      {/* <Route path="/admin" element={(
+            <PrivateRoute isAllowed={user?.email === 'Adam@mail.ru' && user?.name === 'Adam'}>
               <AdminPage />
             </PrivateRoute>
-            )}/>
+            )}/> */}
     </Routes>
     </> 
     {/* ) : */}
