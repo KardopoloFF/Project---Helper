@@ -23,7 +23,7 @@ export default function CreateTaskPage(){
   const categories = useSelector((store:Istore)=>store.categories)
   const dispatch = useDispatch();
   const [category, setCategory] = React.useState<string>('');
-  const [date, setDate] = React.useState<Dayjs | null>(null);
+  const [date, setDate] = React.useState<Date | null>(null);
 
   React.useEffect(() => {
     dispatch(fetchCategories())
@@ -59,7 +59,7 @@ export default function CreateTaskPage(){
         <Typography variant="h6" component="h6">
             Цена вопроса
         </Typography>
-        <TextField name='price' type='number' id="standard-basic" variant="standard" />
+        <TextField name='price' type='number' id="standard-basic" label="В рублях, пожалуйста"variant="standard" />
         <Typography variant="h6" component="h6">
             Дата выполнения
         </Typography>
@@ -87,7 +87,7 @@ export default function CreateTaskPage(){
             onChange={handleChange}
           >
           {categories.map((el)=> (
-          <MenuItem key={el.id}  value={el.name}>{el.name}</MenuItem>
+          <MenuItem key={el.id}  value={el.id}>{el.name}</MenuItem>
           )
           )}
           </Select>

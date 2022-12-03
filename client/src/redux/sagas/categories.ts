@@ -1,10 +1,10 @@
 import {
-    call, put, takeEvery, delay
+    call, put, takeEvery
   } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
   import { setCategories} from '../categoriesSlice';
   
-  const axiosCall:any = () => axios('http://localhost:3001/categories');
+  const axiosCatCall:any = () => axios('http://localhost:3001/categories');
   // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
   interface Iaction {
     action : Object
@@ -12,10 +12,10 @@ import {
     type: string
   }
 
-  // worker Saga: will be fired on USER_FETCH_REQUESTED actions ?????ниче не знаю про это
+  // worker Saga: will be fired on USER_FETCH_REQUESTED actions 
   function* fetchCategoriesWorker():Generator<Object> {
     try {
-      const res: any = yield call(axiosCall);
+      const res: any = yield call(axiosCatCall);
       yield put(setCategories(res.data));
     } catch (e:any) {
       yield put({ type: 'USER_FETCH_FAILED', message: e.message });

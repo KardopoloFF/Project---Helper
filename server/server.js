@@ -68,7 +68,7 @@ app.post('/newtask', async (req, res) => {
     title, text, price, date,
   } = req.body;
   const newTask = await Task.create({
-    title, text, date, price, geo: 'Moscow', worker: 1, author: 1, categoryId: 3, status: false,
+    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId: 3, status: false,
   }); //  надо перепроверить
   res.status(200);
 });
