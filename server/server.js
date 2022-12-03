@@ -7,12 +7,13 @@ const path = require('path');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
 const { where, Op } = require('sequelize');
-const { Task } = require('./db/models');
+const { Task, Category } = require('./db/models');
 
 const uploadRouter = require('./routes/uploadRouter');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+
 app.use(cors({
   credentials: true,
   origin: true,
@@ -55,6 +56,21 @@ function whereParser(reqbody) {
 app.get('/posts', async (req, res) => {
   const result = await Task.findAll(whereParser(req.body));
   res.json(result);
+});
+
+app.get('/categories', async (req, res) => {
+  const categories = await Category.findAll();
+  res.json(categories);
+});
+
+app.post('/newtask', async (req, res) => {
+  const {
+    title, text, price, date,
+  } = req.body;
+  const newTask = await Task.create({
+    title, text, date, price, geo: 'Moscow', worker: 1, author: 1, categoryId: 3, status: false,
+  }); //  надо перепроверить
+  res.status(200);
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

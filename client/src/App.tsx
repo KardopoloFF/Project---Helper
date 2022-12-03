@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FindTask from './components/FindTask';
+import CreateTaskPage from './components/CreateTaskPage';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import CreateTaskPage from './components/CreateTaskPage';
