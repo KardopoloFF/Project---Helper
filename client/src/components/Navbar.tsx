@@ -145,9 +145,25 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задание</Button>
+                        <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задания</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        <Button style={{color: 'white'}} component={Link} to="/user/auth">Вход</Button>
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
+                    </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
