@@ -10,7 +10,8 @@ export default function CreateTaskPage(): React.FC<ITask> {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-  const submitHandler =()=> {
+  
+  const submitHandler = () => {
 
   }
 
