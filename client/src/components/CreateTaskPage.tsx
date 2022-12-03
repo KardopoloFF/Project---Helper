@@ -35,7 +35,8 @@ export default function CreateTaskPage(){
     setCategory(event.target.value);
   };
 
-  const submitHandler =(e: React.FormEvent<HTMLFormElement>) => {
+
+  const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
     const { target, preventDefault } = e;
     e.preventDefault();
     axios.post('http://localhost:3000/newtask',  
