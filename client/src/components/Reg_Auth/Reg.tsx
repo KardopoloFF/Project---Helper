@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { signupUserThunk } from '../../redux/userSlice'
+import { signupUserThunk } from '../../redux/slices/userSlice'
 import { IUser } from '../../types/users';
 
 

@@ -111,6 +111,8 @@ export default function Navbar() {
         </Menu>
     );
 
+    const user = useSelector((store: any) => store.user)
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -149,22 +151,25 @@ export default function Navbar() {
                         <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задания</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
+                    {!user ? (
+                    <>
                     <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        <Button style={{color: 'white'}} component={Link} to="/user/auth">Вход</Button>
-                    </Typography>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
-                        <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
-                    </Typography>
+                            <Button style={{ color: 'white' }} component={Link} to="/user/auth">Вход</Button>
+                        </Typography><Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                                <Button style={{ color: 'white' }} component={Link} to="/user/reg">Регистрация</Button>
+                            </Typography>
+                            </>
+                        ) : (
                     <Typography
                         variant="h6"
                         noWrap
@@ -173,6 +178,7 @@ export default function Navbar() {
                         >
                         <Button style={{color: 'white'}} component={Link} to="/user/logout">Выход</Button>
                     </Typography>
+                    )}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"

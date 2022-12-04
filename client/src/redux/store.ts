@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import setPostsReducer from './postsSlice';
-import setUserReducer from './userSlice'
-import setCategories from './categoriesSlice';
+import setPostsReducer from './slices/postsSlice';
+import setUserReducer from './slices/userSlice'
+import setCategories from './slices/categoriesSlice';
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
 

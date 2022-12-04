@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './OneTask'
 import {ITask} from '../types/task'
-import {fetchPosts} from '../redux/postsSlice'
+import {fetchPosts} from '../redux//slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';

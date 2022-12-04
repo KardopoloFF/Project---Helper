@@ -3,14 +3,14 @@ import axios from 'axios'
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { loginUserThunk } from '../../redux/userSlice'
+import { loginUserThunk } from '../../redux/slices/userSlice'
 import { IUser } from '../../types/users';
 
 
 // axios.defaults.baseURL = 'http://localhost:3001/'
 
 export default function Reg () {
-  const dispatch = useDispatch()
+  const dispatch: any = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((store:any) => store.user)
   return (
