@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FindTask from './components/FindTask';
 import Navbar from './components/Navbar';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import CreateTaskPage from './components/CreateTaskPage';
 import PrivateRoute from './HOC/PrivateRoute';
 // import AdminPage from './components/AdminPage';
@@ -17,7 +17,6 @@ function App() {
       <Container>
         {/* {user 
       ? ( */}
-        <>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -30,7 +29,6 @@ function App() {
             </PrivateRoute>
             )}/> */}
           </Routes>
-        </>
         {/* ) : */}
         {/* <h3 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px'}}>Подождите...</h3> */}
         {/* } */}
