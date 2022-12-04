@@ -1,4 +1,9 @@
-export const SET_USER = 'SET_USER';
-export const LOGOUT = 'LOGOUT';
-export const USER_FETCHING = 'USER_FETCHING';
-export const SET_EMPTY_USER = 'SET_EMPTY_USER';
+export interface IUser {
+  id: number;
+  name: string;
+  mail: string;
+  password: string;
+  phone: string;
+  img: string;
+  isModer: boolean;
+}

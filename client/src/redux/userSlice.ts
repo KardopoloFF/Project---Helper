@@ -1,49 +1,48 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const userSlice = createSlice({
+const URL = 'http://localhost:3001/api';
+
+const userSlice = createSlice({
   name: 'user',
-  initialState: [],
+  initialState: {},
   reducers: {
-    setUser: (state, action) => action.payload,
-    setEmptyUser: (state, action) => action.payload,
-    logout: (state, action) => void ({}),
+    setAuthUser(state, action) {
+      return action.payload;
+    },
+    logoutUser() {
+      return {};
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-// export const { setUser } = userSlice.actions;
-
-export const setUser = (payload: any) => ({ type: setUser, payload });
-export const setEmptyUser = (payload: any) => ({ type: setEmptyUser, payload });
-export const logout = (payload: any) => ({ type: logout, payload });
-
-export const submitReg = (e:any, navigate:any) => (dispatch:any) => {
-  e.preventDefault();
-  axios.post('/user/reg', Object.fromEntries(new FormData(e.target)))
-    .then((res) => dispatch(setUser(res.data)));
-  navigate('/')
-    .catch(() => dispatch(setUser));
-};
-
-export const logoutUser = () => (dispatch:any) => {
-  axios.get('/user/logout')
-    .then(() => dispatch(logout));
-};
-
-export const submitLogin = (e:any, navigate:any) => (dispatch:any) => {
-  e.preventDefault();
-  axios.post('/user/auth', Object.fromEntries(new FormData(e.target)))
-    .then((res) => dispatch(setUser(res.data)));
-  navigate('/')
-    .catch(() => dispatch(setUser));
-};
-
-export const checkAuth = () => (dispatch:any) => {
-  axios.get('/user/check')
-    .then((res) => dispatch(setUser(res.data)))
-    .catch(() => dispatch(setEmptyUser));
-};
-
+export const { setAuthUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
 
+export const checkAuth = () => (dispatch) => {
+  axios.post('http://localhost:3001/user/check', null, { withCredentials: true })
+    .then((res) => dispatch(setAuthUser(res.data)))
+    .catch(console.log);
+};
+
+export const loginUserThunk = (e, inputs) => (dispatch) => {
+  e.preventDefault();
+  axios.post('http://localhost:3001/user/auth', inputs, { withCredentials: true })
+    .then((res) => dispatch(setAuthUser(res.data)))
+    .catch(console.log);
+};
+
+export const signupUserThunk = (e, inputs) => (dispatch) => {
+  e.preventDefault();
+  axios.post('http://localhost:3001/user/reg', inputs, { withCredentials: true })
+    .then((res) => dispatch(setAuthUser(res.data)))
+    .catch(console.log);
+};
+
+export const logoutUserThunk = () => (dispatch) => {
+  axios('http://localhost:3001/user/logout', { withCredentials: true })
+    .then(() => dispatch(logoutUser()))
+    .catch(console.log);
+};
+  
+  

@@ -5,43 +5,45 @@ const { User } = require('../db/models');
 const router = express.Router();
 
 router.post('/reg', async (req, res) => {
+  // console.log(req.body);
   const {
-    name, email, password, phone,
+    name, mail, password, phone,
   } = req.body;
+  // console.log(name, mail, password, phone);
 
-  if (!name || !email || !password || !phone) return res.sendStatus(400);
+  if (!name || !mail || !password || !phone) return res.sendStatus(400);
 
   const hashPassword = await hash(password, 10);
 
   const [user, isCreated] = await User.findOrCreate({
-    where: { name, email, phone },
+    where: { name, mail, phone },
     defaults: {
-      name, email, phone, password: hashPassword,
+      name, mail, phone, password: hashPassword,
     },
   });
 
   if (!isCreated) return res.sendStatus(400);
   req.session.user = {
-    id: user.id, name: user.name, email: user.email, phone: user.phone,
+    id: user.id, name: user.name, mail: user.mail, phone: user.phone,
   };
-  res.sendStatus(200);
+  res.json(user);
 });
 
 router.post('/auth', async (req, res) => {
   const {
-    name, email, password, phone,
+    mail, password,
   } = req.body;
 
-  if (!name || !email || !password || !phone) return res.sendStatus(400);
+  if (!mail || !password) return res.sendStatus(400);
 
-  const user = await User.findOne({ where: { name, email, phone } });
+  const user = await User.findOne({ where: { mail } });
   if (!user) return res.sendStatus(400);
 
   const isPassValid = compare(password, user.password);
   if (!isPassValid) return res.sendStatus(400);
 
   req.session.user = {
-    id: user.id, name: user.name, email: user.email, phone: user.phone,
+    id: user.id, mail: user.mail,
   };
 
   res.json(user);
