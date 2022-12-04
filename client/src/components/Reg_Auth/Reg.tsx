@@ -46,7 +46,7 @@ export default function Reg () {
   //       <input type="file" onChange={e => setImg(e.target.files[0])}/>
   //       <button type='submit' onClick={sendFile}>send</button>
   //     </div>
-      <form onSubmit={(e) => dispatch(signupUserThunk(e, Object.fromEntries(new FormData(e.target))))}>
+    <form onSubmit={(e) => {dispatch(signupUserThunk(e,Object.fromEntries(new FormData(e.target)))); navigate('/') }}>
     <div style={{ display: 'flex', flexDirection: 'column', marginTop: '50px', alignItems: 'center' }}>
     <TextField style={{ width: '250px', marginTop: '30px' }}
     id="outlined-name"

@@ -4,15 +4,15 @@ import FindTask from './components/FindTask';
 import Navbar from './components/Navbar';
 import Reg from './components/Reg_Auth/Reg';
 import Auth from './components/Reg_Auth/Auth';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import CreateTaskPage from './components/CreateTaskPage';
-import PrivateRoute from './HOC/PrivateRoute';
+// import PrivateRoute from './HOC/PrivateRoute';
 import Map from './components/Map';
 import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const user = useSelector((store) => store.user)
+  const user = useSelector((store: any) => store.user)
   return (
     <Container>
       {/* {user 
