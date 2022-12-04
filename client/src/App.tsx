@@ -21,8 +21,8 @@ function App() {
     <Navbar />
     <Routes>
       <Route path='/work' element={<FindTask />} />
-      <Route path='/reg' element={<Reg />} />
-      <Route path='/auth' element={<Auth />} />
+      <Route path='/user/reg' element={<Reg />} />
+      <Route path='/user/auth' element={<Auth />} />
       <Route path="/" element={<Home />} />
       <Route path="/map" element={<Map />} />
       <Route path='/task/find' element={<FindTask />} />
