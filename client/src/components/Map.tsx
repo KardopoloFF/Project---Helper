@@ -1,3 +1,4 @@
+import { Box, Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 export default function Map () {
@@ -28,13 +29,42 @@ export default function Map () {
   }, [])
 
   return (
+    <>
+    <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px'}}>
+      <h2 className='homeGreet'>Укажите адреса</h2>
+        <TextField
+          style={{ backgroundColor: 'white', width: '45ch'}}
+          id="standard-size-normal"
+          label="А - Город, улица, дом"
+          variant="outlined"
+        />
+        <TextField
+          style={{ backgroundColor: 'white', width: '45ch'}}
+          id="standard-size-normal"
+          label="Б - Город, улица, дом"
+          variant="outlined"
+        />
+      </div>
+      <Button style={{ marginLeft: '10px', marginTop: '10px'}} variant="contained">Далее</Button>
+    </Box>
     <div className="yandex"
-    style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+    style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft: '40px' }}>
       <div
         className="img-fluid"
-        style={{ width: '800px', height: '400px', border: 'solid 3px black', borderRadius: '25px', overflow: 'hidden' }}
+        style={{ width: '700px', height: '400px',  borderRadius: '20px', overflow: 'hidden' }}
         id="map"
       />
     </div>
+    </div>
+    </>
   )
 }

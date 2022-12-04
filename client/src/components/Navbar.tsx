@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,7 +15,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUserThunk } from '../redux/userSlice';
+import store from '../redux/store';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -29,7 +32,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             width: '20ch',
         },
     },
-}));
+}))
+
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -94,7 +98,7 @@ export default function Navbar() {
             }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
-        >
+            >
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -109,6 +113,9 @@ export default function Navbar() {
             </MenuItem>
         </Menu>
     );
+
+    const dispatch = useDispatch();
+    const user = useSelector((store: any) => store.user)
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -148,6 +155,8 @@ export default function Navbar() {
                         <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задания</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
+                    {!user?.id ? (
+                        <>
                     <Typography
                         variant="h6"
                         noWrap
@@ -155,21 +164,33 @@ export default function Navbar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
                         <Button style={{color: 'white'}} component={Link} to="/user/auth">Вход</Button>
+                        </Typography>
+                        <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                        <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
                     </Typography>
+                            </>
+                        )
+                        : (
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
+                        >
+                        <Button style={{color: 'white'}} component={Link} onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
                     </Typography>
+                        )}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
-                        >
+                            >
                             <Badge badgeContent={1} color="error">
                                 <NotificationsIcon />
                             </Badge>
@@ -182,7 +203,7 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit"
-                        >
+                            >
                             <AccountCircle />
                         </IconButton>
                     </Box>
@@ -194,14 +215,14 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
-                        >
+                            >
                             <MoreIcon />
                         </IconButton>
                     </Box>
                 </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
-    );
-}
+                </AppBar>
+                {renderMobileMenu}
+                {renderMenu}
+                </Box>
+                );
+            }

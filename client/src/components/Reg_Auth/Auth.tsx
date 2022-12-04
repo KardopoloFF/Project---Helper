@@ -14,7 +14,7 @@ export default function Reg () {
   const navigate = useNavigate()
   const user = useSelector((store:any) => store.user)
   return (
-      <form onSubmit={(e) => dispatch(loginUserThunk(e, Object.fromEntries(new FormData(e.target))))}>
+      <form onSubmit={(e) => {dispatch(loginUserThunk(e, Object.fromEntries(new FormData(e.target)))); navigate('/')}}>
     <div style={{ display: 'flex', flexDirection: 'column', marginTop: '50px', alignItems: 'center' }}>
     <TextField style={{ width: '250px', marginTop: '30px' }}
     id="outlined-name2"
