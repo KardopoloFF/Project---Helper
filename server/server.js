@@ -10,6 +10,7 @@ const { where, Op } = require('sequelize');
 const { Task, Category } = require('./db/models');
 
 const uploadRouter = require('./routes/uploadRouter');
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.use(session({
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api', uploadRouter);
+app.use('/user', userRouter);
 
 // функция обработки чекбокса фильтрации задач. Комменты удалю как работоспособность будет полной
 function whereParser(reqbody) {
