@@ -1,10 +1,10 @@
 import {
-    call, put, takeLatest, delay
+    call, put, takeEvery
   } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
-  import { setPosts } from '../postsSlice';
+  import { setCategories} from '../categoriesSlice';
   
-  const axiosCall:any = () => axios('http://localhost:3001/posts');
+  const axiosCatCall:any = () => axios('http://localhost:3001/categories');
   // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
   interface Iaction {
     action : Object
@@ -12,12 +12,11 @@ import {
     type: string
   }
 
-  // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-  function* fetchPostsWorker(action: Iaction):Generator<Object> {
+  // worker Saga: will be fired on USER_FETCH_REQUESTED actions 
+  function* fetchCategoriesWorker():Generator<Object> {
     try {
-      yield delay(2000);
-      const res: any = yield call(axiosCall, action.payload);
-      yield put(setPosts(res.data));
+      const res: any = yield call(axiosCatCall);
+      yield put(setCategories(res.data));
     } catch (e:any) {
       yield put({ type: 'USER_FETCH_FAILED', message: e.message });
     }
@@ -27,8 +26,8 @@ import {
         Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
         Allows concurrent fetches of user.
       */
-  function* postsSaga() { // Watcher
-    yield takeLatest('FETCH_POSTS', fetchPostsWorker);
+  function* categoriesSaga() { // Watcher
+    yield takeEvery('FETCH_CATEGORIES', fetchCategoriesWorker);
   }
   
-  export default postsSaga;
+  export default categoriesSaga;
