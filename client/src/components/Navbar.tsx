@@ -15,10 +15,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserThunk } from '../redux/userSlice';
-import store from '../redux/store';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -181,8 +180,8 @@ export default function Navbar() {
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                        <Button style={{color: 'white'}} component={Link} onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
+                    >
+                              <Button style={{color: 'white'}} component={Link} onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
                     </Typography>
                         )}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
