@@ -17,7 +17,6 @@ function App() {
     <Container>
       {/* {user 
       ? ( */}
-      <>
     <Navbar />
     <Routes>
       <Route path='/work' element={<FindTask />} />
@@ -32,12 +31,11 @@ function App() {
               <AdminPage />
             </PrivateRoute>
             )}/> */}
-    </Routes>
-    </> 
-    {/* ) : */}
-    {/* <h3 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px'}}>Подождите...</h3> */}
-    {/* } */}
-    </Container>
+          </Routes>
+        {/* ) : */}
+        {/* <h3 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px'}}>Подождите...</h3> */}
+        {/* } */}
+      </Container>
   );
 }
 

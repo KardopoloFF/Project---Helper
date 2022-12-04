@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,6 +16,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -161,8 +162,16 @@ export default function Navbar() {
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
+                        >
                         <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                        <Button style={{color: 'white'}} component={Link} to="/user/logout">Выход</Button>
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
