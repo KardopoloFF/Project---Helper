@@ -31,7 +31,7 @@ export default function Reg() {
       {avatar 
         ? <img src={` ${avatar} `} alt="avatar" />
         : <img src="" alt="avatar" />}
-      <input type="file" onChange={e => setImg(e.target.files[0])}/> 
+      {/* <input type="file" onChange={e => setImg(e.target.files[0])}/>  */}
       <button type='submit' onClick={sendFile}>send</button>
     </div>
   )
