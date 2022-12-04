@@ -12,7 +12,7 @@ import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 function App() {
-  // const user = useSelector((store) => store.user)
+  const user = useSelector((store: any) => store.user)
   return (
     <Container>
       {/* {user 
