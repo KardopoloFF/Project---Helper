@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -164,6 +164,14 @@ export default function Navbar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
                         <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                        <Button style={{color: 'white'}} component={Link} to="/user/logout">Выход</Button>
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton

@@ -4,7 +4,7 @@ import FindTask from './components/FindTask';
 import Navbar from './components/Navbar';
 import Home from './components/Home/Home';
 import CreateTaskPage from './components/CreateTaskPage';
-import PrivateRoute from './HOC/PrivateRoute';
+// import PrivateRoute from './HOC/PrivateRoute';
 // import AdminPage from './components/AdminPage';
 import Map from './components/Map';
 import { Container } from '@mui/material';
@@ -13,9 +13,8 @@ import { useSelector } from 'react-redux';
 function App() {
   const user = useSelector((store) => store.user)
   return (
-    <>
-      <Container>
-        {/* {user 
+    <Container>
+      {/* {user 
       ? ( */}
           <Navbar />
           <Routes>
@@ -33,7 +32,6 @@ function App() {
         {/* <h3 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px'}}>Подождите...</h3> */}
         {/* } */}
       </Container>
-    </>
   );
 }
 
