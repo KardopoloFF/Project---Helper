@@ -48,13 +48,13 @@ function whereParser(reqbody) {
   } if (reqbody.scnd) {
     obj.categoryId[Op.in].push(2);
   } if (reqbody.thrd) {
-    obj.name[Op.in].push(3);
+    obj.categoryId[Op.in].push(3);
   }
   if (reqbody.four) {
-    obj.name[Op.in].push(4);
+    obj.categoryId[Op.in].push(4);
   }
   if (reqbody.five) {
-    obj.name[Op.in].push(5);
+    obj.categoryId[Op.in].push(5);
   }
 
   return {
@@ -74,10 +74,10 @@ app.get('/categories', async (req, res) => {
 
 app.post('/newtask', async (req, res) => {
   const {
-    title, text, price, date,
+    title, text, price, date, categoryId,
   } = req.body;
   const newTask = await Task.create({
-    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId: 3, status: false,
+    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId, status: false,
   }); //  надо перепроверить
   res.status(200);
 });
