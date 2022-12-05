@@ -39,7 +39,7 @@ export default function CreateTaskPage(){
   const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
     const { target, preventDefault } = e;
     e.preventDefault();
-    axios.post('http://localhost:3000/newtask',  
+    axios.post('http://localhost:3001/newtask',  
       Object.fromEntries(new FormData(target as HTMLFormElement))
     )
   }
@@ -82,7 +82,7 @@ export default function CreateTaskPage(){
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={category}
-            name="category"
+            name="categoryId"
             variant="standard"
             onChange={handleChange}
           >
