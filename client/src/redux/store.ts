@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import setPostsReducer from './slices/postsSlice';
 import setUserReducer from './slices/userSlice'
 import setCategories from './slices/categoriesSlice';
+import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
 
@@ -12,6 +13,7 @@ export default configureStore({
     posts: setPostsReducer,
     user: setUserReducer,
     categories: setCategories,
+    displayedGeoobjects: displayedGeoobjectsReducer
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 });
