@@ -23,7 +23,7 @@ import Typography from '@mui/material/Typography';
     
     export default function OneTask({ el }:TaskProps) {
       return (
-        <Card sx={{ maxWidth: 345 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
+        <Card sx={{ maxWidth: 600 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto', marginTop: "25px" }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
             {el.title}
