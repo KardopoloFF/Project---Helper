@@ -2,10 +2,10 @@ import {
     call, put, takeLatest, delay
   } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
-  import { setPosts } from '../postsSlice';
+  import { setPosts } from '../slices/postsSlice';
   
-  const axiosCall:any = () => axios('http://localhost:3001/posts');
-  // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
+  const axiosCall:any = ( input:Object ) => axios.post('http://localhost:3001/posts',{input});
+
   interface Iaction {
     action : Object
     payload: any

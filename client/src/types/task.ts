@@ -1,5 +1,6 @@
 export interface ITask {
   id: number;
+  status: string;
   title: string;
   text: string;
   date: Date;

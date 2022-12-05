@@ -1,24 +1,33 @@
 import { Box, Button, TextField } from '@mui/material'
+import PlaceIcon from '@mui/icons-material/Place';
+import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
-export default function Map () {
-  // const [country, setCountry] = useState({ latitude: 42.3, longitude: 69.6 });
-  // const navigate = useNavigate();
-  const [myMap, setMyMap] = useState(null)
+interface Istore {
+  store: {}
+  posts: Array<ITask>
+}
+
+export default function Map() {
+  const [task, setTask] = useState({ latitude: 42.3, longitude: 69.6 });
+  const [myMap, setMyMap] = useState(null);
+  const [tasksOnMap, setTasksOnMap] = useState([]);
+  const tasks = useSelector((store: Istore) => store.posts)
 
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
-        // center: [55.75, 37.61],
-        center: [40.19, 44.51],
-        zoom: 11
+        center: [55.75, 37.61], // Moscow
+        // center: [40.19, 44.51], // Erevan
+        zoom: 10.5
       }, {
         searchControlProvider: 'yandex#search',
         suppressMapOpenBlock: true
       })
-      map.controls.remove('geolocationControl'); // удаляем геолокацию
       // map.controls.remove('zoomControl'); // удаляем контрол зуммирования
       // map.controls.remove('searchControl') // удаляем поиск
+      map.controls.remove('geolocationControl'); // удаляем геолокацию
       map.controls.remove('trafficControl') // удаляем контроль трафика
       map.controls.remove('typeSelector') // удаляем тип
       map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
@@ -28,43 +37,66 @@ export default function Map () {
     })
   }, [])
 
+  useEffect(() => {
+    fetch('/task/find')
+      .then((res) => res.json())
+      .then((data) => {
+        setTasksOnMap(data);
+      });
+
+    ymaps.ready(() => {
+      const MyIconContentLayout = ymaps.templateLayoutFactory.createClass( // Создаём макет содержимого.
+        '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>',
+      );
+
+      tasksOnMap.forEach((el) => {
+        const myGeocoder = ymaps.geocode(el.geo);
+        myGeocoder.then(
+          (res) => {
+            const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+            const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
+              hintContent: el.title,
+              balloonContent: el.date,
+              iconContent: '',
+            }, {
+              iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+              // iconImageHref: el.img, // Своё изображение иконки метки.
+              iconImageSize: [40, 40], // Размеры метки.
+              iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
+              iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
+              iconContentLayout: MyIconContentLayout, // Макет содержимого.
+            });
+            myMap?.geoObjects
+              .add(myPlacemarkWithContent);
+
+          },
+        );
+      });
+    });
+  }, [myMap, task]);
+
   return (
     <>
-    <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px'}}>
-      <h2 className='homeGreet'>Укажите адреса</h2>
-        <TextField
-          style={{ backgroundColor: 'white', width: '45ch'}}
-          id="standard-size-normal"
-          label="А - Город, улица, дом"
-          variant="outlined"
-        />
-        <TextField
-          style={{ backgroundColor: 'white', width: '45ch'}}
-          id="standard-size-normal"
-          label="Б - Город, улица, дом"
-          variant="outlined"
-        />
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+        </Box>
+        <div className="yandex"
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft: '20px' }}>
+          <Button style={{ marginRight: '50px' }}><PlaceIcon />Найти на карте</Button>
+          <div
+            className="img-fluid"
+            style={{ width: '700px', height: '400px', borderRadius: '20px', overflow: 'hidden' }}
+            id="map"
+          />
+        </div>
       </div>
-      <Button style={{ marginLeft: '10px', marginTop: '10px'}} variant="contained">Далее</Button>
-    </Box>
-    <div className="yandex"
-    style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft: '40px' }}>
-      <div
-        className="img-fluid"
-        style={{ width: '700px', height: '400px',  borderRadius: '20px', overflow: 'hidden' }}
-        id="map"
-      />
-    </div>
-    </div>
     </>
   )
 }

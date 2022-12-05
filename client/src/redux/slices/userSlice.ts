@@ -19,27 +19,27 @@ const userSlice = createSlice({
 export const { setAuthUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
 
-export const checkAuth = () => (dispatch) => {
+export const checkAuth = () => (dispatch: any) => {
   axios.post('http://localhost:3001/user/check', null, { withCredentials: true })
     .then((res) => dispatch(setAuthUser(res.data)))
     .catch(console.log);
 };
 
-export const loginUserThunk = (e, inputs) => (dispatch) => {
+export const loginUserThunk = (e, inputs) => (dispatch: any) => {
   e.preventDefault();
   axios.post('http://localhost:3001/user/auth', inputs, { withCredentials: true })
     .then((res) => dispatch(setAuthUser(res.data)))
     .catch(console.log);
 };
 
-export const signupUserThunk = (e, inputs) => (dispatch) => {
+export const signupUserThunk = (e, inputs) => (dispatch: any) => {
   e.preventDefault();
   axios.post('http://localhost:3001/user/reg', inputs, { withCredentials: true })
     .then((res) => dispatch(setAuthUser(res.data)))
     .catch(console.log);
 };
 
-export const logoutUserThunk = () => (dispatch) => {
+export const logoutUserThunk = () => (dispatch: any) => {
   axios('http://localhost:3001/user/logout', { withCredentials: true })
     .then(() => dispatch(logoutUser()))
     .catch(console.log);
