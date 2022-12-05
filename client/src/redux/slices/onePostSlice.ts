@@ -6,12 +6,15 @@ export const oneSlice = createSlice({
   initialState: [],
   reducers: {
     setOnePost: (state, action) => action.payload,
+    editOnePoste: (state,action) => action.payload
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setOnePost } = oneSlice.actions;
+export const { setOnePost,editOnePoste } = oneSlice.actions;
+
+const fetchOnePosts = (input:any) => ({ type: 'UPDATE_POSTS',payload: input});
 
 export default oneSlice.reducer;
 
-export { };
+export { fetchOnePosts };
