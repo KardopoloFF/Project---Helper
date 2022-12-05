@@ -7,6 +7,7 @@ import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
 import setOnePostReducer from './slices/onePostSlice'
+import editOnePostSaga from './sagas/startWork'
 
 const sagaMiddleware = createSagaMiddleware();
 export default configureStore({
@@ -21,3 +22,4 @@ export default configureStore({
 })
 sagaMiddleware.run(postsSaga);
 sagaMiddleware.run(categoriesSaga);
+sagaMiddleware.run(editOnePostSaga)

@@ -3,6 +3,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {ITask} from '../types/task'
 import Map from './Map'
+import {fetchOnePosts} from '../redux/slices/onePostSlice'
 
 export default function OneTaskPage() {
     interface Istore {
@@ -10,6 +11,10 @@ export default function OneTaskPage() {
         onePost:ITask
         }
     const task = useSelector((store:Istore)=> store.onePost)
+    const dispatch = useDispatch()
+    const startHandler = (task:ITask) =>{
+        dispatch(fetchOnePosts(task))
+    }
   return (
     <>
     <CardContent>
@@ -29,7 +34,7 @@ export default function OneTaskPage() {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Start</Button>
+      <Button onClick={()=>startHandler(task)} size="small">Start</Button>
       <Button size="small">Go back</Button>
     </CardActions>
     <Map />
