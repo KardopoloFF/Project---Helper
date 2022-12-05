@@ -1,45 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './OneTask'
-import { ITask } from '../types/task'
-import { fetchPosts } from '../redux//slices/postsSlice'
+import {ITask} from '../types/task'
+import { ICategories } from '../types/categories';
+import {fetchPosts} from '../redux/slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Box from '@mui/material/Box';
-import { Button, FormGroup, FormLabel } from '@mui/material'
-import PlaceIcon from '@mui/icons-material/Place';
-import { Link } from 'react-router-dom'
-import Map from './Map'
+import { FormGroup, FormLabel } from '@mui/material'
+import { fetchCategories } from '../redux/slices/categoriesSlice';
+import Map from './Map';
 
 interface Istore {
-  store: {}
-  posts: Array<ITask>
+store: {}
+posts: Array<ITask>
+categories: Array<ICategories>
 }
 
 export default function FindTask() {
-  const tasks = useSelector((store: Istore) => store.posts)
-  const dispatch = useDispatch();
+    const tasks = useSelector((store:Istore)=> store.posts)
+    const categories = useSelector((store:Istore)=>store.categories)
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(fetchCategories())
+      console.log(categories);
+      
+    },[])
+   
+    const [state, setState] = useState({
+        frst: true,
+        scnd: false,
+        thrd: false,
+        four: false,
+        five: false,
+      });
 
-  const [state, setState] = useState({
-    frst: true,
-    scnd: false,
-    thrd: false,
-    fourth: false,
-    fifth: false,
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
-  };
-  const { frst, scnd, thrd, fourth, fifth } = state;
-
-  useEffect(() => {
-    dispatch(fetchPosts(state))
-  }, [state])
-
+      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setState({
+          ...state,
+          [event.target.name]: event.target.checked,
+        });
+      };
+      const { frst, scnd, thrd, four, five } = state;
+   
+    useEffect(()=>{
+        dispatch(fetchPosts(state))
+    },[state])
   return (
     <div>
       <div>
@@ -63,15 +68,15 @@ export default function FindTask() {
             }
             label="Курьерские услуги"
           />
-          <FormControlLabel
+            <FormControlLabel
             control={
-              <Checkbox checked={fourth} onChange={handleChange} name="fourth" />
+              <Checkbox checked={four} onChange={handleChange} name="four" />
             }
             label="Компьютерная помощь"
           />
-          <FormControlLabel
+            <FormControlLabel
             control={
-              <Checkbox checked={fifth} onChange={handleChange} name="fifth" />
+              <Checkbox checked={five} onChange={handleChange} name="five" />
             }
             label="Красота и здоровье"
           />
