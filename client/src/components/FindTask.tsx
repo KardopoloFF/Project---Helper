@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { FormGroup, FormLabel } from '@mui/material'
 import { fetchCategories } from '../redux/slices/categoriesSlice';
-import Map from './Map';
 
 interface Istore {
 store: {}
@@ -85,8 +84,6 @@ export default function FindTask() {
           </div>
         </FormGroup>
       </div>
-      <br />
-      <Map />
     </div>
   )
 }
