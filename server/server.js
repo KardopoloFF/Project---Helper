@@ -67,10 +67,10 @@ app.get('/categories', async (req, res) => {
 
 app.post('/newtask', async (req, res) => {
   const {
-    title, text, price, date,
+    title, text, price, date, categoryId,
   } = req.body;
   const newTask = await Task.create({
-    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId: 3, status: false,
+    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId, status: false,
   }); //  надо перепроверить
   res.status(200);
 });
