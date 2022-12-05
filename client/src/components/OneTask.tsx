@@ -6,12 +6,21 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ITask} from '../types/task'
+import { useNavigate } from 'react-router-dom';
+import {  useDispatch } from 'react-redux'
+import {setOnePost} from '../redux/slices/onePostSlice'
+
 interface TaskProps {
     el: ITask
   }
 
 export default function OneTask({ el }:TaskProps) {
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const clickHandler = (el:ITask) => {
+    dispatch(setOnePost(el))
+    navigate('/task/info')
+  }
 const card = (
   <React.Fragment>
     <CardContent>
@@ -31,7 +40,7 @@ const card = (
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Learn More</Button>
+      <Button onClick={()=>clickHandler(el)} size="small">Learn More</Button>
     </CardActions>
   </React.Fragment>
 );
