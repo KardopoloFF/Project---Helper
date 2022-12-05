@@ -2,6 +2,7 @@ import { Button, CardActions, CardContent, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {ITask} from '../types/task'
+import Map from './Map'
 
 export default function OneTaskPage() {
     interface Istore {
@@ -11,7 +12,6 @@ export default function OneTaskPage() {
     const task = useSelector((store:Istore)=> store.onePost)
   return (
     <>
-    <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
       <b>{task.title}</b>
@@ -32,7 +32,7 @@ export default function OneTaskPage() {
       <Button size="small">Start</Button>
       <Button size="small">Go back</Button>
     </CardActions>
-  </React.Fragment>
+    <Map />
   </>
   )
 }
