@@ -21,8 +21,6 @@ export default function FindTask() {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(fetchCategories())
-      console.log(categories);
-      
     },[])
    
     const [state, setState] = useState({
