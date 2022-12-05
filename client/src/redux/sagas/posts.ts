@@ -2,7 +2,7 @@ import {
     call, put, takeLatest, delay
   } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
-  import { setPosts } from '../postsSlice';
+  import { setPosts } from '../slices/postsSlice';
   
   const axiosCall:any = ( input:Object ) => axios.post('http://localhost:3001/posts',{input});
 

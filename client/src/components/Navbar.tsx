@@ -17,7 +17,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUserThunk } from '../redux/userSlice';
+import { logoutUserThunk } from '../redux/slices/userSlice';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -183,7 +183,7 @@ export default function Navbar() {
                     >
                               <Button style={{color: 'white'}} component={Link} onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
                     </Typography>
-                        )}
+                    )}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
