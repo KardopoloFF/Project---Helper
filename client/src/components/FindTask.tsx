@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './OneTask'
 import {ITask} from '../types/task'
 import { ICategories } from '../types/categories';
-import {fetchPosts} from '../redux/slices/postsSlice'
+import {fetchPosts} from '../redux/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { FormGroup, FormLabel } from '@mui/material'
-import { fetchCategories } from '../redux/slices/categoriesSlice';
+import { fetchCategories } from '../redux/categoriesSlice';
 
 interface Istore {
 store: {}
@@ -46,9 +46,12 @@ export default function FindTask() {
     },[state])
   return (
     <div>
-      <div>
-        <FormLabel style={{ margin: '10px' }} component="legend"><h3>Выберите категорию</h3></FormLabel>
-        <FormGroup >
+    <div>
+       {tasks.map((el) => <OneTask key={el.id} el={el}/>)} 
+    </div>
+    <div>
+    <FormLabel component="legend">Chose category</FormLabel>
+        <FormGroup>
           <FormControlLabel
             control={
               <Checkbox checked={frst} onChange={handleChange} name="frst" />
@@ -79,11 +82,8 @@ export default function FindTask() {
             }
             label="Красота и здоровье"
           />
-          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-            {tasks.map((el) => <OneTask key={el.id} el={el} />)}
-          </div>
         </FormGroup>
-      </div>
+    </div>
     </div>
   )
 }
