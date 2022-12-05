@@ -8,6 +8,7 @@ export default function OneTask({ el }:TaskProps) {
     <div>
         <div>{el.title}</div>
         <div>{el.text}</div>
+        <div>___</div>
         {/* <div>{el.date.toDateString()}</div>
         <div>{el.price.toString()}</div> */}
     </div>
