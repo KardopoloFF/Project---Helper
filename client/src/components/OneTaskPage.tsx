@@ -29,7 +29,7 @@ export default function OneTaskPage() {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Start and get MONEY</Button>
+      <Button size="small">Start</Button>
       <Button size="small">Go back</Button>
     </CardActions>
     <Map />

@@ -14,7 +14,8 @@ export default configureStore({
     posts: setPostsReducer,
     user: setUserReducer,
     categories: setCategories,
-    displayedGeoobjects: displayedGeoobjectsReducer
+    displayedGeoobjects: displayedGeoobjectsReducer,
+    onePost: setOnePostReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })
