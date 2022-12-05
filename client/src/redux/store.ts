@@ -5,6 +5,7 @@ import setUserReducer from './slices/userSlice'
 import setCategories from './slices/categoriesSlice';
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
+import setOnePostReducer from './slices/onePostSlice'
 
 const sagaMiddleware = createSagaMiddleware();
 export default configureStore({
@@ -12,6 +13,7 @@ export default configureStore({
     posts: setPostsReducer,
     user: setUserReducer,
     categories: setCategories,
+    onePost: setOnePostReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 });
