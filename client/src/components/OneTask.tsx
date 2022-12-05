@@ -41,7 +41,7 @@ const card = (
       </Typography>
     </CardContent>
     <CardActions>
-      <Button onClick={()=>clickHandler(el)} size="small">Learn More</Button>
+      <Button onClick={()=>clickHandler(el)} size="small">Подробнее</Button>
     </CardActions>
   </React.Fragment>
 );
