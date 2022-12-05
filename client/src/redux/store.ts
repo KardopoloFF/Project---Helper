@@ -17,6 +17,6 @@ export default configureStore({
     displayedGeoobjects: displayedGeoobjectsReducer
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
-});
+})
 sagaMiddleware.run(postsSaga);
 sagaMiddleware.run(categoriesSaga);
