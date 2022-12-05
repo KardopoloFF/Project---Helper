@@ -48,13 +48,13 @@ function whereParser(reqbody) {
   } if (reqbody.scnd) {
     obj.categoryId[Op.in].push(2);
   } if (reqbody.thrd) {
-    obj.name[Op.in].push(3);
+    obj.categoryId[Op.in].push(3);
   }
   if (reqbody.four) {
-    obj.name[Op.in].push(4);
+    obj.categoryId[Op.in].push(4);
   }
   if (reqbody.five) {
-    obj.name[Op.in].push(5);
+    obj.categoryId[Op.in].push(5);
   }
 
   return {
