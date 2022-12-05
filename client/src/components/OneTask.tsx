@@ -19,7 +19,7 @@ const card = (
       <b>{el.title}</b>
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-      {el.date}
+      {el.date.toString()}
       </Typography>
       <Typography variant="body2">
       {el.text}
