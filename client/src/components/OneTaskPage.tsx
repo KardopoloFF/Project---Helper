@@ -1,17 +1,17 @@
 import { Button, CardActions, CardContent, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {ITask} from '../types/task'
+import { ITask } from '../types/task'
+import { useNavigate } from 'react-router-dom';
 import Map from './Map'
 import {fetchOnePosts} from '../redux/slices/onePostSlice'
-import { useNavigate } from 'react-router-dom';
 
 export default function OneTaskPage() {
     interface Istore {
         store: {}
         onePost:ITask
         }
-    const task = useSelector((store:Istore)=> store.onePost)
+        const task = useSelector((store:Istore)=> store.onePost)
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const startHandler = (task:ITask) =>{

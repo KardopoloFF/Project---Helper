@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
@@ -78,12 +77,13 @@ export default function Navbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
+
+          <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
           <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
           <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
-          <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
         </Menu>
     );
-
+    
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu 

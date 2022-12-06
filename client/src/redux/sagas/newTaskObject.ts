@@ -1,8 +1,9 @@
 import {
     call, put, takeEvery
   } from 'redux-saga/effects';
-import axios, { AxiosResponse } from 'axios';
-import { ITask } from '../../types/task';
+  
+  import { ITask } from '../../types/task';
+  import axios, { AxiosResponse } from 'axios';
   
   const axiosCall:any = (input: ITask) => axios.post('http://localhost:3001/newtask', input );
   // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
