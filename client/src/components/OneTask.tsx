@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import {  useDispatch } from 'react-redux'
 import {setOnePost} from '../redux/slices/onePostSlice'
 import Map from './Map';
+import { fetchWorker, setWorker } from '../redux/slices/workerSlice';
 
 interface TaskProps {
   el: ITask
@@ -18,9 +19,14 @@ interface TaskProps {
 export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
     navigate('/task/info')
+  }
+  const detailsHandler = (id: number | null) => {
+    dispatch(fetchWorker(id));
+    navigate('/task/worker')
   }
 const card = (
   <React.Fragment>
@@ -29,7 +35,7 @@ const card = (
       <b>{el.title}</b>
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-      {el.date.toString()}
+      {el.date?.toString()}
       </Typography>
       <Typography variant="body2">
       {el.text}
@@ -38,6 +44,16 @@ const card = (
         <Typography>
           <br />
         <em>{el.status}</em>
+      </Typography>
+      <Typography>
+          <br />
+          {el.worker && (
+            <>
+        <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
+         <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button>
+         </>
+          )
+          }
       </Typography>
     </CardContent>
     <CardActions>

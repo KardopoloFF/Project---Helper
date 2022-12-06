@@ -6,7 +6,9 @@ const path = require('path');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
 const { Op } = require('sequelize');
-const { Task, Category } = require('./db/models');
+const {
+  Task, Category, User, Comment,
+} = require('./db/models');
 
 const uploadRouter = require('./routes/uploadRouter');
 const userRouter = require('./routes/userRouter');
@@ -69,7 +71,7 @@ app.post('/posts', async (req, res) => {
 app.patch('/posts', async (req, res) => {
   const { id } = req.body.input;
   await Task.update({
-    status: 'Выполняется', worker: 1,
+    status: 'На рассмотрении', worker: 1,
   }, { where: { id } });
   const result = await Task.findOne({ where: { id } });
   res.json(result);
@@ -80,14 +82,33 @@ app.get('/categories', async (req, res) => {
   res.json(categories);
 });
 
+app.get('/worker/:id', async (req, res) => {
+  const { id } = req.params;
+  const worker = await User.findOne({
+    where: { id },
+    include:
+      [{
+        model: Task,
+        where: { worker: id },
+      },
+      {
+        model: Comment,
+        where: { addresat: id },
+      }],
+
+  });
+  // console.log(worker, 'qqqqqqqqqqqqqqqqqqqq');
+  res.json(worker);
+});
+
 app.post('/newtask', async (req, res) => {
   const {
-    title, text, price, date, categoryId,
+    title, text, price, date, categoryId, author,
   } = req.body;
-  const newTask = await Task.create({
-    title, text, date, price, geo: 'Moscow', worker: null, author: 1, categoryId, status: false,
-  }); //  надо перепроверить
-  res.status(200);
+  await Task.create({
+    title, text, date, price, geo: 'Moscow', worker: null, author, categoryId, status: 'Ждет исполнителя',
+  });
+  res.sendStatus(200);
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

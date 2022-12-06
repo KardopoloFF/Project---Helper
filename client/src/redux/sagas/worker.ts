@@ -1,12 +1,11 @@
 import {
     call, put, takeEvery
   } from 'redux-saga/effects';
-  
-  import { ITask } from '../../types/task';
   import axios, { AxiosResponse } from 'axios';
+  import { setWorker } from '../slices/workerSlice';
   
-  const axiosCall:any = (input: ITask) => axios.post('http://localhost:3001/newtask', input );
-  // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
+  const axiosCall:any = ( id :number ) => axios.get(`http://localhost:3001/worker/${id}`);
+
   interface Iaction {
     action : Object
     payload: any
@@ -14,10 +13,12 @@ import {
   }
 
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-  function* fetchNewTaskObjectWorker(action: Iaction):Generator<Object> {
+  function* fetchWorkerWorker(action: Iaction):Generator<Object> {
     try {
       const res: any = yield call(axiosCall, action.payload);
-      // yield put((res.data));
+      // console.log(res.data, 'workerrrrrrrrrrrrrrrrrrrrrrr');
+      
+      yield put(setWorker(res.data));
     } catch (e:any) {
       yield put({ type: 'USER_FETCH_FAILED', message: e.message });
     }
@@ -27,8 +28,8 @@ import {
         Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
         Allows concurrent fetches of user.
       */
-  function* newTaskObjectSaga() { // Watcher
-    yield takeEvery('FETCH_NEW_TASK_OBJECT', fetchNewTaskObjectWorker);
+  function* workerSaga() { // Watcher
+    yield takeEvery('FETCH_WORKER', fetchWorkerWorker);
   }
   
-  export default newTaskObjectSaga;
+  export default workerSaga;
