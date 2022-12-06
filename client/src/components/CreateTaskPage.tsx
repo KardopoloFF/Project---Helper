@@ -11,19 +11,32 @@ import axios from 'axios';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/slices/categoriesSlice';
+import { fetchCategories } from '../redux/categoriesSlice';
+import { fetchNewTaskObject, setNewTaskObject } from '../redux/setNewTaskObjectSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 
 interface Istore {
-store: {}
-categories: Array<ICategories>
+store: {};
+categories: Array<ICategories>;
+newTaskObj: ITask ; // не уверен
 }
 export default function CreateTaskPage(){
   const categories = useSelector((store:Istore)=>store.categories)
+  const newTaskObj = useSelector((store:Istore)=> store.newTaskObj)
   const dispatch = useDispatch();
   const [category, setCategory] = React.useState<string>('');
-  const [date, setDate] = React.useState<Date | null>(null);
+  const navigate = useNavigate();
+  // const [input, setInput] = React.useState<ITask>({ 
+  //   title:'',
+  //   text:'',
+  //   price: 0,
+  //   date: new Date(),
+  //   categoryId: 1,
+  //   author: 1,
+  //   worker: null,
+  // })
 
   React.useEffect(() => {
     dispatch(fetchCategories())
@@ -31,44 +44,44 @@ export default function CreateTaskPage(){
     
   },[])
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
+    (dispatch(setNewTaskObject({[event.target.name]: event.target.value })));
   };
 
 
-  const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
-    const { target, preventDefault } = e;
-    e.preventDefault();
-    axios.post('http://localhost:3001/newtask',  
-      Object.fromEntries(new FormData(target as HTMLFormElement))
-    )
-  }
+
+
+
+  // const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
+  //   e.preventDefault();
+  //   axios.post('http://localhost:3001/newtask', newTaskObj)
+  // }
 
   return (
     <Container>
-    <form 
-    onSubmit={submitHandler}>
+    <form>
+   {/* onSubmit={submitHandler}> */}
       <Typography variant="h6" component="h6">
           Заголовок
       </Typography>
-      <TextField id="outlined-multiline-flexible" label="Multiline" variant="standard" name='title' />
+      <TextField id="outlined-multiline-flexible" value={newTaskObj.title} onChange={handleChange} label="Multiline" variant="standard" name='title' />
         <Typography variant="h6" component="h6">
             Подробнее
         </Typography>
-        <TextField name='text' id="filled-basic" label="Filled" variant="standard" />
+        <TextField name='text' id="filled-basic"  value={newTaskObj.text} onChange={handleChange} label="Filled" variant="standard" />
         <Typography variant="h6" component="h6">
             Цена вопроса
         </Typography>
-        <TextField name='price' type='number' id="standard-basic" label="В рублях, пожалуйста"variant="standard" />
+        <TextField name='price' type='number' id="standard-basic"  value={newTaskObj.price} onChange={handleChange} label="В рублях, пожалуйста"variant="standard" />
         <Typography variant="h6" component="h6">
             Дата выполнения
         </Typography>
         <LocalizationProvider variant="standard"  dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Дата"
-                value={date}
+                value={newTaskObj.date ?? new Date()}
                 onChange={(newValue) => {
-                  setDate(newValue);
+                  dispatch(setNewTaskObject({date: newValue}))
                 }}
                 renderInput={(params) => <TextField name='date' {...params} />}
               />
@@ -81,18 +94,19 @@ export default function CreateTaskPage(){
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={category}
+            value={String(newTaskObj.categoryId ?? 'default0')}
             name="categoryId"
             variant="standard"
             onChange={handleChange}
           >
+            <MenuItem key='default0' value='default0' disabled>Выберите</MenuItem>
           {categories.map((el)=> (
           <MenuItem key={el.id}  value={el.id}>{el.name}</MenuItem>
           )
           )}
           </Select>
         </FormControl>
-        <Button  type="submit" variant="contained">Создать задание</Button>
+        <Button  onClick={() => navigate('/task/newgeo') } variant="contained">Выбрать локацию</Button>
   
     </form>
     </Container>

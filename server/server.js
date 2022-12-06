@@ -66,6 +66,14 @@ app.post('/posts', async (req, res) => {
   const result = await Task.findAll(whereParser(req.body.input));
   res.json(result);
 });
+app.patch('/posts', async (req, res) => {
+  const { id } = req.body.input;
+  await Task.update({
+    status: 'Выполняется', worker: 1,
+  }, { where: { id } });
+  const result = await Task.findOne({ where: { id } });
+  res.json(result);
+});
 
 app.get('/categories', async (req, res) => {
   const categories = await Category.findAll();

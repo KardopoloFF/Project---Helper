@@ -3,7 +3,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setDisplayedGeoObjects } from '../redux/slices/displayedGeoobjectsSlice';
+import { setDisplayedGeoObjects } from '../redux/slices/displayedGeoObjectsSlice';
 
 interface Istore {
   store: {}
@@ -36,6 +36,9 @@ export default function Map() {
       map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
       map.controls.remove('rulerControl') // удаляем контрол правил
       map.behaviors.disable(['scrollZoom'])
+      map.events.add('click', function (e) {
+        map.balloon.open(e.get('coords'), 'Щелк!');
+      }); // открывает балун в месте клика, потенциально с координатами клика
       setMyMap(map)
     })
   }, [])
@@ -76,29 +79,29 @@ export default function Map() {
       setTimeout(() => {
         const newPlaceMark = new ymaps.Placemark(displayedGeoObjects) // Placemark добавляет одну, а нужно добавлять массив. Притом нужно ещё по клику не только добавлять, но и подумать, как с карты убирать метки
         myMap?.geoObjects.add(newPlaceMark);
-          {/* глянуть в яндексе добавить в я.карту массив меток */}
+        {/* глянуть в яндексе добавить в я.карту массив меток */ }
 
-          tasksOnMap.forEach((el) => {
-            const myGeocoder = ymaps.geocode(el.geo);
-            myGeocoder.then(
-              (res) => {
-                const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-                const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
-                  hintContent: el.title,
-                  balloonContent: el.date,
-                  iconContent: '',
-                }, {
-                  iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-                  // iconImageHref: el.img, // Своё изображение иконки метки.
-                  iconImageSize: [40, 40], // Размеры метки.
-                  iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
-                  iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
-                  iconContentLayout: MyIconContentLayout, // Макет содержимого.
-                });
-                myMap?.geoObjects.add(myPlacemarkWithContent);
-              },
-            );
-          });
+        tasksOnMap.forEach((el) => {
+          const myGeocoder = ymaps.geocode(el.geo);
+          myGeocoder.then(
+            (res) => {
+              const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+              const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
+                hintContent: el.title,
+                balloonContent: el.date,
+                iconContent: '',
+              }, {
+                iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+                // iconImageHref: el.img, // Своё изображение иконки метки.
+                iconImageSize: [40, 40], // Размеры метки.
+                iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
+                iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
+                iconContentLayout: MyIconContentLayout, // Макет содержимого.
+              });
+              myMap?.geoObjects.add(myPlacemarkWithContent);
+            },
+          );
+        });
       }, 0)
     }
   }, [displayedGeoObjects])
