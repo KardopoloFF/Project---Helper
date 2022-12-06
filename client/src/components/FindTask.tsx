@@ -25,10 +25,10 @@ export default function FindTask() {
    
     const [state, setState] = useState({
         frst: true,
-        scnd: false,
-        thrd: false,
-        four: false,
-        five: false,
+        scnd: true,
+        thrd: true,
+        four: true,
+        five: true,
       });
 
       const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +78,7 @@ export default function FindTask() {
             label="Красота и здоровье"
           />
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-            {tasks.map((el) => <OneTask key={el.id} el={el} />)}
+            {tasks.map((el) => el.status === 'Ждет исполнителя' ? <OneTask key={el.id} el={el} /> : null)}
           </div>
         </FormGroup>
       </div>

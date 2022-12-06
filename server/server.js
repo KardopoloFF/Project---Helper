@@ -69,7 +69,7 @@ app.post('/posts', async (req, res) => {
 app.patch('/posts', async (req, res) => {
   const { id } = req.body.input;
   await Task.update({
-    status: 'Выполняется', worker: 1,
+    status: 'На рассмотрении', worker: 1,
   }, { where: { id } });
   const result = await Task.findOne({ where: { id } });
   res.json(result);

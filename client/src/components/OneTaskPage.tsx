@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {ITask} from '../types/task'
 import Map from './Map'
 import {fetchOnePosts} from '../redux/slices/onePostSlice'
+import { useNavigate } from 'react-router-dom';
 
 export default function OneTaskPage() {
     interface Istore {
@@ -12,6 +13,7 @@ export default function OneTaskPage() {
         }
     const task = useSelector((store:Istore)=> store.onePost)
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const startHandler = (task:ITask) =>{
         dispatch(fetchOnePosts(task))
     }
@@ -35,7 +37,7 @@ export default function OneTaskPage() {
     </CardContent>
     <CardActions>
       <Button onClick={()=>startHandler(task)} size="small">Start</Button>
-      <Button size="small">Go back</Button>
+      <Button onClick={()=> navigate('/task/find')} size="small">Go back</Button>
     </CardActions>
     <Map />
   </>
