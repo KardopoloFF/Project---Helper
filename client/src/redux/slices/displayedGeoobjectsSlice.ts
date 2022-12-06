@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const displayedGeoobjectsSlice = createSlice({
-  name: 'displayedGeoobjects',
+export const displayedGeoObjectsSlice = createSlice({
+  name: 'displayedGeoObjects',
   initialState: [],
   reducers: {
-    setDisplayedGeoobjects: (state, action) => action.payload,
+    setDisplayedGeoObjects: (state, action) => action.payload,
   },
 });
 
-export const { setDisplayedGeoobjects } = displayedGeoobjectsSlice.actions;
+export const { setDisplayedGeoObjects } = displayedGeoObjectsSlice.actions;
 
-export default displayedGeoobjectsSlice.reducer;
+export default displayedGeoObjectsSlice.reducer;

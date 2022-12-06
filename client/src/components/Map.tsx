@@ -3,7 +3,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setDisplayedGeoobjects } from '../redux/slices/displayedGeoobjectsSlice';
+import { setDisplayedGeoObjects } from '../redux/slices/displayedGeoobjectsSlice';
 
 interface Istore {
   store: {}
@@ -14,9 +14,8 @@ export default function Map() {
   // const [task, setTask] = useState({ latitude: 42.3, longitude: 69.6 });
   const [myMap, setMyMap] = useState(null);
   const [tasksOnMap, setTasksOnMap] = useState([]);
-  const tasks = useSelector((store: Istore) => store.posts)
-  const displayedGeoobjects = useSelector((store: any) => store.displayedGeoobjects)
-  const allTasks = useSelector((store: any) => store.posts)
+  const displayedGeoObjects = useSelector((store: any) => store.displayedGeoObjects)
+  const allTasks = useSelector((store: Istore) => store.posts)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function Map() {
             const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
               hintContent: el.title,
               balloonContent: el.date,
-              iconContent: '',
+              // iconContent: '',
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
               // iconImageHref: el.img, // Своё изображение иконки метки.
@@ -73,11 +72,10 @@ export default function Map() {
   }, [myMap, tasksOnMap]);
 
   useEffect(() => {
-    if (displayedGeoobjects.length) {
+    if (displayedGeoObjects.length) {
       setTimeout(() => {
-        const newPlaceMark = new ymaps.Placemark(displayedGeoobjects) // Placemark добавляет одну, а нужно добавлять массив. Притом нужно ещё по клику не только добавлять, но и подумать, как с карты убирать метки
-        myMap?.geoObjects
-          .add(newPlaceMark);
+        const newPlaceMark = new ymaps.Placemark(displayedGeoObjects) // Placemark добавляет одну, а нужно добавлять массив. Притом нужно ещё по клику не только добавлять, но и подумать, как с карты убирать метки
+        myMap?.geoObjects.add(newPlaceMark);
           {/* глянуть в яндексе добавить в я.карту массив меток */}
 
           tasksOnMap.forEach((el) => {
@@ -97,16 +95,13 @@ export default function Map() {
                   iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
                   iconContentLayout: MyIconContentLayout, // Макет содержимого.
                 });
-                myMap?.geoObjects
-                  .add(myPlacemarkWithContent);
-    
+                myMap?.geoObjects.add(myPlacemarkWithContent);
               },
             );
           });
-          
       }, 0)
     }
-  }, [displayedGeoobjects])
+  }, [displayedGeoObjects])
 
   return (
     <>
@@ -122,7 +117,7 @@ export default function Map() {
         </Box>
         <div className="yandex"
           style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft: '20px' }}>
-          <Button onClick={() => dispatch(setDisplayedGeoobjects(allTasks.map((task: any) => ({ geo: task.geo, title: task.title }))))} style={{ marginRight: '50px' }}><PlaceIcon />Найти на карте</Button>
+          <Button onClick={() => dispatch(setDisplayedGeoObjects(allTasks.map((task: any) => ({ geo: task.geo, title: task.title }))))} style={{ marginRight: '50px' }}><PlaceIcon />Найти на карте</Button>
           <div
             className="img-fluid"
             style={{ width: '700px', height: '400px', borderRadius: '20px', overflow: 'hidden' }}

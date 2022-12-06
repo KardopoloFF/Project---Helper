@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './OneTask'
 import {ITask} from '../types/task'
 import { ICategories } from '../types/categories';
-import {fetchPosts} from '../redux/postsSlice'
+import {fetchPosts} from '../redux/slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { FormGroup, FormLabel } from '@mui/material'
-import { fetchCategories } from '../redux/categoriesSlice';
+import { fetchCategories } from '../redux/slices/categoriesSlice';
 
 interface Istore {
 store: {}
