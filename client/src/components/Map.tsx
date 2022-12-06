@@ -23,6 +23,8 @@ export default function Map () {
       map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
       map.controls.remove('rulerControl') // удаляем контрол правил
       map.behaviors.disable(['scrollZoom'])
+      map.events.add('click', function (e) {
+    map.balloon.open(e.get('coords'), 'Щелк!');}); // открывает балун в месте клика, потенциально с координатами клика
       setMyMap(map)
     })
   }, [])

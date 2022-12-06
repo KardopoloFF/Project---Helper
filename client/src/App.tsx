@@ -9,6 +9,7 @@ import PrivateRoute from './HOC/PrivateRoute';
 import Map from './components/Map';
 import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
+import NewGeoCreatePage from './components/NewGeoCreatePage';
 
 function App() {
   const user = useSelector((store) => store.user)
@@ -23,6 +24,7 @@ function App() {
       <Route path="/map" element={<Map />} />
       <Route path='/task/find' element={<FindTask />} />
       <Route path='/task/new' element={<CreateTaskPage />}/>
+      <Route path='/task/newgeo' element={<NewGeoCreatePage />}/>
       {/* <Route path="/admin" element={(
             <PrivateRoute isAllowed={user?.email === 'Adam@mail.ru' && user?.name === 'Adam'}>
               <AdminPage />

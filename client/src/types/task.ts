@@ -1,11 +1,11 @@
 export interface ITask {
-  id: number;
+  id?: number;
   title: string;
   text: string;
-  date: Date;
+  date: Date | null;
   price: number;
   author: number;
-  worker: number;
-  cat_task_id: number;
-  geo: string;
+  worker: number | null;
+  categoryId: number;
+  geo?: string;
 }
