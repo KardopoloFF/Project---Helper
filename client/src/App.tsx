@@ -12,6 +12,8 @@ import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Profile from '../src/components/Profile/Profile'
 import OneTaskPage from './components/OneTaskPage';
+import ProfileApplications from './components/Profile/ProfileApplications';
+import ProfileInProgress from './components/Profile/ProfileInProgress';
 import NewGeoCreatePage from './components/NewGeoCreatePage';
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
       <Route path='/user/reg' element={<Reg />} />
       <Route path='/user/auth' element={<Auth />} />
       <Route path='/user/profile' element={<Profile />}/>
+      <Route path='/user/profile/applications' element={<ProfileApplications />}/>
+      <Route path='/user/profile/inprogress' element={<ProfileInProgress />}/>
       <Route path="/" element={<Home />} />
       <Route path="/map" element={<Map />} />
       <Route path='/task/find' element={<FindTask />} />

@@ -18,6 +18,7 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserThunk } from '../redux/slices/userSlice';
+import { LinkRounded } from '@mui/icons-material';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -63,23 +64,23 @@ export default function Navbar() {
     const renderMenu = (
         <Menu 
             
-            // anchorEl={anchorEl}
-            // anchorOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
-            // id={menuId}
-            // keepMounted
-            // transformOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
-            // open={isMenuOpen}
-            // onClose={handleMenuClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
         >
-
-            {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
-            {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
+          <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
+          <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
+          <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
         </Menu>
     );
 
@@ -111,7 +112,7 @@ export default function Navbar() {
                  
                     <AccountCircle />
                 </IconButton>
-                {/* <p>Profile</p> */}
+                <p>Мой профиль</p>
             </MenuItem>
         </Menu>
     );
@@ -189,17 +190,7 @@ export default function Navbar() {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                            >
-                            <Badge badgeContent={1} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            component={Link}
-                            to="/user/profile"
+
                             size="large"
                             edge="end"
                             aria-label="account of current user"
