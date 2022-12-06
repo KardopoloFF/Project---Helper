@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchNewTaskObject, setNewTaskObject } from '../redux/setNewTaskObjectSlice'
+import { fetchNewTaskObject, setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice'
 import { ICategories } from '../types/categories'
 import { ITask } from '../types/task';
 import Map from './Map'
