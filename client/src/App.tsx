@@ -12,6 +12,7 @@ import { Container } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Profile from '../src/components/Profile/Profile'
 import OneTaskPage from './components/OneTaskPage';
+import NewGeoCreatePage from './components/NewGeoCreatePage';
 
 function App() {
   const user = useSelector((store: any) => store.user)
@@ -30,6 +31,7 @@ function App() {
       <Route path='/task/find' element={<FindTask />} />
       <Route path='/task/new' element={<CreateTaskPage />}/>
       <Route path='/task/info' element={<OneTaskPage />}/>
+      <Route path='/task/newgeo' element={<NewGeoCreatePage />}/>
       {/* <Route path="/admin" element={(
             <PrivateRoute isAllowed={user?.email === 'Adam@mail.ru' && user?.name === 'Adam'}>
               <AdminPage />
