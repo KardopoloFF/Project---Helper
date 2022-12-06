@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -59,6 +59,8 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const [ yes, setYes ] = useState(true)
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu 
@@ -80,7 +82,7 @@ export default function Navbar() {
 
           <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
           <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
-          <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
+          <Link to="/user/profile/applications" state={{ yes }}><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
         </Menu>
     );
     

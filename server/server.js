@@ -112,10 +112,11 @@ app.post('/newtask', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.post('/posts/currentuser', async (req, res) => {
+app.get('/profile/tasks', async (req, res) => {
   const { id } = req.session.user;
-  const result = await Task.findAll({ where: { id } });
-  res.json(result);
+  const myTasks = await Task.findAll({ where: { author: id } });
+  console.log(myTasks);
+  res.json(myTasks);
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

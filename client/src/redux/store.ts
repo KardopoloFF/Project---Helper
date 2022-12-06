@@ -11,6 +11,7 @@ import setOnePostReducer from './slices/onePostSlice'
 import editOnePostSaga from './sagas/startWork'
 import newTaskObjectSaga from './sagas/newTaskObject';
 import workerSaga from './sagas/worker';
+import userTasksReducer from './slices/currentUser'
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -22,6 +23,7 @@ export default configureStore({
     newTaskObj: setNewTaskObjectReducer,
     onePost: setOnePostReducer,
     worker: setWorkerReducer,
+    userTasks: userTasksReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })
