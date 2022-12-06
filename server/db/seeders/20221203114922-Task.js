@@ -10,7 +10,7 @@ module.exports = {
       author: 1,
       worker: 1,
       categoryId: 1,
-      status: 'В ожидании',
+      status: 'Ждет исполнителя',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
@@ -22,8 +22,8 @@ module.exports = {
       price: 4200,
       author: 1,
       worker: 1,
-      categoryId: 1,
-      status: 'Выполняется',
+      categoryId: 2,
+      status: 'Ждет исполнителя',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
@@ -36,7 +36,7 @@ module.exports = {
       author: 1,
       worker: 1,
       categoryId: 1,
-      status: 'Выполнено',
+      status: 'На рассмотрении',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
@@ -48,8 +48,8 @@ module.exports = {
       price: 6900,
       author: 1,
       worker: 1,
-      categoryId: 1,
-      status: 'Отменено пользователем',
+      categoryId: 4,
+      status: 'На рассмотрении',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
@@ -61,8 +61,8 @@ module.exports = {
       price: 12000,
       author: 1,
       worker: 1,
-      categoryId: 1,
-      status: 'В ожидании',
+      categoryId: 5,
+      status: 'В работе',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

@@ -78,7 +78,7 @@ export default function FindTask() {
             label="Красота и здоровье"
           />
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-            {tasks.map((el) => <OneTask key={el.id} el={el} />)}
+            {tasks.map((el) => el.status === 'Ждет исполнителя' ? <OneTask key={el.id} el={el} /> : null)}
           </div>
         </FormGroup>
       </div>
