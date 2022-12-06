@@ -19,7 +19,6 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store: any) => store.user)
   return (
-      <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
       <CardMedia
         component="img"
@@ -36,18 +35,5 @@ export default function Profile() {
         </Typography>
       </CardContent>
     </Card>
-    {/* <Card sx={{ maxWidth: 650 }} style={{ marginTop: '50px', margin: 'auto' }}> */}
-    <div style={{ marginTop: '50px', margin: 'auto' }}>
-        <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
-          Мои задания:
-        </Typography>
-        <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
-          <div>
-        {tasks.map((el) => <OneTask key={el.id} el={el}/>)} 
-        </div>
-        </Typography>
-    </div>
-    {/* </Card> */}
-    </>
   );
 }
