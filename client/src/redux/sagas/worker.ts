@@ -16,7 +16,6 @@ import {
   function* fetchWorkerWorker(action: Iaction):Generator<Object> {
     try {
       const res: any = yield call(axiosCall, action.payload);
-      // console.log(res.data, 'workerrrrrrrrrrrrrrrrrrrrrrr');
       
       yield put(setWorker(res.data));
     } catch (e:any) {

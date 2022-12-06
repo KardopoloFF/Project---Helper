@@ -94,12 +94,20 @@ app.get('/worker/:id', async (req, res) => {
       {
         model: Comment,
         where: { addresat: id },
+        include: User,
       }],
 
   });
-  // console.log(worker, 'qqqqqqqqqqqqqqqqqqqq');
   res.json(worker);
 });
+
+// app.get('/commentauthor/:id', async (req, res) => {
+//   const { id } = req.params;
+//   const commentName = await User.findOne({
+//     where: { id },
+//   });
+//   res.json(commentName);
+// });
 
 app.post('/newtask', async (req, res) => {
   const {
