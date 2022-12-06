@@ -12,17 +12,20 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typograph
 import { Container } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../redux/slices/categoriesSlice';
-import { fetchNewTaskObject, setNewTaskObject } from '../redux/setNewTaskObjectSlice';
+import { fetchNewTaskObject, setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
 import { useNavigate } from 'react-router-dom';
+import { IUser } from '../types/users';
 
 
 
 interface Istore {
 store: {};
 categories: Array<ICategories>;
-newTaskObj: ITask ; // не уверен
+newTaskObj: ITask ;
+user: IUser // не уверен
 }
 export default function CreateTaskPage(){
+  const user = useSelector((store:Istore) => store.user)
   const categories = useSelector((store:Istore)=>store.categories)
   const newTaskObj = useSelector((store:Istore)=> store.newTaskObj)
   const dispatch = useDispatch();
@@ -40,22 +43,13 @@ export default function CreateTaskPage(){
 
   React.useEffect(() => {
     dispatch(fetchCategories())
-    console.log(categories);
+     dispatch(setNewTaskObject({author: user.id}))
     
   },[])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
     (dispatch(setNewTaskObject({[event.target.name]: event.target.value })));
   };
-
-
-
-
-
-  // const submitHandler =(e: React.FormEvent<HTMLFormElement>)=> {
-  //   e.preventDefault();
-  //   axios.post('http://localhost:3001/newtask', newTaskObj)
-  // }
 
   return (
     <Container>
