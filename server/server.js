@@ -6,7 +6,9 @@ const path = require('path');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
 const { Op } = require('sequelize');
-const { Task, Category, User } = require('./db/models');
+const {
+  Task, Category, User, Comment,
+} = require('./db/models');
 
 const uploadRouter = require('./routes/uploadRouter');
 const userRouter = require('./routes/userRouter');
@@ -84,15 +86,18 @@ app.get('/worker/:id', async (req, res) => {
   const { id } = req.params;
   const worker = await User.findOne({
     where: { id },
-    include: [
+    include:
+      [{
+        model: Task,
+        where: { worker: id },
+      },
       {
-      model: Task,
-      where: { worker: id },
-    },
-    {model: Commen, 
-    where: {addresat: id}}
+        model: Comment,
+        where: { addresat: id },
+      }],
+
   });
-  console.log(worker, 'qqqqqqqqqqqqqqqqqqqq');
+  // console.log(worker, 'qqqqqqqqqqqqqqqqqqqq');
   res.json(worker);
 });
 
