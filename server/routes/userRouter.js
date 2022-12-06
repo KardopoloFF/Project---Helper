@@ -39,7 +39,7 @@ router.post('/auth', async (req, res) => {
   const user = await User.findOne({ where: { mail } });
   if (!user) return res.sendStatus(400);
 
-  const isPassValid = compare(password, user.password);
+  const isPassValid = await compare(password, user.password);
   if (!isPassValid) return res.sendStatus(400);
 
   req.session.user = {
@@ -49,7 +49,7 @@ router.post('/auth', async (req, res) => {
   res.json(user);
 });
 
-router.get('/check', (req, res) => {
+router.post('/check', (req, res) => {
   if (req.session?.user) {
     return res.json(req.session.user);
   }
