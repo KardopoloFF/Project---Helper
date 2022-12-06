@@ -11,7 +11,7 @@ import axios from 'axios';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/categoriesSlice';
+import { fetchCategories } from '../redux/slices/categoriesSlice';
 import { fetchNewTaskObject, setNewTaskObject } from '../redux/setNewTaskObjectSlice';
 import { useNavigate } from 'react-router-dom';
 
