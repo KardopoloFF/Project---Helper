@@ -2,7 +2,7 @@ import {
     call, put, takeEvery
   } from 'redux-saga/effects';
   import axios, { AxiosResponse } from 'axios';
-  import { setPosts } from '../postsSlice';
+  import { setPosts } from '../slices/postsSlice';
 import { ITask } from '../../types/task';
   
   const axiosCall:any = (input: ITask) => axios.post('http://localhost:3001/newtask', input );

@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
@@ -62,24 +61,22 @@ export default function Navbar() {
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu 
-            
-            // anchorEl={anchorEl}
-            // anchorOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
-            // id={menuId}
-            // keepMounted
-            // transformOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
-            // open={isMenuOpen}
-            // onClose={handleMenuClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
         >
-
-            {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
-            {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
 
