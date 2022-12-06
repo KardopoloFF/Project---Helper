@@ -68,6 +68,7 @@ app.post('/posts', async (req, res) => {
   const result = await Task.findAll(whereParser(req.body.input));
   res.json(result);
 });
+
 app.patch('/posts', async (req, res) => {
   const { id } = req.body.input;
   await Task.update({
@@ -109,6 +110,12 @@ app.post('/newtask', async (req, res) => {
     title, text, date, price, geo: 'Moscow', worker: null, author, categoryId, status: 'Ждет исполнителя',
   });
   res.sendStatus(200);
+});
+
+app.post('/posts/currentuser', async (req, res) => {
+  const { id } = req.session.user;
+  const result = await Task.findAll({ where: { id } });
+  res.json(result);
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
