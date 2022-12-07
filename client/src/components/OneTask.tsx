@@ -11,6 +11,13 @@ import {  useDispatch, useSelector } from 'react-redux'
 import {setOnePost} from '../redux/slices/onePostSlice'
 import Map from './Map';
 import { fetchWorker, setWorker } from '../redux/slices/workerSlice';
+import { IUser } from '../types/users';
+
+
+interface Istore {
+  store: {};
+  worker: IUser;
+  }
 
 interface TaskProps {
   el: ITask
@@ -20,19 +27,14 @@ export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentWorker = useSelector((store) => store.worker);
-  // const { yes } = location.state;
-  // console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+  const currentWorker = useSelector((store:Istore) => store.worker);
   
   
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
     navigate('/task/info')
   }
-  const detailsHandler = (id: number | null) => {
-    dispatch(fetchWorker(id));
-  }
-
+  
   useEffect(() => {
     if(currentWorker.id) {
       navigate('/task/worker')

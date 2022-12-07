@@ -5,9 +5,9 @@ import setWorkerReducer from './slices/workerSlice'
 import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
 import setUserReducer from './slices/userSlice'
 import setCategoriesReducer from './slices/categoriesSlice';
+import setAllCommentsReducer from './slices/allCommentsSlice'
 import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import setNewCommentReducer from './slices/newCommentSlice'
-import setAllComments from './slices/allCommentsSlice'
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
 import newCommentSaga from './sagas/newComment'
@@ -30,7 +30,7 @@ export default configureStore({
     worker: setWorkerReducer,
     userTasks: userTasksReducer,
     newComment: setNewCommentReducer,
-    allComments: setAllComments,
+    allComments: setAllCommentsReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })

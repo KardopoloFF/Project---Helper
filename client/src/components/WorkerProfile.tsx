@@ -30,15 +30,15 @@ export default function WorkerProfile() {
   const allComments = useSelector((store: Istore)=> store.allComments)
   const newComment = useSelector((store: Istore)=> store.newComment);
 
-  const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length) //в useEffect
+  const [ratingRes,setRatingRes] = React.useState((worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length)) 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    
-    dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }));
+    dispatch(setNewComment({author: user.id, addresat: worker.id}));
     dispatch(fetchAllComments(worker?.id));
+    setRatingRes((worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length))
     
-  },[])
+  },[allComments])
   
   return (
       <>
