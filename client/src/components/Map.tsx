@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Istore {
   store: {}
@@ -10,11 +10,11 @@ interface Istore {
 }
 
 export default function Map() {
+  const dispatch = useDispatch()
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.onePost)
   // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
   // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
-  const [initPoint, setInitPoint] = useState(task.geo)
   const allPosts = useSelector((store: Istore) => store.posts)
 
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function Map() {
               balloonContent: 'Адрес : ' + task.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
               iconImageSize: [40, 40], // Размеры метки.
               iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
               iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -74,6 +75,7 @@ export default function Map() {
                 balloonContent: 'Адрес : ' + el.geo,
               }, {
                 iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
                 iconImageSize: [40, 40], // Размеры метки.
                 iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
                 iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -83,6 +85,33 @@ export default function Map() {
                 .add(myPlacemarkWithContent);
             })
         })
+        myMap.events.add('click', function (e) {
+          if (!myMap.balloon.isOpen()) {
+            let coords = e.get('coords');
+            myMap.balloon.open(coords, {
+              contentHeader: 'Адрес: ' + (task?.geo),
+              contentBody: '<p><button>  Добавить адрес  </button></p>' +
+                '<p>Координаты: ' + [
+                  coords[0].toPrecision(6),
+                  coords[1].toPrecision(6)
+                ].join(', ') + '</p>',
+              contentFooter: '<sup>Щелкните еще раз</sup>'
+            });
+
+            myMap.events.add('contextmenu', function (e) {
+              myMap.hint.open(e.get('coords'), 'Кто-то щелкнул правой кнопкой');
+            });
+
+            // Скрываем хинт при открытии балуна.
+            myMap.events.add('balloonopen', function (e) {
+              myMap.hint.close();
+            });
+
+          }
+          else {
+            myMap.balloon.close();
+          }
+        });
       }
     })
   }, [myMap, task, allPosts]);

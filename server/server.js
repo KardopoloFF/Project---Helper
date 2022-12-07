@@ -97,7 +97,6 @@ app.get('/worker/:id', async (req, res) => {
       }],
 
   });
-  // console.log(worker, 'qqqqqqqqqqqqqqqqqqqq');
   res.json(worker);
 });
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ITask } from '../types/task'
 import { useNavigate } from 'react-router-dom';
 import Map from './Map'
-import { fetchOnePosts } from '../redux/slices/onePostSlice'
+import { fetchOnePosts, setOnePost } from '../redux/slices/onePostSlice'
 
 export default function OneTaskPage() {
   interface Istore {
@@ -18,12 +18,12 @@ export default function OneTaskPage() {
     dispatch(fetchOnePosts(task))
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
       <div style={{
-        display: 'flex', flexDirection: 'column', border: 'solid 2px black', justifyContent: 'center',
+        display: 'flex', flexDirection: 'column', border: 'solid 2px black', justifyContent: 'center', width: '300px',
         borderRadius: '20px', overflow: 'hidden', backgroundColor: 'white', height: '300px', marginTop: '40px',
       }}>
-        <CardContent style={{ marginLeft: '10px', marginBottom: '25px' }}>
+        <CardContent style={{ marginLeft: '10px', marginBottom: '20px' }}>
           <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
             <b>{task.title}</b>
           </Typography>
@@ -41,10 +41,10 @@ export default function OneTaskPage() {
         </CardContent>
         <CardActions style={{ marginLeft: '15px' }}>
           <Button variant="contained" onClick={() => startHandler(task)} size="small">Start</Button>
-          <Button onClick={() => navigate('/task/find')} size="small">Go back</Button>
+          <Button onClick={() => { navigate(-1); dispatch(setOnePost([])) }} size="small">Go back</Button>
         </CardActions>
       </div>
       <Map />
-    </div>
+    </div >
   )
 }
