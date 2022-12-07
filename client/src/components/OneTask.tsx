@@ -21,7 +21,7 @@ export default function OneTask({ el }:TaskProps) {
   const navigate = useNavigate();
   const location = useLocation();
   // const { yes } = location.state;
-  console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+  // console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
   
   
   const clickHandler = (el:ITask) => {
