@@ -11,19 +11,19 @@ import {  useDispatch, useSelector } from 'react-redux'
 import {setOnePost} from '../redux/slices/onePostSlice'
 import Map from './Map';
 import { fetchWorker, setWorker } from '../redux/slices/workerSlice';
+import { IUser } from '../types/users';
 
 interface TaskProps {
+  store: {}
   el: ITask
+  worker: IUser
 }
 
 export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentWorker = useSelector((store) => store.worker);
-  // const { yes } = location.state;
-  // console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
-  
+  const currentWorker = useSelector((store : TaskProps) => store.worker);
   
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
