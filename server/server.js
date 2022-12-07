@@ -101,14 +101,6 @@ app.get('/worker/:id', async (req, res) => {
   res.json(worker);
 });
 
-// app.get('/commentauthor/:id', async (req, res) => {
-//   const { id } = req.params;
-//   const commentName = await User.findOne({
-//     where: { id },
-//   });
-//   res.json(commentName);
-// });
-
 app.post('/newtask', async (req, res) => {
   const {
     title, text, price, date, categoryId, author,
@@ -117,6 +109,13 @@ app.post('/newtask', async (req, res) => {
     title, text, date, price, geo: 'Moscow', worker: null, author, categoryId, status: 'Ждет исполнителя',
   });
   res.sendStatus(200);
+});
+
+app.post('task/worker/newcomment', async (req, res) => {
+  const { text } = req.body;
+  await Comment.create({
+    text,
+  });
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

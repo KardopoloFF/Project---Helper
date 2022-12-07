@@ -6,8 +6,10 @@ import setCategoriesReducer from './slices/categoriesSlice';
 import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
 import setWorkerReducer from './slices/workerSlice'
+import addNewCommentReducer from './slices/newCommentSlice'
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
+import newCommentSaga from './sagas/newComment'
 import setOnePostReducer from './slices/onePostSlice'
 import editOnePostSaga from './sagas/startWork'
 import newTaskObjectSaga from './sagas/newTaskObject';
@@ -24,6 +26,7 @@ export default configureStore({
     displayedGeoobjects: displayedGeoobjectsReducer,
     onePost: setOnePostReducer,
     worker: setWorkerReducer,
+    newComment: addNewCommentReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })
@@ -32,3 +35,4 @@ sagaMiddleware.run(categoriesSaga);
 sagaMiddleware.run(newTaskObjectSaga);
 sagaMiddleware.run(editOnePostSaga);
 sagaMiddleware.run(workerSaga);
+sagaMiddleware.run(newCommentSaga);

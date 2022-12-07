@@ -5,23 +5,37 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import OneTask from './OneTask'
 import {ITask} from '../types/task'
 import { Container } from '@mui/system';
 import { IUser } from '../types/users';
 import OneComment from './OneComment';
-import { Rating } from '@mui/material';
+import { Rating, TextField } from '@mui/material';
+import { fetchNewComment, setNewComment } from '../redux/slices/newCommentSlice';
+import { IComment } from '../types/comment';
 
 interface Istore {
   store: {};
   worker: IUser;
+  user: IUser;
+  newComment: IComment;
   }
 
 export default function WorkerProfile() {
-  const worker = useSelector((store: Istore) => store.worker)
-  const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length)
-  
+  const worker = useSelector((store: Istore) => store.worker);
+  const user = useSelector((store: Istore) => store.user);
+  const newComment = useSelector((store: Istore)=> store.newComment)
+  const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length) //в useEffect
+  const dispatch = useDispatch();
+  const addComment =(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  }
+
+    React.useEffect(() => {
+     dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }))
+    
+  },[])
   
   return (
       <>
@@ -52,6 +66,30 @@ export default function WorkerProfile() {
     </Card>
     {/* <Card sx={{ maxWidth: 650 }} style={{ marginTop: '50px', margin: 'auto' }}> */}
     <div style={{ marginTop: '50px', margin: 'auto' }}>
+        <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
+          Оставить комментарий:
+        </Typography>
+         <TextField
+          id="standard-multiline-static"
+          label="Multiline"
+          value={newComment}
+          onChange={(e) => setNewComment({text: e.target.value})}
+          name='text'
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="standard"
+        />
+        <Typography component="legend">Controlled</Typography>
+        <Rating
+          name="simple-controlled"
+          value={newComment.rating}
+          onChange={(newValue) => {
+            setNewComment({rating: newValue});
+          }}
+        />
+        <Button onClick={(e)=>dispatch(fetchNewComment(newComment))} variant="contained">Оставить комментарий</Button>
+
         <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
           Выполненные задания:
         </Typography>

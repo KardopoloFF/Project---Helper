@@ -2,9 +2,9 @@ import {
     call, put, takeEvery
   } from 'redux-saga/effects';
 import axios, { AxiosResponse } from 'axios';
-import { ITask } from '../../types/task';
+import { IComment } from '../../types/comment';
   
-  const axiosCall:any = (input: ITask) => axios.post('http://localhost:3001/newtask', input );
+  const axiosCall:any = (input: IComment) => axios.post('http://localhost:3001/task/worker/newcomment', input );
   // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
   interface Iaction {
     action : Object
@@ -13,7 +13,7 @@ import { ITask } from '../../types/task';
   }
 
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-  function* fetchNewTaskObjectWorker(action: Iaction):Generator<Object> {
+  function* fetchNewCommentWorker(action: Iaction):Generator<Object> {
     try {
       const res: any = yield call(axiosCall, action.payload);
     } catch (e:any) {
@@ -25,8 +25,8 @@ import { ITask } from '../../types/task';
         Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
         Allows concurrent fetches of user.
       */
-  function* newTaskObjectSaga() { // Watcher
-    yield takeEvery('FETCH_NEW_TASK_OBJECT', fetchNewTaskObjectWorker);
+  function* newCommentSaga() { // Watcher
+    yield takeEvery('FETCH_NEW_COMMENT', fetchNewCommentWorker);
   }
   
-  export default newTaskObjectSaga;
+  export default newCommentSaga;

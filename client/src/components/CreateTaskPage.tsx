@@ -22,7 +22,7 @@ interface Istore {
 store: {};
 categories: Array<ICategories>;
 newTaskObj: ITask ;
-user: IUser // не уверен
+user: IUser 
 }
 export default function CreateTaskPage(){
   const user = useSelector((store:Istore) => store.user)
