@@ -1,12 +1,6 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Comments', [{
-      text: ,
-      
-      }], {});
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -18,7 +12,7 @@ module.exports = {
     */
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Comments', null, {});
     /**
      * Add commands to revert seed here.
@@ -26,5 +20,5 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+  },
 };

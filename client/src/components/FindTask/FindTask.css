@@ -1,0 +1,41 @@
+.categoriesInFindTask {
+    margin-left: 20px;
+}
+
+.categoriesForeignStyle {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: solid 2px black;
+    justify-content: start;
+    background-color: white;
+    width: 250px;
+    height: 215px;
+}
+
+.categoriesPlusMap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.titleOfTasks {
+    display: flex;
+    justify-content: start;
+    margin-top: 15px;
+    color: black
+}
+
+.smallCard {
+    display: flex;
+    flex-direction: row;
+}
+
+.findTask {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    color: black;
+}

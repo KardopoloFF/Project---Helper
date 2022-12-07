@@ -1,0 +1,18 @@
+.containerInCreateTask {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    width: 400px;
+    height: 460px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 25px;
+    border: solid 2px black;
+    background-color: white;
+}
+
+.createTaskTitle {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}

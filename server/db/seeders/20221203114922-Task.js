@@ -5,7 +5,7 @@ module.exports = {
       geo: '55.75, 37.62',
       title: 'Вынести бытовой мусор',
       text: 'После ремонта осталось много мусора, и его нужно вынести из квартиры. Нужно сделать до ближайших выходных.',
-      date: '2022-12-10',
+      date: '10-12-2022',
       price: 1200,
       author: 1,
       worker: 1,
@@ -13,12 +13,11 @@ module.exports = {
       status: 'Ждет исполнителя',
       createdAt: new Date(),
       updatedAt: new Date(),
-    }], {});
-    await queryInterface.bulkInsert('Tasks', [{
-      geo: '59.94, 30.31',
+    }, {
+      geo: '50.94, 30.31',
       title: 'Переезд',
       text: 'Переезжаю на новую квартиру, нужно пару грузовиков для перевозки мебели.',
-      date: '2022-12-12',
+      date: '12-12-2022',
       price: 4200,
       author: 1,
       worker: 1,
@@ -26,12 +25,11 @@ module.exports = {
       status: 'Ждет исполнителя',
       createdAt: new Date(),
       updatedAt: new Date(),
-    }], {});
-    await queryInterface.bulkInsert('Tasks', [{
+    }, {
       geo: '54.71, 20.51',
       title: 'Посылка',
       text: 'Нужно забрать посылку с почты, бабушка отправила огурчики :)',
-      date: '2022-12-14',
+      date: '10-12-2022',
       price: 500,
       author: 1,
       worker: 1,
@@ -39,12 +37,11 @@ module.exports = {
       status: 'На рассмотрении',
       createdAt: new Date(),
       updatedAt: new Date(),
-    }], {});
-    await queryInterface.bulkInsert('Tasks', [{
+    }, {
       geo: '42.98, 47.5',
       title: 'Кран',
       text: 'Течет кран, просьба заехать и подкрутить где нужно.',
-      date: '2022-12-09',
+      date: '09-12-2022',
       price: 6900,
       author: 1,
       worker: 1,
@@ -52,12 +49,11 @@ module.exports = {
       status: 'На рассмотрении',
       createdAt: new Date(),
       updatedAt: new Date(),
-    }], {});
-    await queryInterface.bulkInsert('Tasks', [{
+    }, {
       geo: '59.94, 30.31',
       title: 'Собака',
       text: 'Уезжаю на неделю в отпуск, не с кем оставить собаку, нужно будет дважды в день с ней гулять по часу.',
-      date: '2022-12-22',
+      date: '09-12-2022',
       price: 12000,
       author: 1,
       worker: 1,
