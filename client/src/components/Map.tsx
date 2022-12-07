@@ -12,14 +12,16 @@ interface Istore {
 export default function Map() {
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.onePost)
-  const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
+  // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
+  // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
+  const [initPoint, setInitPoint] = useState(task.geo)
   const allPosts = useSelector((store: Istore) => store.posts)
+
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
-        // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
-        center: initPoint,
-        zoom: 10.5
+        center: [55.7522, 37.6156],
+        zoom: 12
       }, {
         searchControlProvider: 'yandex#search',
         suppressMapOpenBlock: true
@@ -42,7 +44,7 @@ export default function Map() {
         '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>',
       );
       if (!Array.isArray(task)) {
-        const myGeocoder = ymaps.geocode(task.geo);
+        const myGeocoder = ymaps.geocode(task?.geo);
         myGeocoder.then(
           (res) => {
             const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
@@ -63,7 +65,7 @@ export default function Map() {
         );
       } else {
         allPosts?.forEach((el) => {
-          const myGeocoder = ymaps.geocode(el.geo?.split(', ').map((el: string) => Number(el)));
+          const myGeocoder = ymaps.geocode(el.geo);
           myGeocoder.then(
             (res) => {
               const coordinates = res.geoObjects.get(0).geometry.getCoordinates();

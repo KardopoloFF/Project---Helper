@@ -6,24 +6,20 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserThunk } from '../redux/slices/userSlice';
-import { LinkRounded } from '@mui/icons-material';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -32,7 +28,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }))
-
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -61,8 +56,7 @@ export default function Navbar() {
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
-        <Menu 
-            
+        <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
                 vertical: 'top',
@@ -78,15 +72,15 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
 
-          <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
-          <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
-          <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
+            <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
+            <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
+            <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
         </Menu>
     );
-    
+
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
-        <Menu 
+        <Menu
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
@@ -100,16 +94,15 @@ export default function Navbar() {
             }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
-            >
+        >
             <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
+                <IconButton
                     size="large"
                     aria-label="account of current user"
                     aria-controls="primary-search-account-menu"
                     aria-haspopup="true"
                     color="inherit"
                 >
-                 
                     <AccountCircle />
                 </IconButton>
                 <p>Мой профиль</p>
@@ -122,9 +115,9 @@ export default function Navbar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" style={{ backgroundColor: '#ea8b50', borderBottomRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         size="small"
                         edge="start"
                         color="inherit"
@@ -132,77 +125,80 @@ export default function Navbar() {
                         sx={{ mr: 2 }}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white', fontSize: '20px'}} component={Link} to="/">Помогатор</Button>
+                        <Button style={{
+                            color: 'white', fontSize: '20px', backgroundColor: '#eca851', height: '40px',
+                            width: '160px', border: 'solid 1.5px black', marginLeft: '10px'
+                        }} component={Link} to="/">Помогатор</Button>
                     </Typography>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                         <Button style={{color: 'white'}} component={Link} to="/task/new">Создать задание</Button>
-                        </Typography>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{color: 'white'}} component={Link} to="/task/find">Найти задания</Button>
+                        <Button style={{ color: 'white', marginLeft: '10px' }} component={Link} to="/task/new">Создать задание</Button>
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        <Button style={{ color: 'white' }} component={Link} to="/task/find">Найти задания</Button>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     {!user?.id ? (
                         <>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        <Button style={{color: 'white'}} component={Link} to="/user/auth">Вход</Button>
-                        </Typography>
-                        <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                        <Button style={{color: 'white'}} component={Link} to="/user/reg">Регистрация</Button>
-                    </Typography>
-                            </>
-                        )
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
+                                sx={{ display: { xs: 'none', sm: 'block' } }}
+                            >
+                                <Button style={{ color: 'white' }} component={Link} to="/user/auth">Вход</Button>
+                            </Typography>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
+                                sx={{ display: { xs: 'none', sm: 'block' } }}
+                            >
+                                <Button style={{ color: 'white' }} component={Link} to="/user/reg">Регистрация</Button>
+                            </Typography>
+                        </>
+                    )
                         : (
                             <>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                              <Button style={{color: 'white'}} component={Link}  onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
-                    </Typography>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
+                                <Typography
+                                    variant="h6"
+                                    noWrap
+                                    component="div"
+                                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                                >
+                                    <Button style={{ color: 'white' }} component={Link} onClick={() => dispatch(logoutUserThunk())} to="/">Выход</Button>
+                                </Typography>
+                                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                    <IconButton
 
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                            >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    </>
+                                        size="large"
+                                        edge="end"
+                                        aria-label="account of current user"
+                                        aria-controls={menuId}
+                                        aria-haspopup="true"
+                                        onClick={handleProfileMenuOpen}
+                                        color="inherit"
+                                    >
+                                        <AccountCircle />
+                                    </IconButton>
+                                </Box>
+                            </>
                         )}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -212,14 +208,14 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
-                            >
+                        >
                             <MoreIcon />
                         </IconButton>
                     </Box>
                 </Toolbar>
-                </AppBar>
-                {renderMobileMenu}
-                {renderMenu}
-                </Box>
-                );
-            }
+            </AppBar>
+            {renderMobileMenu}
+            {renderMenu}
+        </Box>
+    );
+}
