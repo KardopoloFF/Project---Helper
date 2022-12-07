@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ITask} from '../types/task'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {  useDispatch } from 'react-redux'
 import {setOnePost} from '../redux/slices/onePostSlice'
 import Map from './Map';
@@ -19,6 +19,10 @@ interface TaskProps {
 export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  // const { yes } = location.state;
+  console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+  
   
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
@@ -58,12 +62,18 @@ const card = (
     </CardContent>
     <CardActions>
       <Button onClick={()=>clickHandler(el)} size="small">Подробнее</Button>
+      {/* {yes &&
+      <>
+        <Button size="small">НЕТ</Button>
+        <Button size="small">Да</Button>
+      </>
+      } */}
     </CardActions>
   </React.Fragment>
 );
 
   return (
-      <Box sx={{ width: 300, display: 'flex', margin: '5px' }}>
+      <Box sx={{ width: 300, margin: '5px' }}>
         <Card variant="outlined">{card}</Card>
       </Box>
   )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
@@ -60,6 +59,8 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const [ yes, setYes ] = useState(true)
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu 
@@ -78,12 +79,13 @@ export default function Navbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-          <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
-          <Link to="/user/profile/applications"><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
+
           <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
+          <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
+          <Link to="/user/profile/applications" state={{ yes }}><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
         </Menu>
     );
-
+    
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu 

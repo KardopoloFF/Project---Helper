@@ -1,29 +1,24 @@
-import { Box, Button, TextField } from '@mui/material'
-import PlaceIcon from '@mui/icons-material/Place';
+import { Box } from '@mui/material'
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { setDisplayedGeoobjects } from '../redux/slices/displayedGeoobjectsSlice';
+import { useSelector } from 'react-redux';
 
 interface Istore {
   store: {}
   posts: Array<ITask>
+  onePost: Array<ITask>
 }
 
 export default function Map() {
-  // const [task, setTask] = useState({ latitude: 42.3, longitude: 69.6 });
   const [myMap, setMyMap] = useState(null);
-  const [tasksOnMap, setTasksOnMap] = useState([]);
-  const tasks = useSelector((store: Istore) => store.posts)
-  const displayedGeoobjects = useSelector((store: any) => store.displayedGeoobjects)
-  const allTasks = useSelector((store: any) => store.posts)
-  const dispatch = useDispatch();
-
+  const task = useSelector((store: Istore) => store.onePost)
+  const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
+  const allPosts = useSelector((store: Istore) => store.posts)
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
-        center: [55.75, 37.61], // Moscow
-        // center: [40.19, 44.51], // Erevan
+        // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
+        center: initPoint,
         zoom: 10.5
       }, {
         searchControlProvider: 'yandex#search',
@@ -37,8 +32,6 @@ export default function Map() {
       map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
       map.controls.remove('rulerControl') // удаляем контрол правил
       map.behaviors.disable(['scrollZoom'])
-      map.events.add('click', function (e) {
-    map.balloon.open(e.get('coords'), 'Щелк!');}); // открывает балун в месте клика, потенциально с координатами клика
       setMyMap(map)
     })
   }, [])
@@ -48,18 +41,16 @@ export default function Map() {
       const MyIconContentLayout = ymaps.templateLayoutFactory.createClass( // Создаём макет содержимого.
         '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>',
       );
-      tasksOnMap.forEach((el) => {
-        const myGeocoder = ymaps.geocode(el.geo);
+      if (!Array.isArray(task)) {
+        const myGeocoder = ymaps.geocode(task.geo);
         myGeocoder.then(
           (res) => {
             const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
             const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
-              hintContent: el.title,
-              balloonContent: el.date,
-              iconContent: '',
+              hintContent: 'Задание : ' + task.title,
+              balloonContent: 'Адрес : ' + task.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-              // iconImageHref: el.img, // Своё изображение иконки метки.
               iconImageSize: [40, 40], // Размеры метки.
               iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
               iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -70,45 +61,29 @@ export default function Map() {
 
           },
         );
-      });
-    });
-  }, [myMap, tasksOnMap]);
-
-  useEffect(() => {
-    if (displayedGeoobjects.length) {
-      setTimeout(() => {
-        const newPlaceMark = new ymaps.Placemark(displayedGeoobjects) // Placemark добавляет одну, а нужно добавлять массив. Притом нужно ещё по клику не только добавлять, но и подумать, как с карты убирать метки
-        myMap?.geoObjects
-          .add(newPlaceMark);
-          {/* глянуть в яндексе добавить в я.карту массив меток */}
-
-          tasksOnMap.forEach((el) => {
-            const myGeocoder = ymaps.geocode(el.geo);
-            myGeocoder.then(
-              (res) => {
-                const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-                const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
-                  hintContent: el.title,
-                  balloonContent: el.date,
-                  iconContent: '',
-                }, {
-                  iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-                  // iconImageHref: el.img, // Своё изображение иконки метки.
-                  iconImageSize: [40, 40], // Размеры метки.
-                  iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
-                  iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
-                  iconContentLayout: MyIconContentLayout, // Макет содержимого.
-                });
-                myMap?.geoObjects
-                  .add(myPlacemarkWithContent);
-    
-              },
-            );
-          });
-          
-      }, 0)
-    }
-  }, [displayedGeoobjects])
+      } else {
+        allPosts?.forEach((el) => {
+          const myGeocoder = ymaps.geocode(el.geo?.split(', ').map((el: string) => Number(el)));
+          myGeocoder.then(
+            (res) => {
+              const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+              const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
+                hintContent: 'Задание : ' + el.title,
+                balloonContent: 'Адрес : ' + el.geo,
+              }, {
+                iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+                iconImageSize: [40, 40], // Размеры метки.
+                iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
+                iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
+                iconContentLayout: MyIconContentLayout, // Макет содержимого.
+              });
+              myMap?.geoObjects
+                .add(myPlacemarkWithContent);
+            })
+        })
+      }
+    })
+  }, [myMap, task, allPosts]);
 
   return (
     <>
@@ -120,11 +95,16 @@ export default function Map() {
           }}
           noValidate
           autoComplete="off"
-        > {/* массив в неём объект и в нём один ключ с гео */}
+        >
         </Box>
         <div className="yandex"
           style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft: '20px' }}>
-          <Button onClick={() => dispatch(setDisplayedGeoobjects(allTasks.map((task: any) => ({ geo: task.geo, title: task.title }))))} style={{ marginRight: '50px' }}><PlaceIcon />Найти на карте</Button>
+          {/* <Button onClick={() => 
+          dispatch(setDisplayedGeoObjects(allTasks.map((task: any) => 
+          ({ geo: task.geo, title: task.title }))))} style={{ marginRight: '50px' }}>
+          <PlaceIcon />
+          Найти на карте
+          </Button> */}
           <div
             className="img-fluid"
             style={{ width: '700px', height: '400px', borderRadius: '20px', overflow: 'hidden' }}

@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import setPostsReducer from './slices/postsSlice';
+import setWorkerReducer from './slices/workerSlice'
+import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
 import setUserReducer from './slices/userSlice'
 import setCategoriesReducer from './slices/categoriesSlice';
 import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
@@ -14,6 +16,7 @@ import setOnePostReducer from './slices/onePostSlice'
 import editOnePostSaga from './sagas/startWork'
 import newTaskObjectSaga from './sagas/newTaskObject';
 import workerSaga from './sagas/worker';
+import userTasksReducer from './slices/currentUser'
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -23,9 +26,9 @@ export default configureStore({
     user: setUserReducer,
     categories: setCategoriesReducer,
     newTaskObj: setNewTaskObjectReducer,
-    displayedGeoobjects: displayedGeoobjectsReducer,
     onePost: setOnePostReducer,
     worker: setWorkerReducer,
+    userTasks: userTasksReducer,
     newComment: addNewCommentReducer,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
