@@ -1,4 +1,4 @@
-import React, { Profiler } from 'react';
+import React, {useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FindTask from './components/FindTask/FindTask';
 import Navbar from './components/Navbar';
@@ -8,16 +8,21 @@ import Home from './components/Home/Home';
 import CreateTaskPage from './components/CreateTaskPage/CreateTaskPage';
 import Map from './components/Map';
 import { Container } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Profile from '../src/components/Profile/Profile'
 import OneTaskPage from './components/OneTaskPage';
 import ProfileApplications from './components/Profile/ProfileApplications';
 import ProfileInProgress from './components/Profile/ProfileInProgress';
 import NewGeoCreatePage from './components/NewGeoCreatePage';
 import WorkerProfile from './components/WorkerProfile';
+import {checkAuth} from './redux/slices/userSlice'
 
 function App() {
+  const dispatch = useDispatch()
   const user = useSelector((store: any) => store.user)
+  useEffect(() => {
+    dispatch(checkAuth())
+  },[])
   return (
     <Container>
       <Navbar />

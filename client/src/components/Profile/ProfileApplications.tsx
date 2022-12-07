@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './../OneTask'
 import {ITask} from '../../types/task'
 import {findUserPosts} from '../../redux/slices/currentUser'
-import {updateUserPosts} from '../../redux/slices/currentUser'
+import {updateUserPosts, doneUserPosts} from '../../redux/slices/currentUser'
 import { fetchWorker } from '../../redux/slices/workerSlice'
 import { Button } from '@mui/material'
 
@@ -23,34 +23,22 @@ interface Istore {
 const submitHandler = (id:any) => {
   dispatch(updateUserPosts(id))
 }
-
-const detailsHandler = (id: number | null) => {
-    dispatch(fetchWorker(id));
-  }
-
-
+const doneHandler = (id:any) => {
+  dispatch(doneUserPosts(id))
+}
   return (
-    userTask && (
     <div>
-      На рассмотрении
+      <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
       {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
       ))}
     </div>
-    Ждет исполнителя 
+    <h1>Выполняемые</h1>
     <div>
-          {/* {userTask.map((el) => (el?.status === 'Ждет исполнителя' ? (el?.worker ? (<div key={el.id}>
-          <em>Эту задачу предлагает выполнить пользователь {el?.worker}</em>
-          <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button> <OneTask  el={el} />
-          </div>) : <OneTask key={el.id} el={el} />) : null
-          )} */}
-          {userTask.map((el) => {
-            if (el.status === )
-          })}
-
-        </div>
+      {userTask.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
+      ))}
     </div>
-    )
+    </div>
   )
 }
 

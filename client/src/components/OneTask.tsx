@@ -20,7 +20,9 @@ interface Istore {
   }
 
 interface TaskProps {
+  store: {}
   el: ITask
+  worker: IUser
 }
 
 export default function OneTask({ el }:TaskProps) {

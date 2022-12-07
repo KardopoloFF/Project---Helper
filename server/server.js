@@ -119,14 +119,20 @@ app.get('/profile/tasks', async (req, res) => {
 });
 
 app.patch('/profile/tasks', async (req, res) => {
-  console.log('ONO V GGGG', req.body);
   const id = req.body.input;
-  console.log(id, 'IDDDDDDDD');
   await Task.update({
     status: 'В работе',
   }, { where: { id } });
   const result = await Task.findAll({ where: { author: req.session.user.id } });
-  console.log('RESUUUUUULT', result);
+  res.json(result);
+});
+
+app.patch('/profile/tasksdone', async (req, res) => {
+  const id = req.body.input;
+  await Task.update({
+    status: 'Выполнено',
+  }, { where: { id } });
+  const result = await Task.findAll({ where: { author: req.session.user.id } });
   res.json(result);
 });
 

@@ -8,12 +8,13 @@ export const userTasksSlice = createSlice({
   initialState: [],
   reducers: {
     findPosts: (state, action) => action.payload,
-    updatePosts: (state, action) => action.payload
+    updatePosts: (state, action) => action.payload,
+    donePosts: (state, action) => action.payload
   }
 });
 
 // Action creators are generated for each case reducer function
-export const { findPosts , updatePosts } = userTasksSlice.actions;
+export const { findPosts , updatePosts, donePosts } = userTasksSlice.actions;
 export default userTasksSlice.reducer;
 
 export const findUserPosts = () => (dispatch: any) => {
@@ -24,5 +25,10 @@ export const findUserPosts = () => (dispatch: any) => {
 export const updateUserPosts = (input:any) => (dispatch: any) => {
   axios.patch('http://localhost:3001/profile/tasks', {input})
     .then((res) => dispatch(updatePosts(res.data)))
+    .catch(console.error);
+};
+export const doneUserPosts = (input:any) => (dispatch: any) => {
+  axios.patch('http://localhost:3001/profile/tasksdone', {input})
+    .then((res) => dispatch(donePosts(res.data)))
     .catch(console.error);
 };
