@@ -14,26 +14,29 @@ import OneComment from './OneComment';
 import { Rating, TextField } from '@mui/material';
 import { fetchNewComment, setNewComment } from '../redux/slices/newCommentSlice';
 import { IComment } from '../types/comment';
+import { fetchAllComments } from '../redux/slices/allCommentsSlice';
 
 interface Istore {
   store: {};
   worker: IUser;
   user: IUser;
+  allComments: Array<IComment>;
   newComment: IComment;
   }
 
 export default function WorkerProfile() {
-  const worker = useSelector((store: Istore) => store.worker);
+  const worker = useSelector((store: Istore) => store?.worker);
   const user = useSelector((store: Istore) => store.user);
-  const newComment = useSelector((store: Istore)=> store.newComment)
+  const allComments = useSelector((store: Istore)=> store.allComments)
+  const newComment = useSelector((store: Istore)=> store.newComment);
+
   const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length) //в useEffect
   const dispatch = useDispatch();
-  const addComment =(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
-  }
-
-    React.useEffect(() => {
-     dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }))
+  React.useEffect(() => {
+    
+    dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }));
+    dispatch(fetchAllComments(worker?.id));
     
   },[])
   
@@ -72,20 +75,19 @@ export default function WorkerProfile() {
          <TextField
           id="standard-multiline-static"
           label="Multiline"
-          value={newComment}
-          onChange={(e) => setNewComment({text: e.target.value})}
+          value={newComment.text}
+          onChange={(e) => dispatch(setNewComment({text: e.target.value}))}
           name='text'
           multiline
           rows={4}
-          defaultValue="Default Value"
           variant="standard"
         />
-        <Typography component="legend">Controlled</Typography>
+        <Typography component="legend">Оценка</Typography>
         <Rating
-          name="simple-controlled"
+          name="rating"
           value={newComment.rating}
-          onChange={(newValue) => {
-            setNewComment({rating: newValue});
+          onChange={(e, newValue) => {
+            dispatch(setNewComment({rating: newValue}));
           }}
         />
         <Button onClick={(e)=>dispatch(fetchNewComment(newComment))} variant="contained">Оставить комментарий</Button>
@@ -103,7 +105,7 @@ export default function WorkerProfile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div>
-        {worker.Comments?.map((el) => <OneComment key={el.id} comm={el}/>)} 
+        {allComments?.map((el) => <OneComment key={el.id} comm={el}/>)} 
         </div>
         </Typography>
 

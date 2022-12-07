@@ -45,17 +45,17 @@ function whereParser(reqbody) {
       [Op.in]: [],
     },
   };
-  if (reqbody.frst) {
+  if (reqbody?.frst) {
     obj.categoryId[Op.in].push(1);
-  } if (reqbody.scnd) {
+  } if (reqbody?.scnd) {
     obj.categoryId[Op.in].push(2);
-  } if (reqbody.thrd) {
+  } if (reqbody?.thrd) {
     obj.categoryId[Op.in].push(3);
   }
-  if (reqbody.four) {
+  if (reqbody?.four) {
     obj.categoryId[Op.in].push(4);
   }
-  if (reqbody.five) {
+  if (reqbody?.five) {
     obj.categoryId[Op.in].push(5);
   }
 
@@ -119,12 +119,16 @@ app.get('/profile/tasks', async (req, res) => {
   res.json(myTasks);
 });
 
-app.post('task/worker/newcomment', async (req, res) => {
-  const { text } = req.body;
-  await Comment.create({
-    text,
-  });
+app.post('/task/worker/newcomment', async (req, res) => {
+  await Comment.create(req.body);
+  res.sendStatus(200);
 });
-res.sendStatus(200);
+app.get('/task/worker/allcomments/:id', async (req, res) => {
+  const { id } = req.params;
+  const allComments = await Comment.findAll({
+    where: { addresat: id },
+  });
+  res.json(allComments);
+});
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

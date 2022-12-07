@@ -4,7 +4,7 @@ import {
 import axios, { AxiosResponse } from 'axios';
 import { IComment } from '../../types/comment';
   
-  const axiosCall:any = (input: IComment) => axios.post('http://localhost:3001/task/worker/newcomment', input );
+  const axiosNCCall:any = (input: IComment) => axios.post('http://localhost:3001/task/worker/newcomment', input );
   // axiosCall:Promise<AxiosResponse<any>> для будущей настройки,не трогать
   interface Iaction {
     action : Object
@@ -15,7 +15,7 @@ import { IComment } from '../../types/comment';
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
   function* fetchNewCommentWorker(action: Iaction):Generator<Object> {
     try {
-      const res: any = yield call(axiosCall, action.payload);
+      const res: any = yield call(axiosNCCall, action.payload);
     } catch (e:any) {
       yield put({ type: 'USER_FETCH_FAILED', message: e.message });
     }

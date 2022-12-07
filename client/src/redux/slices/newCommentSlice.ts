@@ -6,15 +6,14 @@ export const newCommentSlice = createSlice({
   name: 'newComment',
   initialState: {},
   reducers: {
-    setNewComment: (state, action) => action.payload,
-    addNewComment: (state, action) => action.payload,
+    setNewComment: (state, action) => ({...state, ...action.payload}),
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setNewComment, addNewComment } = newCommentSlice.actions;
+export const { setNewComment } = newCommentSlice.actions;
 
-const fetchNewComment = (input:IComment) => ({ type: 'ADD_NEW_COMMENT',payload: input});
+const fetchNewComment = (input:IComment) => ({ type: 'FETCH_NEW_COMMENT',payload: input});
 
 export default newCommentSlice.reducer;
 
