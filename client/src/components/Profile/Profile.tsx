@@ -11,7 +11,6 @@ import OneComment from '../OneComment';
 import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllComments } from '../../redux/slices/allCommentsSlice';
-import {checkAuth} from '../../redux/slices/userSlice'
 
 interface Istore {
   store: {}
@@ -26,14 +25,12 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store:Istore) => store.user)
   const allComments = useSelector((store: Istore)=> store.allComments)
-  const ratingRes = (user?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(user?.Comments?.length) //в useEffect
+  const ratingRes = (user?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(user?.Comments?.length)
 
 
   useEffect(() => {
-    dispatch(checkAuth()),
     dispatch(fetchAllComments(user?.id))
   },[])
-  console.log(user)
   return (
     <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
