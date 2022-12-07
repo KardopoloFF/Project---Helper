@@ -24,7 +24,7 @@ export default function OneTaskPage() {
       <b>{task.title}</b>
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-      {task.date.toString()}
+      {task.date?.toString()}
       </Typography>
       <Typography variant="body2">
       {task.text}

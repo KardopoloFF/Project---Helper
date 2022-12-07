@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './../OneTask'
 import {ITask} from '../../types/task'
 import {findUserPosts} from '../../redux/slices/currentUser'
-import {updateUserPosts} from '../../redux/slices/currentUser'
+import {updateUserPosts, doneUserPosts} from '../../redux/slices/currentUser'
 
 interface Istore {
   store: {}
@@ -19,10 +19,19 @@ interface Istore {
 const submitHandler = (id:any) => {
   dispatch(updateUserPosts(id))
 }
+const doneHandler = (id:any) => {
+  dispatch(doneUserPosts(id))
+}
   return (
     <div>
+      <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
       {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
+      ))}
+    </div>
+    <h1>Выполняемые</h1>
+    <div>
+      {userTask.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
       ))}
     </div>
     </div>
