@@ -73,7 +73,7 @@ const card = (
 );
 
   return (
-      <Box sx={{ width: 300, display: 'flex', margin: '5px' }}>
+      <Box sx={{ width: 300, margin: '5px' }}>
         <Card variant="outlined">{card}</Card>
       </Box>
   )

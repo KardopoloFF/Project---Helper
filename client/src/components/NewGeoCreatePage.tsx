@@ -16,21 +16,23 @@ export default function NewGeoCreatePage() {
   const newTaskObj = useSelector((store: Istore) => store.newTaskObj);
   const dispatch = useDispatch();
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <Container style={{ display: 'flex', flexDirection: 'column', width: '300px', borderRadius: '20px', overflow: 'hidden', height: '180px', marginTop: '40px', backgroundColor: 'white', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+      <Container style={{
+        display: 'flex', flexDirection: 'column', width: '300px', height: '180px',
+        borderRadius: '20px', overflow: 'hidden', marginTop: '40px', backgroundColor: 'white',
+        border: 'solid 2px black'
+      }}>
+        <div style={{ marginTop: '20px' }}>
           <Typography variant="h6" component="h6">
-            Выбрать локацию
+            Укажите адрес
           </Typography>
           <TextField name='text' id="filled-basic" value={newTaskObj.geo ?? ''} onChange={(newValue) => {
             dispatch(setNewTaskObject({ geo: newValue }))
-          }} label="Укажите адрес" variant="standard" />
+          }} label="" variant="standard" />
           <Button style={{ width: '200px', marginTop: '20px' }} onClick={() => dispatch(fetchNewTaskObject(newTaskObj))} variant="contained">Создать задание</Button>
-        </Container>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Map />
         </div>
-      </div>
-    </>
+      </Container>
+      <Map />
+    </div>
   )
 }

@@ -1,34 +1,30 @@
-import * as React from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { ITask } from '../types/task';
-import { ICategories } from '../types/categories';
-import axios from 'axios';
+import { ITask } from '../../types/task';
+import { ICategories } from '../../types/categories';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { IUser } from '../types/users';
-import { fetchCategories } from '../redux/slices/categoriesSlice';
-import { fetchNewTaskObject, setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
-
-
+import { IUser } from '../../types/users';
+import { fetchCategories } from '../../redux/slices/categoriesSlice';
+import { setNewTaskObject } from '../../redux/slices/setNewTaskObjectSlice';
 
 interface Istore {
-store: {};
-categories: Array<ICategories>;
-newTaskObj: ITask ;
-user: IUser // не уверен
+  store: {};
+  categories: Array<ICategories>;
+  newTaskObj: ITask;
+  user: IUser // не уверен
 }
-export default function CreateTaskPage(){
-  const categories = useSelector((store:Istore)=>store.categories)
-  const newTaskObj = useSelector((store:Istore)=> store.newTaskObj)
+export default function CreateTaskPage() {
+  const categories = useSelector((store: Istore) => store.categories)
+  const newTaskObj = useSelector((store: Istore) => store.newTaskObj)
   const dispatch = useDispatch();
-  const user = useSelector((store:Istore) => store.user)
+  const user = useSelector((store: Istore) => store.user)
   const [category, setCategory] = React.useState<string>('');
   const navigate = useNavigate();
   // const [input, setInput] = React.useState<ITask>({ 
@@ -42,20 +38,23 @@ export default function CreateTaskPage(){
   // })
 
   React.useEffect(() => {
-    dispatch(setNewTaskObject({author: user.id}))
+    dispatch(setNewTaskObject({ author: user.id }))
     dispatch(fetchCategories())
-  },[])
+  }, [])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
     (dispatch(setNewTaskObject({ [event.target.name]: event.target.value })));
   };
 
   return (
-    <Container style={{ borderRadius: '20px', overflow: 'hidden', marginTop: '20px', display: 'flex', justifyContent: 'start', flexDirection: 'column', width: '400px', height: '460px', backgroundColor: 'white' }}>
+    <Container style={{
+      borderRadius: '20px', overflow: 'hidden', marginTop: '25px', display: 'flex', border: 'solid 2px black',
+      justifyContent: 'start', flexDirection: 'column', backgroundColor: 'white', width: '400px', height: '460px'
+    }}>
       <Typography variant="h5" component="div" style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
-        Создайте задание
+        Создать задание
       </Typography>
-      <TextField id="outlined-multiline-flexible" value={newTaskObj.title} onChange={handleChange} label="1. Название задания" variant="standard" name='title' />
+      <TextField id="outlined-multiline-flexible" value={newTaskObj.title} onChange={handleChange} label="1. Название" variant="standard" name='title' />
       <br />
       <TextField name='text' id="filled-basic" value={newTaskObj.text} onChange={handleChange} label="2. Описание" variant="standard" />
       <br />
@@ -64,7 +63,8 @@ export default function CreateTaskPage(){
       <LocalizationProvider variant="standard" dateAdapter={AdapterDayjs}>
         <br />
         <DatePicker
-          label="Дата начала выполнения"
+          label="Когда приступить к выполнению"
+          inputFormat="DD-MM-YYYY"
           value={newTaskObj.date ?? new Date()}
           onChange={(newValue) => {
             dispatch(setNewTaskObject({ date: newValue }))
