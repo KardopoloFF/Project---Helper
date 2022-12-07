@@ -28,3 +28,12 @@ const submitHandler = (id:any) => {
     </div>
   )
 }
+
+
+//  <div>
+//           {tasks.map((el) => el.status === 'Ждет исполнителя' ? ((el.worker ? <div>
+//           <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
+//           <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button> <OneTask key={el.id} el={el} />
+//           </div> : <OneTask key={el.id} el={el} />)) : null)}
+//         </div>
+// добавить эту проверку НЕ УДАЛЯТЬ
