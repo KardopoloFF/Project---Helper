@@ -12,12 +12,13 @@ interface Istore {
 export default function Map() {
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.onePost)
-
+  const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
+  const allPosts = useSelector((store: Istore) => store.posts)
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
         // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
-        center: task.geo?.split(', ').map((el: string) => Number(el)),
+        center: initPoint,
         zoom: 10.5
       }, {
         searchControlProvider: 'yandex#search',
@@ -60,9 +61,29 @@ export default function Map() {
 
           },
         );
+      } else {
+        allPosts?.forEach((el) => {
+          const myGeocoder = ymaps.geocode(el.geo?.split(', ').map((el: string) => Number(el)));
+          myGeocoder.then(
+            (res) => {
+              const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+              const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
+                hintContent: 'Задание : ' + el.title,
+                balloonContent: 'Адрес : ' + el.geo,
+              }, {
+                iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+                iconImageSize: [40, 40], // Размеры метки.
+                iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
+                iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
+                iconContentLayout: MyIconContentLayout, // Макет содержимого.
+              });
+              myMap?.geoObjects
+                .add(myPlacemarkWithContent);
+            })
+        })
       }
-    });
-  }, [myMap, task]);
+    })
+  }, [myMap, task, allPosts]);
 
   return (
     <>
