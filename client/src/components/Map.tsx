@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
 
 interface Istore {
   store: {}
@@ -85,12 +86,17 @@ export default function Map() {
                 .add(myPlacemarkWithContent);
             })
         })
+
+        const addHandler = () => {
+          dispatch(setNewTaskObject(task?.geo))
+        }
+
         myMap.events.add('click', function (e) {
           if (!myMap.balloon.isOpen()) {
             let coords = e.get('coords');
             myMap.balloon.open(coords, {
               contentHeader: 'Адрес: ' + (task?.geo),
-              contentBody: '<p><button>  Добавить адрес  </button></p>' +
+              contentBody: `<p><button onClick={() => ${addHandler()}}>Добавить адрес</button></p>` +
                 '<p>Координаты: ' + [
                   coords[0].toPrecision(6),
                   coords[1].toPrecision(6)
