@@ -72,7 +72,7 @@ app.post('/posts', async (req, res) => {
 app.patch('/posts', async (req, res) => {
   const { id } = req.body.input;
   await Task.update({
-    status: 'На рассмотрении', worker: 1,
+    status: 'На рассмотрении', worker: req.session.user.id,
   }, { where: { id } });
   const result = await Task.findOne({ where: { id } });
   res.json(result);
@@ -115,8 +115,19 @@ app.post('/newtask', async (req, res) => {
 app.get('/profile/tasks', async (req, res) => {
   const { id } = req.session.user;
   const myTasks = await Task.findAll({ where: { author: id } });
-  console.log(myTasks);
   res.json(myTasks);
+});
+
+app.patch('/profile/tasks', async (req, res) => {
+  console.log('ONO V GGGG', req.body);
+  const id = req.body.input;
+  console.log(id, 'IDDDDDDDD');
+  await Task.update({
+    status: 'В работе',
+  }, { where: { id } });
+  const result = await Task.findAll({ where: { author: req.session.user.id } });
+  console.log('RESUUUUUULT', result);
+  res.json(result);
 });
 
 app.post('/task/worker/newcomment', async (req, res) => {

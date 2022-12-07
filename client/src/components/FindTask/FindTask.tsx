@@ -28,10 +28,10 @@ export default function FindTask() {
 
   const [state, setState] = useState({
     frst: true,
-    scnd: false,
-    thrd: false,
-    four: false,
-    five: false,
+    scnd: true,
+    thrd: true,
+    four: true,
+    five: true,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
