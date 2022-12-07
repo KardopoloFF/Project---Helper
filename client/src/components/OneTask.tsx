@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, ReactElement, ReactNode } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, ReactNode, useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -7,22 +7,23 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ITask} from '../types/task'
 import { useLocation, useNavigate } from 'react-router-dom';
-import {  useDispatch } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 import {setOnePost} from '../redux/slices/onePostSlice'
 import Map from './Map';
 import { fetchWorker, setWorker } from '../redux/slices/workerSlice';
+import { IUser } from '../types/users';
 
 interface TaskProps {
+  store: {}
   el: ITask
+  worker: IUser
 }
 
 export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // const { yes } = location.state;
-  // console.log(location.state, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOO');
-  
+  const currentWorker = useSelector((store : TaskProps) => store.worker);
   
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
@@ -30,8 +31,14 @@ export default function OneTask({ el }:TaskProps) {
   }
   const detailsHandler = (id: number | null) => {
     dispatch(fetchWorker(id));
-    navigate('/task/worker')
   }
+
+  useEffect(() => {
+    if(currentWorker.id) {
+      navigate('/task/worker')
+    }
+  }, [currentWorker])
+
 const card = (
   <React.Fragment>
     <CardContent>
@@ -48,16 +55,6 @@ const card = (
         <Typography>
           <br />
         <em>{el.status}</em>
-      </Typography>
-      <Typography>
-          <br />
-          {el.worker && (
-            <>
-        <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
-         <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button>
-         </>
-          )
-          }
       </Typography>
     </CardContent>
     <CardActions>

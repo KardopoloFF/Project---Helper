@@ -6,7 +6,7 @@ import { ICategories } from '../../types/categories';
 import { fetchPosts } from '../../redux/slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { FormGroup, FormLabel, Typography } from '@mui/material'
+import { Button, FormGroup, FormLabel, Typography } from '@mui/material'
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import Map from '../Map';
 import './FindTask.css'
@@ -28,10 +28,10 @@ export default function FindTask() {
 
   const [state, setState] = useState({
     frst: true,
-    scnd: false,
-    thrd: false,
-    four: false,
-    five: false,
+    scnd: true,
+    thrd: true,
+    four: true,
+    five: true,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,9 +97,6 @@ export default function FindTask() {
       <div className="smallCard">
         <div>
           {tasks.map((el) => el.status === 'Ждет исполнителя' ? <OneTask key={el.id} el={el} /> : null)}
-        </div>
-        <div>
-          {tasks.map((el) => <OneTask key={el.id} el={el} />)}
         </div>
       </div>
     </>
