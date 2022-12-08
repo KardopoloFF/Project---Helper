@@ -38,7 +38,7 @@ export default function Profile() {
         component="img"
         width='200'
         height="450"
-        image="/unknown2.jpg"
+        image={user?.img} // ?????
         alt="Profile Photo"
         />
       <CardContent>
