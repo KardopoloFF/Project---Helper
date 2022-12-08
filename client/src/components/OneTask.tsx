@@ -19,13 +19,13 @@ interface TaskProps {
   worker: IUser
 }
 
-export default function OneTask({ el }:TaskProps) {
+export default function OneTask({ el }: TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const currentWorker = useSelector((store : TaskProps) => store.worker);
-  
-  const clickHandler = (el:ITask) => {
+
+  const clickHandler = (el: ITask) => {
     dispatch(setOnePost(el))
     navigate('/task/info')
   }
@@ -70,8 +70,8 @@ const card = (
 );
 
   return (
-      <Box sx={{ width: 300, margin: '5px' }}>
-        <Card variant="outlined">{card}</Card>
-      </Box>
+    <Box sx={{ width: '300px', margin: '5px' }}>
+      <Card variant="outlined" style={{ height: '400px' }}>{card}</Card>
+    </Box>
   )
 }

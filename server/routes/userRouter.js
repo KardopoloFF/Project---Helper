@@ -5,11 +5,9 @@ const { User } = require('../db/models');
 const router = express.Router();
 
 router.post('/reg', async (req, res) => {
-  // console.log(req.body);
   const {
     name, mail, password, phone,
   } = req.body;
-  // console.log(name, mail, password, phone);
 
   if (!name || !mail || !password || !phone) return res.sendStatus(400);
 
