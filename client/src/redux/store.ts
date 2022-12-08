@@ -6,6 +6,7 @@ import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice';
 import setUserReducer from './slices/userSlice';
 import setRatingRes from './slices/ratingResSlice';
 import setCategoriesReducer from './slices/categoriesSlice';
+import setAllCommentsReducer from './slices/allCommentsSlice'
 import setNewCommentReducer from './slices/newCommentSlice'
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
@@ -15,7 +16,6 @@ import editOnePostSaga from './sagas/startWork'
 import newTaskObjectSaga from './sagas/newTaskObject';
 import workerSaga from './sagas/worker';
 import userTasksReducer from './slices/currentUser'
-import setAllCommentsReducer from './slices/allCommentsSlice';
 import allCommentsSaga from './sagas/allComments'
 
 

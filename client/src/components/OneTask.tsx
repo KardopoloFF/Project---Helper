@@ -47,6 +47,10 @@ const card = (
       {el.text}
         <br />
         </Typography>
+        <Typography variant="body2">
+        <br />
+      Вознаграждение: {el.price}
+        </Typography>
         <Typography>
           <br />
         <em>{el.status}</em>

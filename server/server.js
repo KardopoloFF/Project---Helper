@@ -147,4 +147,16 @@ app.get('/task/worker/allcomments/:id', async (req, res) => {
   }
 });
 
+app.get('/comment/name/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const curAuthor = await User.findOne({
+      where: { id },
+    });
+    res.json(curAuthor);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

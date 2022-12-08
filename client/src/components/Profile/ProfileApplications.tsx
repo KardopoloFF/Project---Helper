@@ -37,8 +37,9 @@ const doneHandler = (id:any) => {
       <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
       {userTask?.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
-        <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
-        <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее о пользователе</Button>
+        <em>Кто-то хочет выполнить эту задачу</em>
+        <br />
+        <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее об этом пользователе</Button>
         <OneTask el={el} />
         <button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
       ))}
@@ -51,12 +52,3 @@ const doneHandler = (id:any) => {
     </div>
   )
 }
-
-
-//  <div>
-//           {tasks.map((el) => el.status === 'Ждет исполнителя' ? ((el.worker ? <div>
-//           <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
-//           <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button> <OneTask key={el.id} el={el} />
-//           </div> : <OneTask key={el.id} el={el} />)) : null)}
-//         </div>
-// добавить эту проверку НЕ УДАЛЯТЬ

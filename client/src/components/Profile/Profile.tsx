@@ -19,6 +19,7 @@ interface Istore {
   user: IUser
   worker: IUser
   allComments: Array<IComment>;
+  ratingRes: number | null;
   }
 
 export default function Profile() {
@@ -26,13 +27,19 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store:Istore) => store.user)
   const allComments = useSelector((store: Istore)=> store.allComments)
-  const ratingRes = (allComments?.reduce((a,b)=>(a+b.rating), 0))/(allComments.length)
+  const ratingRes = useSelector((store: Istore)=> store.ratingRes)
 
 
   useEffect(() => {
-    dispatch(fetchAllComments(user.id))
-    dispatch(setRatingRes(allComments));
+    dispatch(fetchAllComments(user?.id))
   },[])
+
+  React.useEffect(() => {
+    if(allComments.length) {
+      dispatch(setRatingRes(allComments));
+    }
+  },[allComments])
+
   return (
     <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
@@ -45,7 +52,7 @@ export default function Profile() {
         />
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          Имя: {user?.name}
+          {user?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Телефон: {user?.phone}
