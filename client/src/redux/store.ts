@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import setPostsReducer from './slices/postsSlice';
 import setWorkerReducer from './slices/workerSlice'
-import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice';
+import setNewTaskObjectReducer from './slices/setNewTaskObjectSlice';
 import setUserReducer from './slices/userSlice';
 import setRatingRes from './slices/ratingResSlice';
 import setCategoriesReducer from './slices/categoriesSlice';
@@ -17,7 +17,6 @@ import newTaskObjectSaga from './sagas/newTaskObject';
 import workerSaga from './sagas/worker';
 import userTasksReducer from './slices/currentUser'
 import allCommentsSaga from './sagas/allComments';
-
 
 const sagaMiddleware = createSagaMiddleware();
 export default configureStore({

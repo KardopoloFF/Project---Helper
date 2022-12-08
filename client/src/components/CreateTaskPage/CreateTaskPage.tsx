@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { IUser } from '../../types/users';
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
-import { setNewTaskObject } from '../../redux/slices/setNewTaskObjectSlice';
+import { fetchNewTaskObject, setNewTaskObject } from '../../redux/slices/setNewTaskObjectSlice';
 import { setOnePost } from '../../redux/slices/onePostSlice';
 
 interface Istore {
@@ -82,14 +82,23 @@ export default function CreateTaskPage() {
         </Select>
       </FormControl>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button style={{ marginTop: '15px', width: '100px' }}
+        {/* <Button style={{ marginTop: '15px', width: '100px' }}
           onClick={() => {
             dispatch(setOnePost(newTaskObj))
             setTimeout(() => {
               navigate('/task/newgeo')
             }, 100)
-          }} variant="contained">Далее</Button>
+          }} variant="contained">Далее</Button> */}
+        {/* Кнопка на создать задание */}
+        <Button style={{ width: '180px', marginTop: '20px' }}
+          onClick={() => {
+            dispatch(fetchNewTaskObject(newTaskObj))
+            dispatch(setOnePost([])); // Chtobi na karte ne bilo 1 metki, a bil massiv
+            setTimeout(() => navigate('/task/find'), 50);
+          }}
+          variant="contained">
+          Создать задание</Button>
       </div>
-    </Container>
+    </Container >
   );
 }

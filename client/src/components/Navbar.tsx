@@ -12,9 +12,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserThunk } from '../redux/slices/userSlice';
+import { setOnePost } from '../redux/slices/onePostSlice';
+import { IUser } from '../types/users';
+import { ITask } from '../types/task';
+import { ICategories } from '../types/categories';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -54,7 +58,7 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const [ yes, setYes ] = useState(true)
+    const [yes, setYes] = useState(true)
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -74,9 +78,9 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
 
-          <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
-          <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
-          <Link to="/user/profile/applications" state={{ yes }}><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
+            <Link to="/user/profile/inprogress"><MenuItem onClick={handleMenuClose}>Заявки в работе</MenuItem></Link>
+            <Link to="/user/profile"><MenuItem onClick={handleMenuClose}>Мой профиль</MenuItem></Link>
+            <Link to="/user/profile/applications" state={{ yes }}><MenuItem onClick={handleMenuClose}>Мои заявки</MenuItem></Link>
         </Menu>
     );
 
@@ -112,8 +116,17 @@ export default function Navbar() {
         </Menu>
     );
 
+    interface Istore {
+        store: {};
+        categories: Array<ICategories>;
+        newTaskObj: ITask;
+        user: IUser
+    }
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((store: any) => store.user)
+    const newTaskObj = useSelector((store: Istore) => store.newTaskObj)
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -145,7 +158,15 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Button style={{ color: 'white', marginLeft: '10px' }} component={Link} to="/task/new">Создать задание</Button>
+                        <Button style={{ color: 'white', marginLeft: '10px' }}
+                            onClick={() => {
+                                dispatch(setOnePost(newTaskObj))
+                                setTimeout(() => {
+                                    navigate('/task/newgeo')
+                                }, 100)
+                            }}
+                            component={Link} to="/task/newgeo">
+                            Создать задание</Button>
                     </Typography>
                     <Typography
                         variant="h6"
@@ -218,6 +239,6 @@ export default function Navbar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-        </Box>
+        </Box >
     );
 }

@@ -98,10 +98,10 @@ app.get('/worker/:id', async (req, res) => {
 
 app.post('/newtask', async (req, res) => {
   const {
-    title, text, price, date, categoryId, author,
+    title, text, price, date, categoryId, author, geo,
   } = req.body;
   await Task.create({
-    title, text, date, price, geo: 'Moscow', worker: null, author, categoryId, status: 'Ждет исполнителя',
+    title, text, date, price, coords: geo, worker: null, author, categoryId, status: 'Ждет исполнителя',
   });
   res.sendStatus(200);
 });

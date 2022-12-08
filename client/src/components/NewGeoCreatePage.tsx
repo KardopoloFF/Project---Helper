@@ -1,5 +1,4 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
-import { fetchNewTaskObject, setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice'
+import { Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ICategories } from '../types/categories'
@@ -21,22 +20,19 @@ export default function NewGeoCreatePage() {
   // }, [])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-      <Container style={{
-        display: 'flex', flexDirection: 'column', width: '300px', height: '140px',
-        borderRadius: '20px', overflow: 'hidden', marginTop: '40px', backgroundColor: 'white',
-        border: 'solid 2px black'
+    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div style={{
+        width: '290px', height: '65px', backgroundColor: 'white',
+        borderRadius: '20px', marginTop: '190px', border: 'solid 2px black'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginTop: '20px' }}>
-          <Typography variant="h6" component="h6">
+          <Typography style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }} variant="h6" component="h6">
             Укажите адрес на карте
           </Typography>
           {/* <TextField name='text' id="filled-basic" value={newTaskObj.geo ?? ''} onChange={(newValue) => {
             dispatch(setNewTaskObject({ geo: newValue }))
           }} label="" variant="standard" /> */}
-          <Button style={{ width: '200px', marginTop: '20px' }} onClick={() => dispatch(fetchNewTaskObject(newTaskObj))} variant="contained">Создать задание</Button>
-        </div>
-      </Container>
+          {/* <Button style={{ width: '200px', marginTop: '20px' }} onClick={() => dispatch(fetchNewTaskObject(newTaskObj))} variant="contained">Создать задание</Button> */}
+      </div>
       <Map />
     </div>
   )

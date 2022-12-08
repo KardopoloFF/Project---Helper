@@ -1,10 +1,10 @@
 import { Button, CardActions, CardContent, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ITask } from '../types/task'
 import { useNavigate } from 'react-router-dom';
-import Map from './Map'
 import { fetchOnePosts, setOnePost } from '../redux/slices/onePostSlice'
+import MapOnePoint from './MapOnePoint'
 
 export default function OneTaskPage() {
   interface Istore {
@@ -17,6 +17,11 @@ export default function OneTaskPage() {
   const startHandler = (task: ITask) => {
     dispatch(fetchOnePosts(task))
   }
+
+  useEffect(() => {
+    () => dispatch(setOnePost([])); // Chtobi udalit metku s karti
+  }, [])
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
       <div style={{
@@ -44,7 +49,7 @@ export default function OneTaskPage() {
           <Button onClick={() => { navigate(-1); dispatch(setOnePost([])) }} size="small">Go back</Button>
         </CardActions>
       </div>
-      <Map />
+      <MapOnePoint />
     </div >
   )
 }

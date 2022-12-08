@@ -10,13 +10,14 @@ interface Istore {
   store: {}
   posts: Array<ITask>
   onePost: Array<ITask>
+  newTaskObj: Array<ITask>
 }
 
 export default function Map() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [myMap, setMyMap] = useState(null);
-  const task = useSelector((store: Istore) => store.onePost)
+  const task = useSelector((store: Istore) => store.newTaskObj)
   const allPosts = useSelector((store: Istore) => store.posts)
   // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
   // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
@@ -92,32 +93,6 @@ export default function Map() {
       }
     })
   }, [myMap, task, allPosts]);
-
-  // !
-  myMap?.events.add('click', function (e) {
-    if (!myMap.balloon.isOpen()) {
-      let coords = e.get('coords');
-      dispatch(setNewTaskObject({ geo: coords }))
-      myMap.balloon.open(coords, {
-        contentHeader: 'По этому адресу будет выполнен заказ<br />',
-        contentBody:
-          'Координаты : <br />' + [
-            coords[0].toPrecision(6),
-            coords[1].toPrecision(6)
-          ].join(', '),
-        contentFooter: '<br /><button id="addAdress">Добавить адрес</button>',
-      });
-
-      setTimeout(() => {
-        document.getElementById('addAdress')?.addEventListener('click', () => {
-          navigate('/task/new');
-        });
-      }, 0)
-    }
-    else {
-      myMap.balloon.close();
-    }
-  });
 
   return (
     <>
