@@ -6,13 +6,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { ITask } from '../../types/task';
 import { ICategories } from '../../types/categories';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { FormControl, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { IUser } from '../../types/users';
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import { setNewTaskObject } from '../../redux/slices/setNewTaskObjectSlice';
+import { setOnePost } from '../../redux/slices/onePostSlice';
 
 interface Istore {
   store: {};
@@ -27,15 +28,6 @@ export default function CreateTaskPage() {
   const user = useSelector((store: Istore) => store.user)
   const [category, setCategory] = React.useState<string>('');
   const navigate = useNavigate();
-  // const [input, setInput] = React.useState<ITask>({ 
-  //   title:'',
-  //   text:'',
-  //   price: 0,
-  //   date: new Date(),
-  //   categoryId: 1,
-  //   author: 1,
-  //   worker: null,
-  // })
 
   React.useEffect(() => {
     dispatch(setNewTaskObject({ author: user.id }))
@@ -90,7 +82,13 @@ export default function CreateTaskPage() {
         </Select>
       </FormControl>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button style={{ marginTop: '15px', width: '100px' }} onClick={() => navigate('/task/newgeo')} variant="contained">Далее</Button>
+        <Button style={{ marginTop: '15px', width: '100px' }}
+          onClick={() => {
+            dispatch(setOnePost(newTaskObj))
+            setTimeout(() => {
+              navigate('/task/newgeo')
+            }, 100)
+          }} variant="contained">Далее</Button>
       </div>
     </Container>
   );

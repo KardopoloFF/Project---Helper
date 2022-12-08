@@ -15,19 +15,20 @@ import { fetchCategories } from '../redux/slices/categoriesSlice';
 import { fetchNewTaskObject, setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
 import { useNavigate } from 'react-router-dom';
 import { IUser } from '../types/users';
+import { setOnePost } from '../redux/slices/onePostSlice';
 
 
 
 interface Istore {
-store: {};
-categories: Array<ICategories>;
-newTaskObj: ITask ;
-user: IUser 
+  store: {};
+  categories: Array<ICategories>;
+  newTaskObj: ITask;
+  user: IUser
 }
-export default function CreateTaskPage(){
-  const user = useSelector((store:Istore) => store.user)
-  const categories = useSelector((store:Istore)=>store.categories)
-  const newTaskObj = useSelector((store:Istore)=> store.newTaskObj)
+export default function CreateTaskPage() {
+  const user = useSelector((store: Istore) => store.user)
+  const categories = useSelector((store: Istore) => store.categories)
+  const newTaskObj = useSelector((store: Istore) => store.newTaskObj)
   const dispatch = useDispatch();
   const [category, setCategory] = React.useState<string>('');
   const navigate = useNavigate();
@@ -43,45 +44,45 @@ export default function CreateTaskPage(){
 
   React.useEffect(() => {
     dispatch(fetchCategories())
-     dispatch(setNewTaskObject({author: user.id}))
-    
-  },[])
+    dispatch(setNewTaskObject({ author: user.id }))
+
+  }, [])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
-    (dispatch(setNewTaskObject({[event.target.name]: event.target.value })));
+    (dispatch(setNewTaskObject({ [event.target.name]: event.target.value })));
   };
 
   return (
     <Container>
-    <form>
-   {/* onSubmit={submitHandler}> */}
-      <Typography variant="h6" component="h6">
+      <form>
+        {/* onSubmit={submitHandler}> */}
+        <Typography variant="h6" component="h6">
           Заголовок
-      </Typography>
-      <TextField id="outlined-multiline-flexible" value={newTaskObj.title} onChange={handleChange} label="Multiline" variant="standard" name='title' />
-        <Typography variant="h6" component="h6">
-            Подробнее
         </Typography>
-        <TextField name='text' id="filled-basic"  value={newTaskObj.text} onChange={handleChange} label="Filled" variant="standard" />
+        <TextField id="outlined-multiline-flexible" value={newTaskObj.title} onChange={handleChange} label="Multiline" variant="standard" name='title' />
         <Typography variant="h6" component="h6">
-            Цена вопроса
+          Подробнее
         </Typography>
-        <TextField name='price' type='number' id="standard-basic"  value={newTaskObj.price} onChange={handleChange} label="В рублях, пожалуйста"variant="standard" />
+        <TextField name='text' id="filled-basic" value={newTaskObj.text} onChange={handleChange} label="Filled" variant="standard" />
         <Typography variant="h6" component="h6">
-            Дата выполнения
+          Цена вопроса
         </Typography>
-        <LocalizationProvider variant="standard"  dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Дата"
-                value={newTaskObj.date ?? new Date()}
-                onChange={(newValue) => {
-                  dispatch(setNewTaskObject({date: newValue}))
-                }}
-                renderInput={(params) => <TextField name='date' {...params} />}
-              />
-            </LocalizationProvider>
+        <TextField name='price' type='number' id="standard-basic" value={newTaskObj.price} onChange={handleChange} label="В рублях, пожалуйста" variant="standard" />
         <Typography variant="h6" component="h6">
-            Категория задания
+          Дата выполнения
+        </Typography>
+        <LocalizationProvider variant="standard" dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Дата"
+            value={newTaskObj.date ?? new Date()}
+            onChange={(newValue) => {
+              dispatch(setNewTaskObject({ date: newValue }))
+            }}
+            renderInput={(params) => <TextField name='date' {...params} />}
+          />
+        </LocalizationProvider>
+        <Typography variant="h6" component="h6">
+          Категория задания
         </Typography>
         <FormControl sx={{ m: 1, minWidth: 200 }}>
           <InputLabel id="demo-simple-select-label" variant="standard" >Category</InputLabel>
@@ -94,15 +95,17 @@ export default function CreateTaskPage(){
             onChange={handleChange}
           >
             <MenuItem key='default0' value='default0' disabled>Выберите</MenuItem>
-          {categories.map((el)=> (
-          <MenuItem key={el.id}  value={el.id}>{el.name}</MenuItem>
-          )
-          )}
+            {categories.map((el) => (
+              <MenuItem key={el.id} value={el.id}>{el.name}</MenuItem>
+            )
+            )}
           </Select>
         </FormControl>
-        <Button  onClick={() => navigate('/task/newgeo') } variant="contained">Выбрать локацию</Button>
-  
-    </form>
+        <Button onClick={() => {
+          navigate('/task/newgeo')
+        }} variant="contained">Выбрать локацию</Button>
+
+      </form>
     </Container>
   );
 }

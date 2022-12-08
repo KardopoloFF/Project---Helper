@@ -6,8 +6,6 @@ import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice';
 import setUserReducer from './slices/userSlice';
 import setRatingRes from './slices/ratingResSlice';
 import setCategoriesReducer from './slices/categoriesSlice';
-import setAllCommentsReducer from './slices/allCommentsSlice'
-import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import setNewCommentReducer from './slices/newCommentSlice'
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'

@@ -15,6 +15,11 @@ export default function NewGeoCreatePage() {
   }
   const newTaskObj = useSelector((store: Istore) => store.newTaskObj);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(setOneTask())
+  // }, [])
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
       <Container style={{
@@ -22,7 +27,7 @@ export default function NewGeoCreatePage() {
         borderRadius: '20px', overflow: 'hidden', marginTop: '40px', backgroundColor: 'white',
         border: 'solid 2px black'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap',marginTop: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginTop: '20px' }}>
           <Typography variant="h6" component="h6">
             Укажите адрес на карте
           </Typography>
