@@ -22,7 +22,7 @@ router.post('/reg', async (req, res) => {
 
   if (!isCreated) return res.sendStatus(400);
   req.session.user = {
-    id: user.id, name: user.name, mail: user.mail, phone: user.phone,
+    id: user.id, name: user.name, mail: user.mail, phone: user.phone, img: user.img,
   };
   res.json(user);
 });
@@ -41,7 +41,7 @@ router.post('/auth', async (req, res) => {
   if (!isPassValid) return res.sendStatus(400);
 
   req.session.user = {
-    id: user.id, mail: user.mail, name: user.name, phone: user.phone,
+    id: user.id, mail: user.mail, name: user.name, phone: user.phone, img: user.img,
   };
 
   res.json(user);

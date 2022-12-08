@@ -36,27 +36,19 @@ const doneHandler = (id:any) => {
     <div>
       <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
-        <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
-        <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее о пользователе</Button>
+      {userTask?.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
+        <em>Кто-то хочет выполнить эту задачу</em>
+        <br />
+        <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее об этом пользователе</Button>
         <OneTask el={el} />
         <button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
       ))}
     </div>
     <h1>Выполняемые</h1>
     <div>
-      {userTask.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
+      {userTask?.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
       ))}
     </div>
     </div>
   )
 }
-
-
-//  <div>
-//           {tasks.map((el) => el.status === 'Ждет исполнителя' ? ((el.worker ? <div>
-//           <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
-//           <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button> <OneTask key={el.id} el={el} />
-//           </div> : <OneTask key={el.id} el={el} />)) : null)}
-//         </div>
-// добавить эту проверку НЕ УДАЛЯТЬ

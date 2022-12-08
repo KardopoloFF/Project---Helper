@@ -40,21 +40,26 @@ export default function WorkerProfile() {
   // const [newText, setNewText] = React.useState('');
 
   const dispatch = useDispatch();
-  
+        // console.log(allComments, 'allComments');
+
   
   React.useEffect(() => {
-    dispatch(fetchWorker(id));
-    dispatch(fetchAllComments(id));
-    dispatch(setNewComment({author: user.id, addresat: id, rating: 5}));
-    dispatch(setRatingRes(allComments));
-    // console.log(ratingRes);
-    
+      dispatch(fetchWorker(id));
+      dispatch(fetchAllComments(id));
+      dispatch(setNewComment({author: user.id, addresat: id, rating: 5}));
+      // dispatch(setRatingRes(allComments));
+      
   },[])
   
   React.useEffect(() => {
     dispatch(fetchAllComments(id));
-    dispatch(setRatingRes(allComments));
-  },[newComment])
+  },[newComment,ratingRes ])
+
+    React.useEffect(() => {
+    if(allComments.length) {
+      dispatch(setRatingRes(allComments));
+    }
+  },[allComments])
 
 
   return (
@@ -79,7 +84,7 @@ export default function WorkerProfile() {
         </Typography>
         
         <Typography variant="body2" color="text.secondary">
-          Общий рейтинг: <Rating name="read-only" value={ratingRes && ratingRes} readOnly />
+          Общий рейтинг: <Rating name="read-only" value={ratingRes} readOnly />
         </Typography>
       </CardContent>
     </Card>
@@ -117,7 +122,7 @@ export default function WorkerProfile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {worker.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+        {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <OneTask key={el.id} el={el}/> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

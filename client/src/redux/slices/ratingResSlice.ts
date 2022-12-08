@@ -5,7 +5,9 @@ export const ratingResSlice = createSlice({
   name: 'ratingRes',
   initialState: 5,
   reducers: {
-    setRatingRes: (state: number, action) =>  (action.payload?.reduce((a,b)=>(a+b.rating), 0))/(action.payload?.length)
+    setRatingRes: (state: number, action) => {
+      return (action?.payload?.reduce((a,b)=>(a+b?.rating), 0))/(action?.payload?.length)
+    }
   },
 });
 

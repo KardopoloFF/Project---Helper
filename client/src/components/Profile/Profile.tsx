@@ -11,6 +11,7 @@ import OneComment from '../OneComment';
 import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllComments } from '../../redux/slices/allCommentsSlice';
+import { setRatingRes } from '../../redux/slices/ratingResSlice';
 
 interface Istore {
   store: {}
@@ -18,6 +19,7 @@ interface Istore {
   user: IUser
   worker: IUser
   allComments: Array<IComment>;
+  ratingRes: number | null;
   }
 
 export default function Profile() {
@@ -25,12 +27,19 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store:Istore) => store.user)
   const allComments = useSelector((store: Istore)=> store.allComments)
-  const ratingRes = (user?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(user?.Comments?.length)
+  const ratingRes = useSelector((store: Istore)=> store.ratingRes)
 
 
   useEffect(() => {
     dispatch(fetchAllComments(user?.id))
   },[])
+
+  React.useEffect(() => {
+    if(allComments.length) {
+      dispatch(setRatingRes(allComments));
+    }
+  },[allComments])
+
   return (
     <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
@@ -38,12 +47,12 @@ export default function Profile() {
         component="img"
         width='200'
         height="450"
-        image={user?.img} // ?????
+        image={user?.img} 
         alt="Profile Photo"
         />
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          Имя: {user?.name}
+          {user?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Телефон: {user?.phone}
@@ -64,7 +73,7 @@ export default function Profile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {user.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <OneTask key={el.id} el={el}/> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

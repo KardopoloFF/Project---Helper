@@ -48,6 +48,10 @@ export default function OneTask({ el }: TaskProps) {
           {el.text}
           <br />
         </Typography>
+        <Typography variant="body2">
+        <br />
+      Вознаграждение: {el.price}
+        </Typography>
         <Typography>
           <br />
           <em>{el.status}</em>
