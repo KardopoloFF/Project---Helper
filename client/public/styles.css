@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(./26323818.jpg);
+  background-size: 100%;
+}
+
+[class*="copyrights-pane"] {
+  display: none !important;
+}
