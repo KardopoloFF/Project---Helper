@@ -47,16 +47,19 @@ export default function WorkerProfile() {
       dispatch(fetchWorker(id));
       dispatch(fetchAllComments(id));
       dispatch(setNewComment({author: user.id, addresat: id, rating: 5}));
-      dispatch(setRatingRes(allComments));
+      // dispatch(setRatingRes(allComments));
       
   },[])
   
   React.useEffect(() => {
-    if(!ratingRes) {
     dispatch(fetchAllComments(id));
-    dispatch(setRatingRes(allComments));
-        }
   },[newComment,ratingRes ])
+
+    React.useEffect(() => {
+    if(allComments.length) {
+      dispatch(setRatingRes(allComments));
+    }
+  },[allComments])
 
 
   return (
