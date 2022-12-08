@@ -3,6 +3,6 @@ export interface IComment {
   text: string;
   author: number;
   worker: number | null;
-  rating: number;
+  rating: number | null;
   createdAt?: Date;
 }

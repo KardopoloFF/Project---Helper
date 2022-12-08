@@ -88,16 +88,10 @@ app.get('/worker/:id', async (req, res) => {
   const worker = await User.findOne({
     where: { id },
     include:
-      [{
+      {
         model: Task,
         where: { worker: id },
       },
-      {
-        model: Comment,
-        where: { addresat: id },
-        include: User,
-      }],
-
   });
   res.json(worker);
 });
@@ -144,6 +138,7 @@ app.get('/task/worker/allcomments/:id', async (req, res) => {
   const { id } = req.params;
   const allComments = await Comment.findAll({
     where: { addresat: id },
+    order: [['id', 'DESC']],
   });
   res.json(allComments);
 });

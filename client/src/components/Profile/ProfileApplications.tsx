@@ -6,23 +6,29 @@ import {findUserPosts} from '../../redux/slices/currentUser'
 import {updateUserPosts, doneUserPosts} from '../../redux/slices/currentUser'
 import { fetchWorker } from '../../redux/slices/workerSlice'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { IUser } from '../../types/users'
+import { fetchAllComments } from '../../redux/slices/allCommentsSlice'
 
 interface Istore {
   store: {}
   userTasks: Array<ITask>
+  worker: IUser
   }
   export default function ProfileApplications() {
+    const navigate = useNavigate();
     const userTask = useSelector((store: Istore)=> store.userTasks)
     
     const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(findUserPosts())
-      console.log(userTask,'USERTASK');
-      
   },[])
+ 
+
 const submitHandler = (id:any) => {
   dispatch(updateUserPosts(id))
 }
+
 const doneHandler = (id:any) => {
   dispatch(doneUserPosts(id))
 }
@@ -30,7 +36,11 @@ const doneHandler = (id:any) => {
     <div>
       <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
+      {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
+        <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
+        <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее о пользователе</Button>
+        <OneTask el={el} />
+        <button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
       ))}
     </div>
     <h1>Выполняемые</h1>

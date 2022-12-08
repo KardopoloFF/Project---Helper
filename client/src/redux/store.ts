@@ -2,8 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import setPostsReducer from './slices/postsSlice';
 import setWorkerReducer from './slices/workerSlice'
-import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
-import setUserReducer from './slices/userSlice'
+import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice';
+import setUserReducer from './slices/userSlice';
+import setRatingRes from './slices/ratingResSlice';
 import setCategoriesReducer from './slices/categoriesSlice';
 import setAllCommentsReducer from './slices/allCommentsSlice'
 import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
@@ -31,6 +32,7 @@ export default configureStore({
     userTasks: userTasksReducer,
     newComment: setNewCommentReducer,
     allComments: setAllCommentsReducer,
+    ratingRes: setRatingRes,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })

@@ -29,7 +29,10 @@ export default function NewGeoCreatePage() {
           <TextField name='text' id="filled-basic" value={newTaskObj.geo ?? ''} onChange={(newValue) => {
             dispatch(setNewTaskObject({ geo: newValue }))
           }} label="" variant="standard" />
-          <Button style={{ width: '200px', marginTop: '20px' }} onClick={() => dispatch(fetchNewTaskObject(newTaskObj))} variant="contained">Создать задание</Button>
+          <Button style={{ width: '200px', marginTop: '20px' }} onClick={() => {
+            dispatch(fetchNewTaskObject(newTaskObj));
+            dispatch(setNewTaskObject({}))
+          }} variant="contained">Создать задание</Button>
         </div>
       </Container>
       <Map />

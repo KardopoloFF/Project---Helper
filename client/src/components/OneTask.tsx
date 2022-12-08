@@ -29,20 +29,11 @@ export default function OneTask({ el }:TaskProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentWorker = useSelector((store:Istore) => store.worker);
-  
   
   const clickHandler = (el:ITask) => {
     dispatch(setOnePost(el))
     navigate('/task/info')
   }
-  
-  useEffect(() => {
-    if(currentWorker.id) {
-      navigate('/task/worker')
-    }
-  }, [currentWorker])
-
 const card = (
   <React.Fragment>
     <CardContent>

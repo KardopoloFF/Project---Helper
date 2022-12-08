@@ -11,7 +11,7 @@ export const allCommentsSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { setAllComments } = allCommentsSlice.actions;
 
-const fetchAllComments = (id: number) => ({ type: 'FETCH_ALL_COMMENTS',payload: id});
+const fetchAllComments = (id: number | null) => ({ type: 'FETCH_ALL_COMMENTS',payload: id});
 
 export default allCommentsSlice.reducer;
 
