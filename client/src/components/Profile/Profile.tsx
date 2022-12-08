@@ -11,6 +11,7 @@ import OneComment from '../OneComment';
 import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllComments } from '../../redux/slices/allCommentsSlice';
+import { setRatingRes } from '../../redux/slices/ratingResSlice';
 
 interface Istore {
   store: {}
@@ -25,11 +26,12 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store:Istore) => store.user)
   const allComments = useSelector((store: Istore)=> store.allComments)
-  const ratingRes = (user?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(user?.Comments?.length)
+  const ratingRes = (allComments?.reduce((a,b)=>(a+b.rating), 0))/(allComments.length)
 
 
   useEffect(() => {
-    dispatch(fetchAllComments(user?.id))
+    dispatch(fetchAllComments(user.id))
+    dispatch(setRatingRes(allComments));
   },[])
   return (
     <>
@@ -38,7 +40,7 @@ export default function Profile() {
         component="img"
         width='200'
         height="450"
-        image={user?.img} // ?????
+        image={user?.img} 
         alt="Profile Photo"
         />
       <CardContent>
@@ -64,7 +66,7 @@ export default function Profile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {user.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <OneTask key={el.id} el={el}/> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

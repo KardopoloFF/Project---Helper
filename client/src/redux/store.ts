@@ -15,7 +15,8 @@ import editOnePostSaga from './sagas/startWork'
 import newTaskObjectSaga from './sagas/newTaskObject';
 import workerSaga from './sagas/worker';
 import userTasksReducer from './slices/currentUser'
-import allCommentsSaga from './sagas/allComments';
+import setAllCommentsReducer from './slices/allCommentsSlice';
+import allCommentsSaga from './sagas/allComments'
 
 
 const sagaMiddleware = createSagaMiddleware();
