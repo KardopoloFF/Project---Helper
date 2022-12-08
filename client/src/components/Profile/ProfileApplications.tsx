@@ -36,7 +36,7 @@ const doneHandler = (id:any) => {
     <div>
       <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
+      {userTask?.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}>
         <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
         <Button onClick={()=>navigate(`/task/worker/${el.worker}`)} size="small">Подробнее о пользователе</Button>
         <OneTask el={el} />
@@ -45,7 +45,7 @@ const doneHandler = (id:any) => {
     </div>
     <h1>Выполняемые</h1>
     <div>
-      {userTask.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
+      {userTask?.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
       ))}
     </div>
     </div>
