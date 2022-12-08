@@ -17,12 +17,12 @@ export default function Home() {
         </div>
         <div className="categories">
           <div className="categoryBlock">
-            <img className='icon' src="/бытовые услуги.png" alt="иконка бытовые услуги" />
-            <Link className='category-link' to='/task/find'><span>Бытовые услуги</span></Link>
+            <img className='icon' src="/грузоперевозки2.png" alt="иконка грузоперевозок" />
+            <Link className='category-link' to='/task/find'><span>Грузоперевозки</span></Link>
           </div>
           <div className="categoryBlock">
-            <img className='icon' src="/грузоперевозки.png" alt="иконка грузоперевозок" />
-            <Link className='category-link' to='/task/find'><span>Грузоперевозки</span></Link>
+            <img className='icon' src="/бытовые услуги.png" alt="иконка бытовые услуги" />
+            <Link className='category-link' to='/task/find'><span>Бытовые услуги</span></Link>
           </div>
           <div className="categoryBlock">
             <img className='icon' src="/курьер.png" alt="иконка курьерских услуг" />

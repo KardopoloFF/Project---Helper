@@ -55,7 +55,7 @@ export default function Map() {
               balloonContent: 'Адрес : ' + task.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
+              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/5249/5249258.png', // заменяем иконку на другую
               iconImageSize: [40, 40], // Размеры метки.
               iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
               iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -77,7 +77,7 @@ export default function Map() {
                 balloonContent: 'Адрес : ' + el.geo,
               }, {
                 iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
+                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/5249/5249258.png', // заменяем иконку на другую
                 iconImageSize: [40, 40], // Размеры метки.
                 iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
                 iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
