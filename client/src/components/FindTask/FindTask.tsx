@@ -94,7 +94,7 @@ export default function FindTask() {
         Список заданий
       </Typography>
       <br />
-      <div className="smallCard">
+      <div style={{ display: 'flex', flexWrap: 'wrap'}}>
         {tasks.map((el) => el.status === 'Ждет исполнителя' ? <OneTask key={el.id} el={el} /> : null)}
       </div>
     </>

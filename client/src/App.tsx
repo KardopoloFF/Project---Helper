@@ -20,26 +20,28 @@ import {checkAuth} from './redux/slices/userSlice'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((store: any) => store.user)
+  
   useEffect(() => {
     dispatch(checkAuth())
   },[])
+
   return (
     <Container>
       <Navbar />
       <Routes>
-        <Route path='/work' element={<FindTask />} />
-        <Route path='/user/reg' element={<Reg />} />
-        <Route path='/user/auth' element={<Auth />} />
-        <Route path='/user/profile' element={<Profile />} />
-        <Route path='/user/profile/applications' element={<ProfileApplications />} />
-        <Route path='/user/profile/inprogress' element={<ProfileInProgress />} />
         <Route path="/" element={<Home />} />
         <Route path="/map" element={<Map />} />
+        <Route path='/user/reg' element={<Reg />} />
+        <Route path='/work' element={<FindTask />} />
+        <Route path='/user/auth' element={<Auth />} />
         <Route path='/task/find' element={<FindTask />} />
-        <Route path='/task/new' element={<CreateTaskPage />} />
+        <Route path='/user/profile' element={<Profile />} />
         <Route path='/task/info' element={<OneTaskPage />} />
+        <Route path='/task/new' element={<CreateTaskPage />} />
         <Route path='/task/newgeo' element={<NewGeoCreatePage />} />
         <Route path='/task/worker/:id' element={<WorkerProfile />} />
+        <Route path='/user/profile/inprogress' element={<ProfileInProgress />} />
+        <Route path='/user/profile/applications' element={<ProfileApplications />} />
       </Routes>
     </Container>
   );
