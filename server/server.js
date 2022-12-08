@@ -139,6 +139,7 @@ app.get('/task/worker/allcomments/:id', async (req, res) => {
   const allComments = await Comment.findAll({
     where: { addresat: id },
     order: [['id', 'DESC']],
+    include: User,
   });
   res.json(allComments);
 });

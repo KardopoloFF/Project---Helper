@@ -18,6 +18,7 @@ interface Istore {
   user: IUser
   worker: IUser
   allComments: Array<IComment>;
+  ratingRes: number | null;
   }
 
 export default function Profile() {
@@ -25,7 +26,7 @@ export default function Profile() {
   const tasks = useSelector((store:Istore)=> store.posts)
   const user = useSelector((store:Istore) => store.user)
   const allComments = useSelector((store: Istore)=> store.allComments)
-  const ratingRes = (user?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(user?.Comments?.length)
+  const ratingRes = useSelector((store: Istore)=> store.ratingRes)
 
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Profile() {
         />
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          Имя: {user?.name}
+          {user?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Телефон: {user?.phone}
