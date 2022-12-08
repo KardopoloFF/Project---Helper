@@ -12,7 +12,6 @@ import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllComments } from '../../redux/slices/allCommentsSlice';
 import { setRatingRes } from '../../redux/slices/ratingResSlice';
-import { checkAuth } from '../../redux/slices/userSlice';
 
 interface Istore {
   store: {}
@@ -33,7 +32,6 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(fetchAllComments(user?.id))
-    dispatch(checkAuth())
   },[])
 
   React.useEffect(() => {
@@ -49,7 +47,7 @@ export default function Profile() {
         component="img"
         width='200'
         height="450"
-        image={user?.img} // ?????
+        image={user?.img} 
         alt="Profile Photo"
         />
       <CardContent>
@@ -75,7 +73,7 @@ export default function Profile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {user.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <OneTask key={el.id} el={el}/> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

@@ -135,13 +135,28 @@ app.post('/task/worker/newcomment', async (req, res) => {
   res.sendStatus(200);
 });
 app.get('/task/worker/allcomments/:id', async (req, res) => {
-  const { id } = req.params;
-  const allComments = await Comment.findAll({
-    where: { addresat: id },
-    order: [['id', 'DESC']],
-    include: User,
-  });
-  res.json(allComments);
+  try {
+    const { id } = req.params;
+    const allComments = await Comment.findAll({
+      where: { addresat: id },
+      order: [['id', 'DESC']],
+    });
+    res.json(allComments);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+app.get('/comment/name/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const curAuthor = await User.findOne({
+      where: { id },
+    });
+    res.json(curAuthor);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

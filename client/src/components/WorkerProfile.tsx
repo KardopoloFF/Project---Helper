@@ -122,7 +122,7 @@ export default function WorkerProfile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {worker.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+        {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <OneTask key={el.id} el={el}/> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
