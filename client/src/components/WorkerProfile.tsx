@@ -15,6 +15,9 @@ import { Rating, TextField } from '@mui/material';
 import { fetchNewComment, setNewComment } from '../redux/slices/newCommentSlice';
 import { IComment } from '../types/comment';
 import { fetchAllComments } from '../redux/slices/allCommentsSlice';
+import { useLocation } from 'react-router-dom';
+import { fetchWorker } from '../redux/slices/workerSlice';
+import { setRatingRes } from '../redux/slices/ratingResSlice';
 
 interface Istore {
   store: {};
@@ -22,24 +25,38 @@ interface Istore {
   user: IUser;
   allComments: Array<IComment>;
   newComment: IComment;
+  ratingRes: number | null;
   }
 
 export default function WorkerProfile() {
+  const location = useLocation();
+  const id = Number(location.pathname.match(/\d/gmi));
+  
   const worker = useSelector((store: Istore) => store?.worker);
   const user = useSelector((store: Istore) => store.user);
   const allComments = useSelector((store: Istore)=> store.allComments)
   const newComment = useSelector((store: Istore)=> store.newComment);
+  const ratingRes = useSelector((store: Istore)=> store.ratingRes)
+  // const [newText, setNewText] = React.useState('');
 
-  const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length) //в useEffect
   const dispatch = useDispatch();
-
+  
+  
   React.useEffect(() => {
-    
-    dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }));
-    dispatch(fetchAllComments(worker?.id));
+    dispatch(fetchWorker(id));
+    dispatch(fetchAllComments(id));
+    dispatch(setNewComment({author: user.id, addresat: id, rating: 5}));
+    dispatch(setRatingRes(allComments));
+    // console.log(ratingRes);
     
   },[])
   
+  React.useEffect(() => {
+    dispatch(fetchAllComments(id));
+    dispatch(setRatingRes(allComments));
+  },[newComment])
+
+
   return (
       <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
@@ -47,12 +64,12 @@ export default function WorkerProfile() {
         component="img"
         width='200'
         height="450"
-        image="/unknown2.jpg"
+        image={worker?.img}
         alt="Profile Photo"
         />
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          Имя: {worker?.name}
+          {worker?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Телефон: {worker?.phone}
@@ -62,8 +79,7 @@ export default function WorkerProfile() {
         </Typography>
         
         <Typography variant="body2" color="text.secondary">
-          Общий рейтинг: <Rating name="read-only" value={ratingRes} readOnly />
-          {/* {(worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))(worker?.Comments?.length)} */}
+          Общий рейтинг: <Rating name="read-only" value={ratingRes && ratingRes} readOnly />
         </Typography>
       </CardContent>
     </Card>
@@ -79,7 +95,7 @@ export default function WorkerProfile() {
           onChange={(e) => dispatch(setNewComment({text: e.target.value}))}
           name='text'
           multiline
-          rows={4}
+          rows={2}
           variant="standard"
         />
         <Typography component="legend">Оценка</Typography>
@@ -90,7 +106,11 @@ export default function WorkerProfile() {
             dispatch(setNewComment({rating: newValue}));
           }}
         />
-        <Button onClick={(e)=>dispatch(fetchNewComment(newComment))} variant="contained">Оставить комментарий</Button>
+        <Button onClick={(e)=>{
+          // dispatch(setNewComment({text: newText}));
+          dispatch(fetchNewComment(newComment));
+          dispatch(setNewComment({text: '', rating: 5}))
+        }} variant="contained">Оставить комментарий</Button>
 
         <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
           Выполненные задания:
@@ -112,5 +132,6 @@ export default function WorkerProfile() {
     </div>
     {/* </Card> */}
     </>
+    
   );
 }

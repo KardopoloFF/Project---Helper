@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import setPostsReducer from './slices/postsSlice';
 import setWorkerReducer from './slices/workerSlice'
-import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
-import setUserReducer from './slices/userSlice'
+import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice';
+import setUserReducer from './slices/userSlice';
+import setRatingRes from './slices/ratingResSlice';
 import setCategoriesReducer from './slices/categoriesSlice';
 import setNewCommentReducer from './slices/newCommentSlice'
-import setAllComments from './slices/allCommentsSlice'
 import postsSaga from './sagas/posts';
 import categoriesSaga from './sagas/categories'
 import newCommentSaga from './sagas/newComment'
@@ -29,7 +29,8 @@ export default configureStore({
     worker: setWorkerReducer,
     userTasks: userTasksReducer,
     newComment: setNewCommentReducer,
-    allComments: setAllComments,
+    allComments: setAllCommentsReducer,
+    ratingRes: setRatingRes,
   },
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware],
 })

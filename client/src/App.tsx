@@ -39,7 +39,7 @@ function App() {
         <Route path='/task/new' element={<CreateTaskPage />} />
         <Route path='/task/info' element={<OneTaskPage />} />
         <Route path='/task/newgeo' element={<NewGeoCreatePage />} />
-        <Route path='/task/worker' element={<WorkerProfile />} />
+        <Route path='/task/worker/:id' element={<WorkerProfile />} />
       </Routes>
     </Container>
   );
