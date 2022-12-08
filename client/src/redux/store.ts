@@ -5,7 +5,6 @@ import setWorkerReducer from './slices/workerSlice'
 import setNewTaskObjectReducer from  './slices/setNewTaskObjectSlice'
 import setUserReducer from './slices/userSlice'
 import setCategoriesReducer from './slices/categoriesSlice';
-import displayedGeoobjectsReducer from './slices/displayedGeoobjectsSlice';
 import setNewCommentReducer from './slices/newCommentSlice'
 import setAllComments from './slices/allCommentsSlice'
 import postsSaga from './sagas/posts';

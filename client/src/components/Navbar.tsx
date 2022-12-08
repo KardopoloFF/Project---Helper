@@ -117,7 +117,7 @@ export default function Navbar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" style={{ backgroundColor: '#ea8b50', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px' }}>
+            <AppBar position="static" style={{ backgroundColor: '#209fd9', borderBottomRightRadius: '15px', borderBottomLeftRadius: '15px' }}>
                 <Toolbar>
                     {/* <IconButton
                         size="small"
@@ -135,7 +135,7 @@ export default function Navbar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
                         <Button style={{
-                            color: 'white', fontSize: '20px', backgroundColor: '#eca851', height: '40px',
+                            color: 'white', fontSize: '20px', backgroundColor: '#145f8c', height: '40px',
                             width: '160px', border: 'solid 1.5px black', marginLeft: '10px'
                         }} component={Link} to="/">Помогатор</Button>
                     </Typography>

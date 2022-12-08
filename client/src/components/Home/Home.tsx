@@ -15,7 +15,6 @@ export default function Home() {
         <h1 className="homeGreet">Освободим вас от забот</h1>
         <p className="homeGreet"><em>Поможем найти надёжного исполнителя для любых задач</em></p>
       </div>
-      {/* <hr className='categoryHr' /> */}
       <div className="categories">
         <div className="categoryBlock">
           <img className='icon' src="/бытовые услуги.png" alt="иконка бытовые услуги" />
@@ -38,7 +37,6 @@ export default function Home() {
           <Link className='category-link' to='/task/find'><span>Красота и здоровье</span></Link>
         </div>
       </div>
-      {/* <hr className='categoryHr' /> */}
       <div className="findTask">
         <Link to='/task/find'><button className='showTasks'>Посмотреть все услуги</button></Link>
       </div>
@@ -58,8 +56,6 @@ export default function Home() {
           Выбери подходящего исполнителя
         </div>
       </div>
-      {/* ОТЗЫВЫ ОТ ИСПОЛНИТЕЛЕЙ???????? */}
-      {/* ????? */}
       <div className="footer">
         <div className="team">
           <h4 className='ourTeam'>Наша команда:</h4>
@@ -69,7 +65,7 @@ export default function Home() {
             <a className='link' target='blank' href="https://github.com/KardopoloFF">Никита Кардополов</a>
           <hr className='footerHr' />
         </div>
-        <h3> ПОМОГАТОР - 2022 &#169;</h3>
+        <h3> &#169; ПОМОГАТОР - 2022</h3>
       </div>
     </div>
   </div>
