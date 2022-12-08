@@ -6,7 +6,7 @@ import { ICategories } from '../../types/categories';
 import { fetchPosts } from '../../redux/slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { FormGroup, FormLabel, Typography } from '@mui/material'
+import { Button, FormGroup, FormLabel, Typography } from '@mui/material'
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import Map from '../Map';
 import './FindTask.css'

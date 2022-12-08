@@ -5,19 +5,41 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import OneTask from './OneTask'
 import {ITask} from '../types/task'
 import { Container } from '@mui/system';
 import { IUser } from '../types/users';
+import OneComment from './OneComment';
+import { Rating, TextField } from '@mui/material';
+import { fetchNewComment, setNewComment } from '../redux/slices/newCommentSlice';
+import { IComment } from '../types/comment';
+import { fetchAllComments } from '../redux/slices/allCommentsSlice';
 
 interface Istore {
   store: {};
   worker: IUser;
+  user: IUser;
+  allComments: Array<IComment>;
+  newComment: IComment;
   }
 
 export default function WorkerProfile() {
-  const worker = useSelector((store: Istore) => store.worker)
+  const worker = useSelector((store: Istore) => store?.worker);
+  const user = useSelector((store: Istore) => store.user);
+  const allComments = useSelector((store: Istore)=> store.allComments)
+  const newComment = useSelector((store: Istore)=> store.newComment);
+
+  const ratingRes = (worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))/(worker?.Comments?.length) //в useEffect
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    
+    dispatch(setNewComment({author: user.id, addresat: worker.id, rating: 0 }));
+    dispatch(fetchAllComments(worker?.id));
+    
+  },[])
+  
   return (
       <>
     <Card sx={{ maxWidth: 650 }} style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }}>
@@ -36,21 +58,46 @@ export default function WorkerProfile() {
           Телефон: {worker?.phone}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Телефон: {worker?.mail}
+          Email: {worker?.mail}
         </Typography>
+        
         <Typography variant="body2" color="text.secondary">
-          Рейтинг: rating
+          Общий рейтинг: <Rating name="read-only" value={ratingRes} readOnly />
+          {/* {(worker?.Comments?.reduce((a,b)=>(a+b.rating), 0))(worker?.Comments?.length)} */}
         </Typography>
       </CardContent>
     </Card>
     {/* <Card sx={{ maxWidth: 650 }} style={{ marginTop: '50px', margin: 'auto' }}> */}
     <div style={{ marginTop: '50px', margin: 'auto' }}>
         <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
+          Оставить комментарий:
+        </Typography>
+         <TextField
+          id="standard-multiline-static"
+          label="Multiline"
+          value={newComment.text}
+          onChange={(e) => dispatch(setNewComment({text: e.target.value}))}
+          name='text'
+          multiline
+          rows={4}
+          variant="standard"
+        />
+        <Typography component="legend">Оценка</Typography>
+        <Rating
+          name="rating"
+          value={newComment.rating}
+          onChange={(e, newValue) => {
+            dispatch(setNewComment({rating: newValue}));
+          }}
+        />
+        <Button onClick={(e)=>dispatch(fetchNewComment(newComment))} variant="contained">Оставить комментарий</Button>
+
+        <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
           Выполненные задания:
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
-          <div>
-        {worker.workerTasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
+          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        {worker.Tasks?.map((el) => <OneTask key={el.id} el={el}/>)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>
@@ -58,7 +105,7 @@ export default function WorkerProfile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div>
-        {worker.comments?.map((el) => 'comment')} 
+        {allComments?.map((el) => <OneComment key={el.id} comm={el}/>)} 
         </div>
         </Typography>
 

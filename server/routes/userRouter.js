@@ -41,7 +41,7 @@ router.post('/auth', async (req, res) => {
   if (!isPassValid) return res.sendStatus(400);
 
   req.session.user = {
-    id: user.id, mail: user.mail,
+    id: user.id, mail: user.mail, name: user.name, phone: user.phone,
   };
 
   res.json(user);

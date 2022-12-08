@@ -4,4 +4,5 @@ export interface IComment {
   author: number;
   worker: number | null;
   rating: number;
+  createdAt?: Date;
 }

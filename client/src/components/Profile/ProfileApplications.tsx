@@ -2,26 +2,47 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OneTask from './../OneTask'
 import {ITask} from '../../types/task'
-import { ICategories } from '../../types/categories';
-import {fetchPosts} from '../../redux/slices/postsSlice'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { FormGroup, FormLabel } from '@mui/material'
-import { fetchCategories } from '../../redux/slices/categoriesSlice';
+import {findUserPosts} from '../../redux/slices/currentUser'
+import {updateUserPosts, doneUserPosts} from '../../redux/slices/currentUser'
 
 interface Istore {
   store: {}
-  posts: Array<ITask>
+  userTasks: Array<ITask>
   }
-
-export default function ProfileApplications() {
-  const tasks = useSelector((store:Istore)=> store.posts)
-  const categories = useSelector((store:Istore)=>store.categories)
-  const dispatch = useDispatch();
-  
+  export default function ProfileApplications() {
+    const userTask = useSelector((store: Istore)=> store.userTasks)
+    
+    const dispatch = useDispatch();
+    useEffect(()=>{
+      dispatch(findUserPosts())
+  },[])
+const submitHandler = (id:any) => {
+  dispatch(updateUserPosts(id))
+}
+const doneHandler = (id:any) => {
+  dispatch(doneUserPosts(id))
+}
   return (
+    <div>
+      <h1>Заявки</h1>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {tasks.map((el) => <OneTask key={el.id} el={el} />)}
+      {userTask.map((el) => (el.status === 'На рассмотрении' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>submitHandler(el.id)}>approve</button></div> : null
+      ))}
+    </div>
+    <h1>Выполняемые</h1>
+    <div>
+      {userTask.map((el) => (el.status === 'В работе' ? <div key={el.id}> <OneTask  el={el} /><button onClick={()=>doneHandler(el.id)}>Работа выполнена</button></div> : null
+      ))}
+    </div>
     </div>
   )
 }
+
+
+//  <div>
+//           {tasks.map((el) => el.status === 'Ждет исполнителя' ? ((el.worker ? <div>
+//           <em>Эту задачу предлагает выполнить пользователь {el.worker}</em>
+//           <Button onClick={()=>detailsHandler(el.worker)} size="small">Подробнее о пользователе</Button> <OneTask key={el.id} el={el} />
+//           </div> : <OneTask key={el.id} el={el} />)) : null)}
+//         </div>
+// добавить эту проверку НЕ УДАЛЯТЬ

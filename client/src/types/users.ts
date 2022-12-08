@@ -9,6 +9,6 @@ export interface IUser {
   phone: string;
   img: string;
   isModer: boolean;
-  workerTasks?: Array<ITask>;
-  comments?: Array<IComment>;
+  Tasks?: Array<ITask>;
+  Comments?: Array<IComment>;
 }
