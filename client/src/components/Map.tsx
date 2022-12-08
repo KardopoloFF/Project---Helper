@@ -1,7 +1,8 @@
 import { Box } from '@mui/material'
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
 
 interface Istore {
   store: {}
@@ -10,16 +11,18 @@ interface Istore {
 }
 
 export default function Map() {
+  const dispatch = useDispatch()
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.onePost)
-  const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
+  // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
+  // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
   const allPosts = useSelector((store: Istore) => store.posts)
+
   useEffect(() => {
     ymaps.ready(() => {
       const map = new ymaps.Map('map', {
-        // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
-        center: initPoint,
-        zoom: 10.5
+        center: [55.7522, 37.6156],
+        zoom: 12
       }, {
         searchControlProvider: 'yandex#search',
         suppressMapOpenBlock: true
@@ -42,7 +45,7 @@ export default function Map() {
         '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>',
       );
       if (!Array.isArray(task)) {
-        const myGeocoder = ymaps.geocode(task.geo);
+        const myGeocoder = ymaps.geocode(task?.geo);
         myGeocoder.then(
           (res) => {
             const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
@@ -51,6 +54,7 @@ export default function Map() {
               balloonContent: 'Адрес : ' + task.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
               iconImageSize: [40, 40], // Размеры метки.
               iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
               iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -63,7 +67,7 @@ export default function Map() {
         );
       } else {
         allPosts?.forEach((el) => {
-          const myGeocoder = ymaps.geocode(el.geo?.split(', ').map((el: string) => Number(el)));
+          const myGeocoder = ymaps.geocode(el.geo);
           myGeocoder.then(
             (res) => {
               const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
@@ -72,6 +76,7 @@ export default function Map() {
                 balloonContent: 'Адрес : ' + el.geo,
               }, {
                 iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
+                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
                 iconImageSize: [40, 40], // Размеры метки.
                 iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
                 iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -81,6 +86,35 @@ export default function Map() {
                 .add(myPlacemarkWithContent);
             })
         })
+
+        // !
+        myMap.events.add('click', function (e) {
+          if (!myMap.balloon.isOpen()) {
+            let coords = e.get('coords');
+            myMap.balloon.open(coords, {
+              contentHeader: 'Адрес: ' + (task?.geo),
+              contentBody: `<p><button>Добавить адрес</button></p>` +
+                '<p>Координаты: ' + [
+                  coords[0].toPrecision(6),
+                  coords[1].toPrecision(6)
+                ].join(', ') + '</p>',
+              contentFooter: '<sup>Щелкните еще раз</sup>'
+            });
+
+            myMap.events.add('contextmenu', function (e) {
+              myMap.hint.open(e.get('coords'), 'Кто-то щелкнул правой кнопкой');
+            });
+
+            // Скрываем хинт при открытии балуна.
+            myMap.events.add('balloonopen', function (e) {
+              myMap.hint.close();
+            });
+
+          }
+          else {
+            myMap.balloon.close();
+          }
+        });
       }
     })
   }, [myMap, task, allPosts]);
