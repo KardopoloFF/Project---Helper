@@ -25,7 +25,7 @@ interface Istore {
   user: IUser;
   allComments: Array<IComment>;
   newComment: IComment;
-  ratingRes: number;
+  ratingRes: number | null;
   }
 
 export default function WorkerProfile() {
@@ -37,24 +37,23 @@ export default function WorkerProfile() {
   const allComments = useSelector((store: Istore)=> store.allComments)
   const newComment = useSelector((store: Istore)=> store.newComment);
   const ratingRes = useSelector((store: Istore)=> store.ratingRes)
-  const [newText, setNewText] = React.useState('');
+  // const [newText, setNewText] = React.useState('');
 
   const dispatch = useDispatch();
-  // const [ratingRes, setRatingRes] = React.useState(3) 
   
   
   React.useEffect(() => {
     dispatch(fetchWorker(id));
     dispatch(fetchAllComments(id));
-    dispatch(setNewComment({author: user.id, addresat: id, rating: null}));
+    dispatch(setNewComment({author: user.id, addresat: id, rating: 5}));
     dispatch(setRatingRes(allComments));
-    console.log(ratingRes);
+    // console.log(ratingRes);
     
   },[])
   
   React.useEffect(() => {
     dispatch(fetchAllComments(id));
-    setRatingRes(allComments);
+    dispatch(setRatingRes(allComments));
   },[newComment])
 
 
@@ -65,7 +64,7 @@ export default function WorkerProfile() {
         component="img"
         width='200'
         height="450"
-        image="/unknown2.jpg"
+        image={worker?.img}
         alt="Profile Photo"
         />
       <CardContent>
@@ -80,7 +79,7 @@ export default function WorkerProfile() {
         </Typography>
         
         <Typography variant="body2" color="text.secondary">
-          Общий рейтинг: <Rating name="read-only" value={ratingRes} readOnly />
+          Общий рейтинг: <Rating name="read-only" value={ratingRes && ratingRes} readOnly />
         </Typography>
       </CardContent>
     </Card>

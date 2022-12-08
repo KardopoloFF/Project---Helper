@@ -10,7 +10,6 @@ interface CommProps {
   comm: IComment;
 }
 export default function OneComment({comm}:CommProps) {
-
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
