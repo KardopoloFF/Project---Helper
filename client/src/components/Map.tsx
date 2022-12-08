@@ -87,16 +87,13 @@ export default function Map() {
             })
         })
 
-        const addHandler = () => {
-          dispatch(setNewTaskObject(task?.geo))
-        }
-
+        // !
         myMap.events.add('click', function (e) {
           if (!myMap.balloon.isOpen()) {
             let coords = e.get('coords');
             myMap.balloon.open(coords, {
               contentHeader: 'Адрес: ' + (task?.geo),
-              contentBody: `<p><button onClick={() => ${addHandler()}}>Добавить адрес</button></p>` +
+              contentBody: `<p><button>Добавить адрес</button></p>` +
                 '<p>Координаты: ' + [
                   coords[0].toPrecision(6),
                   coords[1].toPrecision(6)
