@@ -14,6 +14,7 @@ export default function Map() {
   const dispatch = useDispatch()
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.onePost)
+  // const taskObj = useSelector((store: Istore) => store.newTaskObj)
   // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
   // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
   const allPosts = useSelector((store: Istore) => store.posts)
@@ -54,7 +55,7 @@ export default function Map() {
               balloonContent: 'Адрес : ' + task.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
+              iconImageHref: 'https://cdn-icons-png.flaticon.com/512/5249/5249258.png', // заменяем иконку на другую
               iconImageSize: [40, 40], // Размеры метки.
               iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
               iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -76,7 +77,7 @@ export default function Map() {
                 balloonContent: 'Адрес : ' + el.geo,
               }, {
                 iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1180/1180754.png', // заменяем иконку на другую
+                iconImageHref: 'https://cdn-icons-png.flaticon.com/512/5249/5249258.png', // заменяем иконку на другую
                 iconImageSize: [40, 40], // Размеры метки.
                 iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки" (точки привязки).
                 iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -91,15 +92,22 @@ export default function Map() {
         myMap.events.add('click', function (e) {
           if (!myMap.balloon.isOpen()) {
             let coords = e.get('coords');
+            console.log('Click task', task);
             myMap.balloon.open(coords, {
               contentHeader: 'Адрес: ' + (task?.geo),
-              contentBody: `<p><button>Добавить адрес</button></p>` +
+              contentBody: `<p><button id="addAdress">Добавить адрес</button></p>` +
                 '<p>Координаты: ' + [
                   coords[0].toPrecision(6),
                   coords[1].toPrecision(6)
                 ].join(', ') + '</p>',
               contentFooter: '<sup>Щелкните еще раз</sup>'
             });
+
+            setTimeout(() => {
+              document.getElementById("addAdress")?.addEventListener('click', () => {
+                // CLICK HANDLER
+              })
+            }, 0)
 
             myMap.events.add('contextmenu', function (e) {
               myMap.hint.open(e.get('coords'), 'Кто-то щелкнул правой кнопкой');
@@ -109,7 +117,6 @@ export default function Map() {
             myMap.events.add('balloonopen', function (e) {
               myMap.hint.close();
             });
-
           }
           else {
             myMap.balloon.close();
