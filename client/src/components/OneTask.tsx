@@ -49,7 +49,7 @@ export default function OneTask({ el }: TaskProps) {
         </Typography>
         <Typography variant="body2">
         <br />
-      Вознаграждение: {el.price}
+      Вознаграждение: {el.price} RUB
         </Typography>
         <Typography>
           <br />
@@ -77,7 +77,7 @@ export default function OneTask({ el }: TaskProps) {
         </Typography>
         <Typography variant="body2">
         <br />
-      Вознаграждение: {el.price}
+      Вознаграждение: {el.price} RUB
         </Typography>
         <Typography>
           <br />
