@@ -66,7 +66,15 @@ function whereParser(reqbody) {
 
 app.post('/posts', async (req, res) => {
   const result = await Task.findAll(whereParser(req.body.input));
-  res.json(result);
+  res.json(result.map((task) => {
+    try {
+      const newGeo = JSON.parse(task.geo);
+      return { ...JSON.parse(JSON.stringify(task)), geo: newGeo };
+    } catch (e) {
+      // console.log(e);
+      return JSON.parse(JSON.stringify(task));
+    }
+  }));
 });
 
 app.patch('/posts', async (req, res) => {
@@ -101,7 +109,7 @@ app.post('/newtask', async (req, res) => {
     title, text, price, date, categoryId, author, geo,
   } = req.body;
   await Task.create({
-    title, text, date, price, coords: geo, worker: null, author, categoryId, status: 'Ждет исполнителя',
+    title, text, date, price, geo: JSON.stringify(geo), worker: null, author, categoryId, status: 'Ждет исполнителя',
   });
   res.sendStatus(200);
 });
