@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import OneTask from '../OneTask'
 import { ITask } from '../../types/task'
 import { IUser } from '../../types/users';
-import { Rating, TextField } from '@mui/material';
+import { Paper, Rating, TextField } from '@mui/material';
 import OneComment from '../OneComment';
 import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -74,8 +74,12 @@ export default function Profile() {
         </h2>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '10px'}}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-            {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id) ? <OneTask key={el.id} el={el} /> : null)}
-          </div>
+        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <CardContent key={el.id}>
+        <Paper>
+          <OneTask el={el}/>
+          </Paper>
+        </CardContent> : null)} 
+        </div>
         </Typography>
         <h2 style={{ textAlign: 'start', margin: '10px' }}>
           Комментарии:

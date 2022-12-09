@@ -22,6 +22,7 @@ function App() {
   const user = useSelector((store: any) => store.user)
   
   useEffect(() => {
+    // @ts-ignore
     dispatch(checkAuth())
   },[])
 

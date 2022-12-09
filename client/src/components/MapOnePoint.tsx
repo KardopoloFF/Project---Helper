@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Box } from '@mui/material'
 import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'

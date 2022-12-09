@@ -78,12 +78,16 @@ app.post('/posts', async (req, res) => {
 });
 
 app.patch('/posts', async (req, res) => {
-  const { id } = req.body.input;
-  await Task.update({
-    status: 'На рассмотрении', worker: req.session.user.id,
-  }, { where: { id } });
-  const result = await Task.findOne({ where: { id } });
-  res.json(result);
+  try {
+    const { id } = req.body.input;
+    await Task.update({
+      status: 'На рассмотрении', worker: req.session.user.id,
+    }, { where: { id } });
+    const result = await Task.findOne({ where: { id } });
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.get('/categories', async (req, res) => {
@@ -92,55 +96,79 @@ app.get('/categories', async (req, res) => {
 });
 
 app.get('/worker/:id', async (req, res) => {
-  const { id } = req.params;
-  const worker = await User.findOne({
-    where: { id },
-    include:
+  try {
+    const { id } = req.params;
+    const worker = await User.findOne({
+      where: { id },
+      include:
       {
         model: Task,
         where: { worker: id },
       },
-  });
-  res.json(worker);
+    });
+    res.json(worker);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.post('/newtask', async (req, res) => {
-  const {
-    title, text, price, date, categoryId, author, geo,
-  } = req.body;
-  await Task.create({
-    title, text, date, price, geo: JSON.stringify(geo), worker: null, author, categoryId, status: 'Ждет исполнителя',
-  });
-  res.sendStatus(200);
+  try {
+    const {
+      title, text, price, date, categoryId, author, geo,
+    } = req.body;
+    await Task.create({
+      title, text, date, price, geo: JSON.stringify(geo), worker: null, author, categoryId, status: 'Ждет исполнителя',
+    });
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.get('/profile/tasks', async (req, res) => {
-  const { id } = req.session.user;
-  const myTasks = await Task.findAll({ where: { author: id } });
-  res.json(myTasks);
+  try {
+    const { id } = req.session.user;
+    const myTasks = await Task.findAll({ where: { author: id } });
+    res.json(myTasks);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.patch('/profile/tasks', async (req, res) => {
-  const id = req.body.input;
-  await Task.update({
-    status: 'В работе',
-  }, { where: { id } });
-  const result = await Task.findAll({ where: { author: req.session.user.id } });
-  res.json(result);
+  try {
+    const id = req.body.input;
+    await Task.update({
+      status: 'В работе',
+    }, { where: { id } });
+    const result = await Task.findAll({ where: { author: req.session.user.id } });
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.patch('/profile/tasksdone', async (req, res) => {
-  const id = req.body.input;
-  await Task.update({
-    status: 'Выполнено',
-  }, { where: { id } });
-  const result = await Task.findAll({ where: { author: req.session.user.id } });
-  res.json(result);
+  try {
+    const id = req.body.input;
+    await Task.update({
+      status: 'Выполнено',
+    }, { where: { id } });
+    const result = await Task.findAll({ where: { author: req.session.user.id } });
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 app.post('/task/worker/newcomment', async (req, res) => {
-  await Comment.create(req.body);
-  res.sendStatus(200);
+  try {
+    await Comment.create(req.body);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+  }
 });
 app.get('/task/worker/allcomments/:id', async (req, res) => {
   try {
