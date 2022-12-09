@@ -44,7 +44,7 @@ export default function Profile() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <Card sx={{ maxWidth: 350 }} style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+      <Card sx={{ maxWidth: 350, maxHeight: 580 }} style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
         <CardMedia
           component="img"
           image={user?.img}
@@ -63,8 +63,7 @@ export default function Profile() {
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Общий рейтинг:
-            <br />
+            Общий рейтинг: <br />
             <Rating name="read-only" value={ratingRes} readOnly />
           </Typography>
         </CardContent>
