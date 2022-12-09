@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ITask } from '../../types/task';
@@ -5,6 +7,7 @@ import { IUser } from '../../types/users';
 import {fetchPosts} from '../../redux/slices/postsSlice'
 import OneTask from '../OneTask'
 import {checkAuth} from '../../redux/slices/userSlice'
+import { CardContent, Paper } from '@mui/material';
 
 
 interface Istore {
@@ -23,7 +26,11 @@ export default function ProfileInProgress() {
       dispatch(checkAuth())},[])
   return (
     <div>
-      <div>{tasks.map((el) => el.status === 'В работе' && el.author === user.id ? <OneTask key={el.id} el={el} /> : null)}</div>
+      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>{tasks.map((el) => el.status === 'В работе' && el.author === user.id ? <CardContent key={el.id}>
+        <Paper>
+          <OneTask el={el} />
+        </Paper>
+      </CardContent> : null)}</div>
     </div>
   )
 }

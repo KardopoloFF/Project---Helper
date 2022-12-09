@@ -39,6 +39,10 @@ export default function OneTaskPage() {
             {task.text}
             <br />
           </Typography>
+          <Typography variant="body2">
+            Вознаграждение: {task.price}
+            <br />
+          </Typography>
           <Typography>
             <br />
             <em>{task.status}</em>
