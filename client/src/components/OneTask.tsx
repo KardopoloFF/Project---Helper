@@ -36,8 +36,7 @@ export default function OneTask({ el }: TaskProps) {
     navigate('/task/info')
   }
   const card = (
-    <React.Fragment>
-      <CardContent>
+    <>
         <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
           <b>{el.title}</b>
         </Typography>
@@ -56,16 +55,38 @@ export default function OneTask({ el }: TaskProps) {
           <br />
           <em>{el.status}</em>
         </Typography>
-      </CardContent>
       <CardActions>
         <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
       </CardActions>
-    </React.Fragment>
+     </>
   );
 
   return (
       <Box sx={{ width: '300px', margin: '10px' }}>
-        <Card variant="outlined" style={{ height: '300px' }}>{card}</Card>
+        {/* <Card variant="outlined" style={{ height: '300px' }}>{card}</Card> */}
+      
+        <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
+          <b>{el.title}</b>
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {el.date?.toString()}
+        </Typography>
+        <Typography variant="body2">
+          {el.text}
+          <br />
+        </Typography>
+        <Typography variant="body2">
+        <br />
+      Вознаграждение: {el.price}
+        </Typography>
+        <Typography>
+          <br />
+          <em>{el.status}</em>
+        </Typography>
+      <CardActions>
+        <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
+      </CardActions>
+     
       </Box>
   )
 }

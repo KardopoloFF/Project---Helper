@@ -15,7 +15,7 @@ import {
   // worker Saga: will be fired on USER_FETCH_REQUESTED actions
   function* fetchPostsWorker(action: Iaction):Generator<Object> {
     try {
-      yield delay(1500);
+      yield delay(500);
       const res: any = yield call(axiosCall, action.payload);
       yield put(setPosts(res.data));
     } catch (e:any) {

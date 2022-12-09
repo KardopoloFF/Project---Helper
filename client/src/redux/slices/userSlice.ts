@@ -25,14 +25,14 @@ export const checkAuth = () => (dispatch: any) => {
     .catch(console.log);
 };
 
-export const loginUserThunk = (e, inputs) => (dispatch: any) => {
+export const loginUserThunk = (e: any, inputs: any) => (dispatch: any) => {
   e.preventDefault();
   axios.post('http://localhost:3001/user/auth', inputs, { withCredentials: true })
     .then((res) => dispatch(setAuthUser(res.data)))
     .catch(console.log);
 };
 
-export const signupUserThunk = (e, inputs) => (dispatch: any) => {
+export const signupUserThunk = (e: any, inputs: any) => (dispatch: any) => {
   e.preventDefault();
   axios.post('http://localhost:3001/user/reg', inputs, { withCredentials: true })
     .then((res) => dispatch(setAuthUser(res.data)))

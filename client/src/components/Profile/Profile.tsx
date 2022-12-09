@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, {useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import OneTask from '../OneTask'
 import {ITask} from '../../types/task'
 import { IUser } from '../../types/users';
-import { Rating, TextField } from '@mui/material';
+import { Paper, Rating, TextField } from '@mui/material';
 import OneComment from '../OneComment';
 import { IComment } from '../../types/comment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,7 +75,11 @@ export default function Profile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <OneTask key={el.id} el={el}/> : null)} 
+        {tasks?.map((el) => el.status === 'Выполнено' && (el.author === user.id || el.worker === user.id)  ? <CardContent key={el.id}>
+        <Paper>
+          <OneTask el={el}/>
+          </Paper>
+        </CardContent> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

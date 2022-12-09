@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,7 +13,7 @@ import {ITask} from '../types/task'
 import { Container } from '@mui/system';
 import { IUser } from '../types/users';
 import OneComment from './OneComment';
-import { Rating, TextField } from '@mui/material';
+import { Paper, Rating, TextField } from '@mui/material';
 import { fetchNewComment, setNewComment } from '../redux/slices/newCommentSlice';
 import { IComment } from '../types/comment';
 import { fetchAllComments } from '../redux/slices/allCommentsSlice';
@@ -122,7 +124,11 @@ export default function WorkerProfile() {
         </Typography>
         <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <OneTask key={el.id} el={el}/> : null)} 
+        {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <CardContent key={el.id}>
+        <Paper>
+          <OneTask  el={el}/>
+          </Paper>
+        </CardContent> : null)} 
         </div>
         </Typography>
          <Typography gutterBottom variant="h4" component="div" style={{ textAlign: 'center' }}>

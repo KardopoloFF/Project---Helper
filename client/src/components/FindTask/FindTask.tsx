@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import OneTask from '../OneTask'
@@ -6,7 +8,7 @@ import { ICategories } from '../../types/categories';
 import { fetchPosts } from '../../redux/slices/postsSlice'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Button, FormGroup, FormLabel, Typography } from '@mui/material'
+import { Button, CardContent, FormGroup, FormLabel, Paper, Typography } from '@mui/material'
 import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import Map from '../Map';
 import './FindTask.css'
@@ -46,6 +48,7 @@ export default function FindTask() {
     dispatch(fetchPosts(state))
   }, [state])
   return (
+    
     <>
       <FormLabel className="findTask" component="legend">
         <Typography className="findTask" variant="h5" component="div">
@@ -94,8 +97,13 @@ export default function FindTask() {
         Список заданий
       </Typography>
       <br />
-      <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-        {tasks.map((el) => el.status === 'Ждет исполнителя' ? <OneTask key={el.id} el={el} /> : null)}
+      <div style={{ display: 'flex', flexWrap: 'wrap'}}> 
+        {tasks.map((el) => el.status === 'Ждет исполнителя' ? <CardContent key={el.id}>
+        <Paper>
+          
+          <OneTask el={el} /> 
+          </Paper>
+        </CardContent> : null)}
       </div>
     </>
   )
