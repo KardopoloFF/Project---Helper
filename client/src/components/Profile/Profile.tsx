@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -68,7 +70,6 @@ export default function Profile() {
         </CardContent>
       </Card>
       <div style={{ marginTop: '10px', marginLeft: '30px'}}>
-
         <h2 style={{ textAlign: 'start', margin: '10px' }}>
           Выполненные задания:
         </h2>
@@ -89,7 +90,6 @@ export default function Profile() {
             {allComments?.map((el) => <OneComment key={el.id} comm={el} />)}
           </div>
         </Typography>
-
       </div>
     </div>
   );

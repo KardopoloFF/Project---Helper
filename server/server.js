@@ -71,7 +71,6 @@ app.post('/posts', async (req, res) => {
       const newGeo = JSON.parse(task.geo);
       return { ...JSON.parse(JSON.stringify(task)), geo: newGeo };
     } catch (e) {
-      // console.log(e);
       return JSON.parse(JSON.stringify(task));
     }
   }));
