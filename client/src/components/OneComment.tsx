@@ -10,7 +10,6 @@ interface CommProps {
   comm: IComment;
 }
 export default function OneComment({comm}:CommProps) {
-  console.log(comm);
   const [curName, setCurName] = React.useState(comm.author)
 
   React.useEffect(()=> {
@@ -22,7 +21,7 @@ export default function OneComment({comm}:CommProps) {
 
   
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275 }} style={{ margin: '10px'}}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
         {/* Автор: {comm.author} */}
@@ -32,7 +31,7 @@ export default function OneComment({comm}:CommProps) {
          {comm.text}
       </Typography>
       </CardContent>
-      <Rating name="read-only" value={comm.rating} readOnly />
+      <Rating style={{marginLeft: '15px', marginBottom: '5px'}} name="read-only" value={comm.rating} readOnly />
     </Card>
   );
 }

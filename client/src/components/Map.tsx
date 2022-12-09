@@ -5,7 +5,6 @@ import { ITask } from '../types/task'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setOnePost } from '../redux/slices/onePostSlice';
 import { setNewTaskObject } from '../redux/slices/setNewTaskObjectSlice';
 
 interface Istore {
