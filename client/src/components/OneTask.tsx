@@ -37,17 +37,17 @@ export default function OneTask({ el }: TaskProps) {
   }
   const card = (
     <>
-        <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
-          <b>{el.title}</b>
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {el.date?.toString()}
-        </Typography>
-        <Typography variant="body2">
-          {el.text}
-          <br />
-        </Typography>
-        <Typography variant="body2">
+      <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
+        <b>{el.title}</b>
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        {el.date?.toString()}
+      </Typography>
+      <Typography variant="body2">
+        {el.text}
+        <br />
+      </Typography>
+      <Typography variant="body2">
         <br />
       Вознаграждение: {el.price} RUB
         </Typography>
@@ -58,24 +58,22 @@ export default function OneTask({ el }: TaskProps) {
       <CardActions>
         <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
       </CardActions>
-     </>
+    </>
   );
 
   return (
-      <Box sx={{ width: '300px', margin: '10px' }}>
-        {/* <Card variant="outlined" style={{ height: '300px' }}>{card}</Card> */}
-      
-        <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
-          <b>{el.title}</b>
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {el.date?.toString()}
-        </Typography>
-        <Typography variant="body2">
-          {el.text}
-          <br />
-        </Typography>
-        <Typography variant="body2">
+    <Box sx={{ width: '300px', margin: '10px' }}>
+      <Typography sx={{ fontSize: 18 }} variant="h5" gutterBottom>
+        <b>{el.title}</b>
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        {el.date?.toString()}
+      </Typography>
+      <Typography variant="body2">
+        {el.text}
+        <br />
+      </Typography>
+      <Typography variant="body2">
         <br />
       Вознаграждение: {el.price} RUB
         </Typography>
@@ -86,7 +84,6 @@ export default function OneTask({ el }: TaskProps) {
       <CardActions>
         <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
       </CardActions>
-     
-      </Box>
+    </Box>
   )
 }

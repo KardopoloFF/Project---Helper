@@ -20,6 +20,7 @@ export default function Map() {
   const navigate = useNavigate()
   const [myMap, setMyMap] = useState(null);
   const task = useSelector((store: Istore) => store.newTaskObj)
+  const taskPost = useSelector((store: Istore) => store.onePost)
   const allPosts = useSelector((store: Istore) => store.posts)
   // Динамически изменяет выводимую точку на карте, в зависимости от координатов из DB
   // const [initPoint, setInitPoint] = useState(task.geo?.split(', ').map((el: string) => Number(el)) || '55.75, 37.62'.split(', ').map((el: string) => Number(el)))
@@ -51,13 +52,15 @@ export default function Map() {
         '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>',
       );
       if (!Array.isArray(task)) {
-        const myGeocoder = ymaps.geocode(task?.geo);
+        const displayTask = task?.geo ? task : taskPost;
+
+        const myGeocoder = ymaps.geocode(displayTask?.geo);
         myGeocoder.then(
           (res) => {
             const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
             const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
-              hintContent: 'Задание : ' + task.title,
-              balloonContent: 'Адрес : ' + task.geo,
+              hintContent: 'Задание : ' + displayTask.title,
+              balloonContent: 'Адрес : ' + displayTask.geo,
             }, {
               iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
               iconImageHref: 'https://cdn-icons-png.flaticon.com/512/5249/5249258.png', // заменяем иконку на другую

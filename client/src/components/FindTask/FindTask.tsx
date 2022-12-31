@@ -13,7 +13,6 @@ import { fetchCategories } from '../../redux/slices/categoriesSlice';
 import Map from '../Map';
 import './FindTask.css'
 
-
 interface Istore {
   store: {}
   posts: Array<ITask>
