@@ -49,12 +49,12 @@ export default function OneTask({ el }: TaskProps) {
       </Typography>
       <Typography variant="body2">
         <br />
-        Вознаграждение: {el.price}
-      </Typography>
-      <Typography>
-        <br />
-        <em>{el.status}</em>
-      </Typography>
+      Вознаграждение: {el.price} RUB
+        </Typography>
+        <Typography>
+          <br />
+          <em>{el.status}</em>
+        </Typography>
       <CardActions>
         <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
       </CardActions>
@@ -75,12 +75,12 @@ export default function OneTask({ el }: TaskProps) {
       </Typography>
       <Typography variant="body2">
         <br />
-        Вознаграждение: {el.price}
-      </Typography>
-      <Typography>
-        <br />
-        <em>{el.status}</em>
-      </Typography>
+      Вознаграждение: {el.price} RUB
+        </Typography>
+        <Typography>
+          <br />
+          <em>{el.status}</em>
+        </Typography>
       <CardActions>
         <Button onClick={() => clickHandler(el)} size="small">Подробнее</Button>
       </CardActions>

@@ -39,10 +39,9 @@ export default function WorkerProfile() {
   const allComments = useSelector((store: Istore) => store.allComments)
   const newComment = useSelector((store: Istore) => store.newComment);
   const ratingRes = useSelector((store: Istore) => store.ratingRes)
-  // const [newText, setNewText] = React.useState('');
 
   const dispatch = useDispatch();
-  // console.log(allComments, 'allComments');
+  
 
 
   React.useEffect(() => {
@@ -66,13 +65,14 @@ export default function WorkerProfile() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <Card sx={{ maxWidth: 350, maxHeight: 580 }} style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-        <CardMedia
+      <Card sx={{ maxWidth: 350, maxHeight: 680}} style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+        {/* <CardMedia
           component="img"
-          image={worker?.img}
           alt="Profile Photo"
           style={{ width: '350px', height: '400px', display: 'flex', justifyContent: 'center' }}
-        />
+        /> */}
+        <img style={{ width: '350px', height: '500px', display: 'flex', justifyContent: 'center' }} 
+        src="/sashaorigin.png" alt="pic" />
         <CardContent>
           <Typography gutterBottom variant="h4" component="div">
             {worker?.name}
@@ -94,21 +94,35 @@ export default function WorkerProfile() {
         <h2 style={{ textAlign: 'start', margin: '10px' }}>
           Выполненные задания:
         </h2>
+        
+        <div>
+          <Typography variant="body2" color="text.secondary">
+            <div>
+              {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <CardContent key={el.id}>
+                <Paper>
+                  <OneTask el={el} />
+                </Paper>
+              </CardContent> : null)}
+            </div>
+          </Typography>
         <h2 style={{ textAlign: 'start', margin: '10px' }}>
           Комментарии:
         </h2>
         <div style={{ marginLeft: '10px' }}>
           <TextField
+            style={{ margin: '10px 0px', width: '250px' }}
             id="standard-multiline-static"
             label="Комментарий"
             value={newComment.text}
             onChange={(e) => dispatch(setNewComment({ text: e.target.value }))}
             name='text'
             multiline
-            rows={2}
-            variant="standard"
+            rows={1}
+            variant="outlined"
           />
-          <Typography component="legend">Оценка</Typography>
+        <h3 style={{ textAlign: 'start', margin: '10px' }}>
+          Оценка
+        </h3>
           <Rating
             style={{ margin: '10px 0px' }}
             name="rating"
@@ -125,22 +139,12 @@ export default function WorkerProfile() {
           }} variant="contained">
             Оставить комментарий
           </Button>
-        </div>
-        <div>
-          <Typography variant="body2" color="text.secondary">
-            <div>
-              {worker.Tasks?.map((el) => el.status === 'Выполнено' ? <CardContent key={el.id}>
-                <Paper>
-                  <OneTask el={el} />
-                </Paper>
-              </CardContent> : null)}
-            </div>
-          </Typography>
           <Typography variant="body2" color="text.secondary" style={{ marginTop: '50px', margin: 'auto' }}>
             <div>
               {allComments?.map((el) => <OneComment key={el.id} comm={el} />)}
             </div>
           </Typography>
+        </div>
         </div>
       </div>
     </div>

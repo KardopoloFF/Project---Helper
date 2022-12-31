@@ -40,7 +40,7 @@ export default function OneTaskPage() {
             <br />
           </Typography>
           <Typography variant="body2">
-            Вознаграждение: {task?.price}
+            Вознаграждение: {task.price} RUB
             <br />
           </Typography>
           <Typography>
